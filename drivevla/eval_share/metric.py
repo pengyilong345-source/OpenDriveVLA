@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from skimage.draw import polygon
-from pytorch_lightning.metrics.metric import Metric
+from torchmetrics import Metric
 
 DEBUG = False
 

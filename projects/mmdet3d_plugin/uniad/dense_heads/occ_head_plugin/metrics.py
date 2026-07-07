@@ -7,9 +7,46 @@
 from typing import Optional
 
 import torch
-from pytorch_lightning.metrics.metric import Metric
-from pytorch_lightning.metrics.functional.classification import stat_scores_multiple_classes
-from pytorch_lightning.metrics.functional.reduction import reduce
+from torchmetrics import Metric
+import torch
+
+def stat_scores_multiple_classes(pred, target, num_classes):
+    pred = pred.view(-1)
+    target = target.view(-1)
+
+    tps, fps, tns, fns, sups = [], [], [], [], []
+    for c in range(num_classes):
+        pred_c = pred == c
+        target_c = target == c
+
+        tp = (pred_c & target_c).sum()
+        fp = (pred_c & (~target_c)).sum()
+        tn = ((~pred_c) & (~target_c)).sum()
+        fn = ((~pred_c) & target_c).sum()
+        sup = target_c.sum()
+
+        tps.append(tp)
+        fps.append(fp)
+        tns.append(tn)
+        fns.append(fn)
+        sups.append(sup)
+
+    return (
+        torch.stack(tps),
+        torch.stack(fps),
+        torch.stack(tns),
+        torch.stack(fns),
+        torch.stack(sups),
+    )
+
+def reduce(x, reduction="elementwise_mean"):
+    if reduction in ("elementwise_mean", "mean"):
+        return x.mean()
+    if reduction == "sum":
+        return x.sum()
+    if reduction in ("none", None):
+        return x
+    return x
 
 class IntersectionOverUnion(Metric):
     """Computes intersection-over-union."""
