@@ -235,3 +235,64 @@ core.*
 
 **/temp
 drivevla/eval_share/gt/*
+# project data
+data/
+datasets/
+checkpoints/
+outputs/
+logs/
+
+# model weights
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+
+# compressed files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.zst
+
+# videos
+*.mp4
+*.avi
+*.mov
+
+# cache
+__pycache__/
+*.pyc
+.cache/
+
+# project data
+data/
+datasets/
+checkpoints/
+outputs/
+logs/
+
+# model weights
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+
+# compressed files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.zst
+
+# videos
+*.mp4
+*.avi
+*.mov
+
+# cache
+__pycache__/
+*.pyc
+.cache/
