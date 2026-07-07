@@ -1,6 +1,9 @@
 absl-py==2.1.0
 accelerate==1.14.0
 addict==2.4.0
+aiohappyeyeballs==2.7.1
+aiohttp==3.14.1
+aiosignal==1.4.0
 annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.4.0
@@ -9,6 +12,7 @@ argon2-cffi-bindings==21.2.0
 arrow==1.3.0
 asttokens==2.4.1
 async-lru==2.0.4
+async-timeout==5.0.1
 attrs==23.2.0
 av==17.1.0
 Babel==2.15.0
@@ -32,7 +36,7 @@ cycler==0.12.1
 Cython==3.2.8
 debugpy==1.8.1
 decorator==5.1.1
-deepspeed==0.19.2
+deepspeed==0.12.6
 defusedxml==0.7.1
 descartes==1.1.0
 einops==0.8.2
@@ -44,15 +48,17 @@ fire==0.7.1
 flake8==7.3.0
 fonttools==4.53.0
 fqdn==1.5.1
+frozenlist==1.8.0
 fsspec==2024.6.0
 ftfy==6.3.1
+future==1.0.0
 grpcio==1.64.1
 h11==0.14.0
 hf-xet==1.5.1
 hjson==3.1.0
 httpcore==1.0.5
 httpx==0.27.0
-huggingface_hub==0.36.2
+huggingface-hub==0.29.3
 idna @ file:///croot/idna_1666125576474/work
 ImageIO==2.37.3
 iniconfig==2.3.0
@@ -98,6 +104,7 @@ mmsegmentation==0.29.1
 motmetrics==1.4.0
 mpmath==1.3.0
 msgpack==1.2.1
+multidict==6.7.1
 mypy_extensions==1.1.0
 narwhals==2.23.0
 nbclient==0.10.0
@@ -110,10 +117,11 @@ notebook_shim==0.2.4
 numba==0.61.0
 numpy==1.26.4
 nuscenes-devkit==1.2.0
+nvidia-ml-py==13.610.43
 open_clip_torch==3.3.0
 opencv-python==4.8.1.78
 opencv-python-headless==4.11.0.86
--e git+https://github.com/pengyilong345-source/OpenDriveVLA.git@10e8095bc618d508cb70cca37b6956ac4db6e9f3#egg=OpenDriveVLA
+-e git+https://github.com/pengyilong345-source/OpenDriveVLA.git@55aa5fed3b6481daf7a0c533f6f20427dbea7e4c#egg=OpenDriveVLA
 overrides==7.7.0
 packaging==26.2
 pandas==2.3.3
@@ -131,6 +139,7 @@ plyfile==1.1.3
 prettytable==3.18.0
 prometheus_client==0.20.0
 prompt_toolkit==3.0.47
+propcache==0.5.2
 protobuf==4.25.3
 psutil==5.9.8
 ptyprocess==0.7.0
@@ -142,8 +151,10 @@ pycosat @ file:///croot/pycosat_1666805502580/work
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
 pydantic==2.13.4
 pydantic_core==2.46.4
+pyDeprecate==0.3.1
 pyflakes==3.4.0
 Pygments==2.18.0
+pynvml==13.0.1
 pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
 pyparsing==3.1.2
 pyquaternion==0.9.9
@@ -152,6 +163,7 @@ pytest==9.1.1
 python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
 pytokens==0.4.1
+pytorch-lightning==1.5.10
 pytz==2026.2
 PyWavelets==1.8.0
 PyYAML==6.0.1
@@ -193,6 +205,7 @@ tokenizers==0.21.0
 tomli==2.0.1
 toolz @ file:///croot/toolz_1667464077321/work
 torch @ http://download.pytorch.org/whl/cu118/torch-2.1.2%2Bcu118-cp310-cp310-linux_x86_64.whl
+torchmetrics==0.6.0
 torchvision @ http://download.pytorch.org/whl/cu118/torchvision-0.16.2%2Bcu118-cp310-cp310-linux_x86_64.whl
 tornado==6.4.1
 tqdm @ file:///opt/conda/conda-bld/tqdm_1664392687731/work
@@ -215,3 +228,4 @@ Werkzeug==3.0.3
 widgetsnbextension==4.0.11
 xmltodict==1.0.4
 yapf==0.43.0
+yarl==1.24.2
