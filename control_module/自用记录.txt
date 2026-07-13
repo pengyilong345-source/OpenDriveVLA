@@ -1,0 +1,9 @@
+运行命令：
+CarlaUE4 -dx11
+虚拟环境：
+conda activate drivevla
+
+将DriveVLA输出的future_trajectory_ego_frame(6个waypoints)
+转换为CARLA车辆的控制量ego_state(油门/刹车/方向盘)
+初步实现纯跟踪+PID算法
+MPC跟踪暂未实现
