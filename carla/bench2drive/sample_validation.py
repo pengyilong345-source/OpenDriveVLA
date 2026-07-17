@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate CARLA sample-v1.1 pilot episode files and synchronization."""
+"""Validate sample-v1.1 episode files and sensor synchronization."""
 
 from __future__ import annotations
 
