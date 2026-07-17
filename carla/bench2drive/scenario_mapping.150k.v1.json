@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "target_taxonomy": "competition_three_scenarios",
+  "categories": {
+    "basic_control": {
+      "target_frames": 33000,
+      "scenario_types": {
+        "HighwayExit": ["follow_route", "exit_highway"],
+        "LaneChange": ["change_lane"],
+        "MergerIntoSlowTraffic": ["merge_safely", "keep_safe_distance"],
+        "MergerIntoSlowTrafficV2": ["merge_safely", "keep_safe_distance"],
+        "NonSignalizedJunctionLeftTurn": ["turn_left", "observe_junction"],
+        "NonSignalizedJunctionRightTurn": ["turn_right", "observe_junction"],
+        "ParkingExit": ["exit_parking", "merge_safely"],
+        "SignalizedJunctionLeftTurn": ["turn_left", "obey_signal"],
+        "SignalizedJunctionRightTurn": ["turn_right", "obey_signal"],
+        "VanillaNonSignalizedTurnEncounterStopsign": ["stop", "turn_safely"],
+        "VanillaSignalizedTurnEncounterGreenLight": ["turn", "obey_signal"],
+        "VanillaSignalizedTurnEncounterRedLight": ["stop", "obey_signal"]
+      },
+      "command_text": "按照导航和交通规则完成当前基础驾驶动作"
+    },
+    "complex_obstacle_avoidance": {
+      "target_frames": 62000,
+      "scenario_types": {
+        "BlockedIntersection": ["decelerate", "observe_blockage"],
+        "CrossingBicycleFlow": ["decelerate", "yield_to_bicycle"],
+        "DynamicObjectCrossing": ["decelerate", "avoid_dynamic_object"],
+        "EnterActorFlow": ["observe_traffic", "merge_safely"],
+        "InterurbanActorFlow": ["keep_safe_distance", "follow_traffic"],
+        "InterurbanAdvancedActorFlow": ["keep_safe_distance", "follow_traffic"],
+        "NonSignalizedJunctionLeftTurnEnterFlow": ["turn_left", "yield"],
+        "OppositeVehicleRunningRedLight": ["decelerate", "avoid_vehicle"],
+        "OppositeVehicleTakingPriority": ["decelerate", "yield"],
+        "ParkedObstacle": ["observe", "avoid_parked_obstacle"],
+        "ParkedObstacleTwoWays": ["observe", "avoid_parked_obstacle", "yield"],
+        "ParkingCrossingPedestrian": ["decelerate", "avoid_pedestrian"],
+        "PedestrianCrossing": ["decelerate", "avoid_pedestrian"],
+        "SignalizedJunctionLeftTurnEnterFlow": ["turn_left", "obey_signal", "yield"],
+        "TJunction": ["observe_junction", "turn_safely"],
+        "VehicleTurningRoute": ["decelerate", "avoid_vehicle"],
+        "VehicleTurningRoutePedestrian": ["decelerate", "avoid_pedestrian"]
+      },
+      "command_text": "注意周围交通参与者，减速观察并安全避让"
+    },
+    "extreme_emergency": {
+      "target_frames": 55000,
+      "scenario_types": {
+        "Accident": ["emergency_decelerate", "avoid_accident"],
+        "AccidentTwoWays": ["emergency_decelerate", "avoid_accident", "yield"],
+        "ConstructionObstacle": ["decelerate", "merge_safely", "avoid_construction"],
+        "ConstructionObstacleTwoWays": ["decelerate", "avoid_construction", "yield"],
+        "ControlLoss": ["stabilize_vehicle", "keep_safe_speed"],
+        "HardBreakRoute": ["emergency_brake", "keep_safe_distance"],
+        "HazardAtSideLane": ["emergency_decelerate", "avoid_vehicle"],
+        "HazardAtSideLaneTwoWays": ["emergency_decelerate", "avoid_vehicle", "yield"],
+        "HighwayCutIn": ["emergency_decelerate", "avoid_vehicle"],
+        "InvadingTurn": ["emergency_decelerate", "avoid_vehicle"],
+        "ParkingCutIn": ["emergency_decelerate", "avoid_vehicle"],
+        "StaticCutIn": ["emergency_decelerate", "avoid_vehicle"],
+        "VehicleOpensDoorTwoWays": ["emergency_decelerate", "avoid_open_door"],
+        "YieldToEmergencyVehicle": ["yield", "pull_over_safely"]
+      },
+      "command_text": "前方出现紧急风险，立即采取安全避让措施"
+    }
+  }
+}

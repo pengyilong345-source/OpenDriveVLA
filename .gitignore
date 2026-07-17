@@ -12,6 +12,9 @@ dist
 
 # Data
 !**/alpaca-data-conversation.json
+carla/output/
+carla/**/__pycache__/
+.tmp/
 # Editor
 .idea
 *.swp
@@ -80,7 +83,9 @@ data
 drivegpt_output*.json
 
 pred_trajs_dict.pkl
-gt/# Byte-compiled / optimized / DLL files
+gt/
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class

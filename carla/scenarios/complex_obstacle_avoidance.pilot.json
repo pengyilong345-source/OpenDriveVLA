@@ -1,0 +1,22 @@
+{
+  "scenario_type": 2,
+  "scenario_name": "complex_obstacle_avoidance",
+  "route_id": "route001",
+  "weather": "current",
+  "event_types": ["mixed_traffic_format_pilot"],
+  "construction_area": false,
+  "command": {
+    "audio_path": null,
+    "command_text": "注意周围车辆和行人，保持安全车速并沿当前车道行驶",
+    "normalized_command": "observe traffic, maintain safe speed, keep lane",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_traffic",
+      "maintain_safe_speed",
+      "keep_lane"
+    ],
+    "target_speed_mps": 8.33,
+    "target_lane": "current"
+  }
+}

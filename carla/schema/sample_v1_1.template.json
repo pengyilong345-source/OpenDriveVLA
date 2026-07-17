@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.1.0",
+  "carla_version": "0.9.15",
+  "sample_id": "Town05_route001_frame000120",
+  "episode_id": "Town05_route001_seed2026",
+  "frame_id": 120,
+  "timestamp": 12.0,
+  "sample_valid": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_obstacle_avoidance",
+  "town": "Town05",
+  "route_id": "route001",
+  "weather": "cloudy_evening",
+  "event_types": [
+    "pedestrian_crossing",
+    "slow_vehicle_overtake"
+  ],
+  "sensors": {
+    "front": {
+      "path": "sensors/frame_000120/front.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "front_left": {
+      "path": "sensors/frame_000120/front_left.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "front_right": {
+      "path": "sensors/frame_000120/front_right.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "rear": {
+      "path": "sensors/frame_000120/rear.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "rear_left": {
+      "path": "sensors/frame_000120/rear_left.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "rear_right": {
+      "path": "sensors/frame_000120/rear_right.jpg",
+      "frame_id": 120,
+      "timestamp": 12.0
+    },
+    "lidar": {
+      "path": "sensors/frame_000120/lidar.bin",
+      "frame_id": 120,
+      "timestamp": 12.0,
+      "point_count": 31284,
+      "storage_format": "bin_float32",
+      "dtype": "float32",
+      "fields": ["x", "y", "z", "intensity"],
+      "coordinate_frame": "ego"
+    }
+  },
+  "calibration": {
+    "camera_intrinsics_path": "calib/camera_intrinsics.json",
+    "camera_extrinsics_path": "calib/camera_extrinsics.json",
+    "extrinsics_type": "sensor_to_ego"
+  },
+  "ego_state": {
+    "x": 102.4,
+    "y": 35.7,
+    "z": 0.0,
+    "yaw": 1.57,
+    "speed": 8.2,
+    "acceleration": -0.3,
+    "yaw_rate": 0.02,
+    "steer": 0.01,
+    "throttle": 0.25,
+    "brake": 0.0,
+    "current_lane_id": "road_12_lane_-1",
+    "is_at_junction": true,
+    "traffic_light_state": "green"
+  },
+  "history_trajectory_ego_frame": [
+    {"dt": -2.0, "x": -4.0, "y": 0.0},
+    {"dt": -1.5, "x": -3.0, "y": 0.0},
+    {"dt": -1.0, "x": -2.0, "y": 0.0},
+    {"dt": -0.5, "x": -1.0, "y": 0.0},
+    {"dt": 0.0, "x": 0.0, "y": 0.0}
+  ],
+  "future_trajectory_ego_frame": [
+    {"dt": 0.5, "x": 1.7, "y": 0.0},
+    {"dt": 1.0, "x": 3.3, "y": 0.1},
+    {"dt": 1.5, "x": 4.8, "y": 0.4},
+    {"dt": 2.0, "x": 6.1, "y": 1.0},
+    {"dt": 2.5, "x": 7.2, "y": 1.8},
+    {"dt": 3.0, "x": 8.0, "y": 2.7}
+  ],
+  "command": {
+    "audio_path": null,
+    "command_text": "看到前方横穿马路的行人，减速避让后向左变道超越慢车",
+    "normalized_command": "decelerate, avoid pedestrian, change lane left, overtake slow vehicle",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "decelerate",
+      "avoid_pedestrian",
+      "lane_change_left",
+      "overtake"
+    ],
+    "target_speed_mps": 8.33,
+    "target_lane": "left"
+  },
+  "actors": [
+    {
+      "actor_id": 23,
+      "track_id": 23,
+      "class": "pedestrian",
+      "relative_x": 18.5,
+      "relative_y": -1.2,
+      "speed": 1.4,
+      "yaw": 1.57,
+      "bbox_3d": [18.5, -1.2, 0.9, 0.6, 0.6, 1.8, 1.57],
+      "is_relevant": true
+    }
+  ],
+  "map": {
+    "drivable_area_mask": "bev/frame_000120_drivable.png",
+    "lane_boundary_mask": "bev/frame_000120_lane_boundary.png",
+    "road_boundary_mask": "bev/frame_000120_road_boundary.png",
+    "crosswalk": true,
+    "junction": true,
+    "construction_area": false,
+    "traffic_light_state": "green",
+    "bev_spec": {
+      "width": 512,
+      "height": 512,
+      "resolution_m_per_pixel": 0.25,
+      "x_range_m": [-32.0, 96.0],
+      "y_range_m": [-64.0, 64.0],
+      "ego_pixel": [384, 256],
+      "image_top_direction": "ego_forward"
+    }
+  },
+  "conventions": {
+    "coordinate_frame": "current_ego",
+    "ego_axes": {
+      "x": "forward",
+      "y": "left",
+      "z": "up"
+    },
+    "position_unit": "m",
+    "speed_unit": "m/s",
+    "acceleration_unit": "m/s^2",
+    "angle_unit": "rad",
+    "yaw_rate_unit": "rad/s",
+    "bbox_3d_order": [
+      "center_x",
+      "center_y",
+      "center_z",
+      "length",
+      "width",
+      "height",
+      "yaw"
+    ],
+    "bbox_center": "geometric_center",
+    "actor_yaw": "relative_to_current_ego",
+    "track_id_scope": "episode"
+  }
+}

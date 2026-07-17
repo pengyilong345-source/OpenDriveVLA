@@ -1,0 +1,87 @@
+{
+  "selection_version": "bench2drive_150k_v1",
+  "source_manifest": "bench2drive_base_1000.json",
+  "mapping": "scenario_mapping.150k.v1.json",
+  "seed": 20260714,
+  "target_frames": 150000,
+  "bytes_per_frame_estimate": 1560000,
+  "selected_episode_count": 970,
+  "selected_compressed_size_bytes": 326472258196,
+  "excluded_unmapped_episode_count": 0,
+  "categories": {
+    "basic_control": {
+      "target_frames": 33000,
+      "selected_episodes": 252,
+      "primary_episodes": 232,
+      "reserve_episodes": 20,
+      "estimated_eligible_frames_with_reserve": 35475,
+      "compressed_size_bytes": 74986110940,
+      "scenario_counts": {
+        "HighwayExit": 27,
+        "LaneChange": 15,
+        "MergerIntoSlowTraffic": 8,
+        "MergerIntoSlowTrafficV2": 18,
+        "NonSignalizedJunctionLeftTurn": 27,
+        "NonSignalizedJunctionRightTurn": 14,
+        "ParkingExit": 27,
+        "SignalizedJunctionLeftTurn": 21,
+        "SignalizedJunctionRightTurn": 15,
+        "VanillaNonSignalizedTurnEncounterStopsign": 27,
+        "VanillaSignalizedTurnEncounterGreenLight": 27,
+        "VanillaSignalizedTurnEncounterRedLight": 26
+      }
+    },
+    "complex_obstacle_avoidance": {
+      "target_frames": 62000,
+      "selected_episodes": 370,
+      "primary_episodes": 346,
+      "reserve_episodes": 24,
+      "estimated_eligible_frames_with_reserve": 66422,
+      "compressed_size_bytes": 132450744782,
+      "scenario_counts": {
+        "BlockedIntersection": 23,
+        "CrossingBicycleFlow": 26,
+        "DynamicObjectCrossing": 26,
+        "EnterActorFlow": 15,
+        "InterurbanActorFlow": 13,
+        "InterurbanAdvancedActorFlow": 15,
+        "NonSignalizedJunctionLeftTurnEnterFlow": 18,
+        "OppositeVehicleRunningRedLight": 21,
+        "OppositeVehicleTakingPriority": 21,
+        "ParkedObstacle": 28,
+        "ParkedObstacleTwoWays": 23,
+        "ParkingCrossingPedestrian": 20,
+        "PedestrianCrossing": 20,
+        "SignalizedJunctionLeftTurnEnterFlow": 27,
+        "TJunction": 29,
+        "VehicleTurningRoute": 27,
+        "VehicleTurningRoutePedestrian": 18
+      }
+    },
+    "extreme_emergency": {
+      "target_frames": 55000,
+      "selected_episodes": 348,
+      "primary_episodes": 325,
+      "reserve_episodes": 23,
+      "estimated_eligible_frames_with_reserve": 58921,
+      "compressed_size_bytes": 119035402474,
+      "scenario_counts": {
+        "Accident": 28,
+        "AccidentTwoWays": 35,
+        "ConstructionObstacle": 27,
+        "ConstructionObstacleTwoWays": 27,
+        "ControlLoss": 13,
+        "HardBreakRoute": 35,
+        "HazardAtSideLane": 35,
+        "HazardAtSideLaneTwoWays": 27,
+        "HighwayCutIn": 27,
+        "InvadingTurn": 13,
+        "ParkingCutIn": 35,
+        "StaticCutIn": 24,
+        "VehicleOpensDoorTwoWays": 3,
+        "YieldToEmergencyVehicle": 19
+      }
+    }
+  },
+  "important": "Frame counts are estimates until archives are scanned; the converter truncates deterministically to exact quotas."
+}
