@@ -27,12 +27,12 @@ def generate_curve_trajectory():
 
 # 生成并保存为 mock_trajectories.json
 if __name__ == "__main__":
-    # data = {
-    #     "ego_state": {"speed": 3.0},  # 假设当前速度
-    #     "future_trajectory_ego_frame": generate_curve_trajectory()
-    # }
-    data = { "ego_state": {"speed": 3.0}, 
-            "future_trajectory_ego_frame": generate_straight_trajectory() }
+    data = {
+        "ego_state": {"speed": 3.0},  # 假设当前速度
+        "future_trajectory_ego_frame": generate_curve_trajectory()
+    }
+    # data = { "ego_state": {"speed": 3.0}, 
+    #         "future_trajectory_ego_frame": generate_straight_trajectory() }
     with open("tests/test_data/mock_trajectories.json", "w") as f:
         json.dump(data, f, indent=2)
     print("Mock data generated successfully!")

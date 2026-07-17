@@ -7,3 +7,43 @@ conda activate drivevla
 转换为CARLA车辆的控制量ego_state(油门/刹车/方向盘)
 初步实现纯跟踪+PID算法
 MPC跟踪暂未实现
+
+
+python e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\carla_integration\run_control_loop.py --data_dir "E:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\HighwayExit_Town06_Route291_Weather5\annotations"
+.\CarlaUE4.exe -dx11 -carla-map=Town06
+
+【CARLA 地图切换操作指南】
+
+适用场景：在 Windows 下使用 CARLA 0.9.15，需要切换地图（如 Town06）时。
+
+标准操作步骤：
+
+1. 启动 CARLA 服务器（默认地图 Town10HD）：
+   在 CARLA 根目录（WindowsNoEditor）下打开终端，执行：
+   .\CarlaUE4.exe -dx11
+
+2. 等待 CARLA 窗口完全加载（出现画面，且终端显示 "Waiting for connection..." 或地图画面）。
+
+3. 切换到 CARLA 的 PythonAPI 工具目录：
+   cd PythonAPI\util
+
+4. 执行地图切换命令（以切换到 Town06 为例）：
+   python config.py --map Town06
+
+5. 等待 5~15 秒，看到终端显示地图切换完成信息后，即可继续使用。
+
+6. 验证地图是否成功切换（可选）：
+   在 CARLA 窗口中按 M 键打开迷你地图，查看地图名称是否已变更。
+
+注意事项：
+- 切换地图后，如果之前在 CARLA 中生成的车辆/物体会被自动清除，需要重新生成。
+- 如果切换过程中出现 "time-out" 警告，通常不影响最终结果，等待即可。
+- 此方法适用于所有 CARLA 自带地图（Town01 ~ Town10HD）。
+- 如果 config.py 执行时报错，请确保 Python 环境已安装 CARLA 的 Python API（即 pip install carla）。
+
+常用地图列表：
+- Town01（经典小镇）
+- Town03（带环岛/路口）
+- Town05（高速公路）
+- Town06（高速公路/立交桥）  ← 当前数据使用
+- Town10HD（高清城市）

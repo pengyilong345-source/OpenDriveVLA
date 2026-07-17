@@ -4,40 +4,39 @@ from typing import List, Dict, Tuple, Optional
 
 def interpolate_trajectory(points: List[Dict], step: float = 0.1) -> List[Dict]:
     """
-    对 6 个稀疏轨迹点进行线性插值，生成密集点序列。
-    
-    Args:
-        points: 包含 dt, x, y 的字典列表，例如 [{"dt": 0.5, "x": 1.7, "y": 0.0}, ...]
-        step: 插值步长（秒），默认 0.1s，使控制更平滑。
-    
-    Returns:
-        插值后的密集点列表，每个点包含 x, y（相对当前帧的坐标）
+    对轨迹点进行线性插值，生成密集点。
+    如果点中包含 'dt'，则使用 dt 作为时间；否则默认从 0.5 开始，步长 0.5。
     """
     if not points or len(points) < 2:
         return []
-    
+
+    # 检查是否有 dt 字段
+    has_dt = 'dt' in points[0]
     dense_points = []
-    # 添加第一个点（当前帧位置，即原点）
-    dense_points.append({"x": 0.0, "y": 0.0})
-    
+    dense_points.append({"x": 0.0, "y": 0.0})  # 起点
+
     for i in range(len(points) - 1):
         start = points[i]
         end = points[i + 1]
-        
-        # 计算两点之间的时间差和距离
-        dt_diff = end["dt"] - start["dt"]
+        if has_dt:
+            dt_start = start['dt']
+            dt_end = end['dt']
+        else:
+            # 假设每个点间隔 0.5 秒
+            dt_start = (i + 1) * 0.5
+            dt_end = (i + 2) * 0.5
+
+        dt_diff = dt_end - dt_start
         if dt_diff <= 0:
             continue
-        
-        # 根据步长决定插值次数
         num_steps = max(1, int(dt_diff / step))
-        
+
         for j in range(1, num_steps + 1):
             ratio = j / num_steps
             interp_x = start["x"] + (end["x"] - start["x"]) * ratio
             interp_y = start["y"] + (end["y"] - start["y"]) * ratio
             dense_points.append({"x": round(interp_x, 3), "y": round(interp_y, 3)})
-    
+
     return dense_points
 
 

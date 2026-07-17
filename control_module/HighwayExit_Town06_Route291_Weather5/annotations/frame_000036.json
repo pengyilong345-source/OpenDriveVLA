@@ -1,0 +1,524 @@
+{
+  "schema_version": "1.1.0",
+  "carla_version": "0.9.15",
+  "sample_id": "Town06_route291_frame000036",
+  "episode_id": "HighwayExit_Town06_Route291_Weather5",
+  "frame_id": 36,
+  "timestamp": 3.6,
+  "sample_valid": true,
+  "scenario_type": 1,
+  "scenario_name": "basic_control",
+  "town": "Town06",
+  "route_id": "291",
+  "weather": "weather_5",
+  "event_types": [
+    "HighwayExit"
+  ],
+  "sensors": {
+    "front": {
+      "path": "sensors/frame_000036/front.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "front_left": {
+      "path": "sensors/frame_000036/front_left.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "front_right": {
+      "path": "sensors/frame_000036/front_right.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "rear": {
+      "path": "sensors/frame_000036/rear.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "rear_left": {
+      "path": "sensors/frame_000036/rear_left.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "rear_right": {
+      "path": "sensors/frame_000036/rear_right.jpg",
+      "frame_id": 36,
+      "timestamp": 3.6
+    },
+    "lidar": {
+      "path": "sensors/frame_000036/lidar.laz",
+      "frame_id": 36,
+      "timestamp": 3.6,
+      "point_count": 55529,
+      "storage_format": "laz",
+      "dtype": "scaled_integer",
+      "fields": [
+        "x",
+        "y",
+        "z"
+      ],
+      "coordinate_frame": "ego"
+    }
+  },
+  "calibration": {
+    "camera_intrinsics_path": "calib/camera_intrinsics.json",
+    "camera_extrinsics_path": "calib/camera_extrinsics.json",
+    "extrinsics_type": "sensor_to_ego"
+  },
+  "ego_state": {
+    "x": 442.4411315917969,
+    "y": 141.25631713867188,
+    "z": -0.0034315490629523993,
+    "yaw": 0.019030033688081538,
+    "speed": 7.07596550036626,
+    "acceleration": -5.683618068695068,
+    "yaw_rate": 0.3261174261569977,
+    "steer": 0.20000000298023224,
+    "throttle": 0.699999988079071,
+    "brake": 0.0,
+    "current_lane_id": "road_37_lane_-4",
+    "is_at_junction": false,
+    "traffic_light_state": "none"
+  },
+  "history_trajectory_ego_frame": [
+    {
+      "dt": -2.0,
+      "x": -15.910067390285409,
+      "y": -0.22181261358799714
+    },
+    {
+      "dt": -1.5,
+      "x": -11.884389656387125,
+      "y": -0.16010511829721974
+    },
+    {
+      "dt": -1.0,
+      "x": -8.015524103217569,
+      "y": -0.10081744692940163
+    },
+    {
+      "dt": -0.5,
+      "x": -4.014409152249449,
+      "y": -0.03954691555406726
+    },
+    {
+      "dt": 0.0,
+      "x": 0.0,
+      "y": 0.0
+    }
+  ],
+  "future_trajectory_ego_frame": [
+    {
+      "dt": 0.5,
+      "x": 3.364068598408114,
+      "y": -0.4471901531220169
+    },
+    {
+      "dt": 1.0,
+      "x": 6.824285061376807,
+      "y": -0.3202421730508471
+    },
+    {
+      "dt": 1.5,
+      "x": 10.853199095778281,
+      "y": 0.8816869736595295
+    },
+    {
+      "dt": 2.0,
+      "x": 15.626968019529771,
+      "y": 2.167034108591752
+    },
+    {
+      "dt": 2.5,
+      "x": 21.059892160272923,
+      "y": 3.7790855601928564
+    },
+    {
+      "dt": 3.0,
+      "x": 26.634765477572497,
+      "y": 5.497708761206445
+    }
+  ],
+  "command": {
+    "audio_path": null,
+    "command_text": "按照导航和交通规则完成当前基础驾驶动作",
+    "normalized_command": "follow_route, exit_highway",
+    "command_type": "compound",
+    "command_source": "scenario_template",
+    "intent_label": [
+      "follow_route",
+      "exit_highway"
+    ],
+    "target_speed_mps": null,
+    "target_lane": null
+  },
+  "actors": [
+    {
+      "actor_id": 1241,
+      "track_id": 1241,
+      "class": "vehicle",
+      "relative_x": 2.3784651423045937,
+      "relative_y": 3.5500069384260247,
+      "speed": 10.17683148315109,
+      "yaw": -0.014932760350994556,
+      "bbox_3d": [
+        2.3784651423045937,
+        3.5500069384260247,
+        0.7396874332334846,
+        4.181210041046143,
+        1.9941171407699585,
+        1.385296106338501,
+        -0.014932760350994556
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1222,
+      "track_id": 1222,
+      "class": "vehicle",
+      "relative_x": -17.083255450504375,
+      "relative_y": 3.1638093193791508,
+      "speed": 8.222971430089583,
+      "yaw": -0.013744279461614273,
+      "bbox_3d": [
+        -17.083255450504375,
+        3.1638093193791508,
+        0.7694806361105293,
+        5.0078253746032715,
+        1.8816219568252563,
+        1.5347249507904053,
+        -0.013744279461614273
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1224,
+      "track_id": 1224,
+      "class": "vehicle",
+      "relative_x": -17.776746548782253,
+      "relative_y": -0.3352500946296979,
+      "speed": 8.250341628069364,
+      "yaw": -0.016352848610164283,
+      "bbox_3d": [
+        -17.776746548782253,
+        -0.3352500946296979,
+        0.7226279878523201,
+        4.673638820648193,
+        1.8118125200271606,
+        1.441947340965271,
+        -0.016352848610164283
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1228,
+      "track_id": 1228,
+      "class": "vehicle",
+      "relative_x": -18.52173682749959,
+      "relative_y": -7.357396506792676,
+      "speed": 8.022657521043342,
+      "yaw": -0.013346148321917717,
+      "bbox_3d": [
+        -18.52173682749959,
+        -7.357396506792676,
+        0.747201552381739,
+        4.89238166809082,
+        1.8367133140563965,
+        1.490277647972107,
+        -0.013346148321917717
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1226,
+      "track_id": 1226,
+      "class": "vehicle",
+      "relative_x": -20.36688330720483,
+      "relative_y": -3.883974617125227,
+      "speed": 8.00427933902661,
+      "yaw": -0.013251201427569637,
+      "bbox_3d": [
+        -20.36688330720483,
+        -3.883974617125227,
+        0.6485372686292976,
+        4.717525005340576,
+        1.894826889038086,
+        1.300939917564392,
+        -0.013251201427569637
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1230,
+      "track_id": 1230,
+      "class": "vehicle",
+      "relative_x": -18.347550523057855,
+      "relative_y": -10.854699918262147,
+      "speed": 7.729886541270635,
+      "yaw": -0.013451479984071035,
+      "bbox_3d": [
+        -18.347550523057855,
+        -10.854699918262147,
+        0.7565753364469856,
+        4.901683330535889,
+        2.128324270248413,
+        1.5107464790344238,
+        -0.013451479984071035
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1239,
+      "track_id": 1239,
+      "class": "vehicle",
+      "relative_x": 28.612764832010246,
+      "relative_y": 3.941514474638812,
+      "speed": 10.991396294103472,
+      "yaw": -0.014994769612278525,
+      "bbox_3d": [
+        28.612764832010246,
+        3.941514474638812,
+        0.7509598040487617,
+        4.89238166809082,
+        1.8367133140563965,
+        1.490277647972107,
+        -0.014994769612278525
+      ],
+      "is_relevant": true
+    },
+    {
+      "actor_id": 1225,
+      "track_id": 1225,
+      "class": "vehicle",
+      "relative_x": -33.19664708708212,
+      "relative_y": -0.5648876752440865,
+      "speed": 7.441059146341793,
+      "yaw": -0.017185770576326753,
+      "bbox_3d": [
+        -33.19664708708212,
+        -0.5648876752440865,
+        0.7225015067961067,
+        4.673638820648193,
+        1.8118125200271606,
+        1.441947340965271,
+        -0.017185770576326753
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1223,
+      "track_id": 1223,
+      "class": "vehicle",
+      "relative_x": -33.53157335357875,
+      "relative_y": 2.9198637944323638,
+      "speed": 7.3087510253792,
+      "yaw": -0.013530240892715373,
+      "bbox_3d": [
+        -33.53157335357875,
+        2.9198637944323638,
+        0.6852099203970283,
+        4.181210041046143,
+        1.9941171407699585,
+        1.385296106338501,
+        -0.013530240892715373
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1227,
+      "track_id": 1227,
+      "class": "vehicle",
+      "relative_x": -35.66813234572653,
+      "relative_y": -4.110835090315083,
+      "speed": 8.075056079426206,
+      "yaw": -0.013116663938844919,
+      "bbox_3d": [
+        -35.66813234572653,
+        -4.110835090315083,
+        0.6484711670782417,
+        4.717525005340576,
+        1.894826889038086,
+        1.300939917564392,
+        -0.013116663938844919
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1231,
+      "track_id": 1231,
+      "class": "vehicle",
+      "relative_x": -35.464812316488484,
+      "relative_y": -11.109896634310177,
+      "speed": 7.3438152321765555,
+      "yaw": -0.011598268885120167,
+      "bbox_3d": [
+        -35.464812316488484,
+        -11.109896634310177,
+        1.022148241987452,
+        5.565828800201416,
+        2.1499669551849365,
+        2.045147180557251,
+        -0.011598268885120167
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1229,
+      "track_id": 1229,
+      "class": "vehicle",
+      "relative_x": -38.5267679766366,
+      "relative_y": -7.650613882517203,
+      "speed": 8.931360179710541,
+      "yaw": -0.011717797484537495,
+      "bbox_3d": [
+        -38.5267679766366,
+        -7.650613882517203,
+        0.6972113156225532,
+        5.357479572296143,
+        2.033202886581421,
+        1.4106587171554565,
+        -0.011717797484537495
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1244,
+      "track_id": 1244,
+      "class": "vehicle",
+      "relative_x": -50.304437546859624,
+      "relative_y": -0.7371712541452164,
+      "speed": 0.0,
+      "yaw": -0.014932758010325564,
+      "bbox_3d": [
+        -50.304437546859624,
+        -0.7371712541452164,
+        0.848101427545771,
+        4.717525005340576,
+        1.894826889038086,
+        1.300939917564392,
+        -0.014932758010325564
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1243,
+      "track_id": 1243,
+      "class": "vehicle",
+      "relative_x": -50.39511497699116,
+      "relative_y": 2.761858879851042,
+      "speed": 0.0,
+      "yaw": -0.014932758010325564,
+      "bbox_3d": [
+        -50.39511497699116,
+        2.761858879851042,
+        0.9464767479803413,
+        4.89238166809082,
+        1.8367133140563965,
+        1.490277647972107,
+        -0.014932758010325564
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1235,
+      "track_id": 1235,
+      "class": "vehicle",
+      "relative_x": 48.58936815748854,
+      "relative_y": 17.732461596659807,
+      "speed": 10.990918438787189,
+      "yaw": -0.798451797283283,
+      "bbox_3d": [
+        48.58936815748854,
+        17.732461596659807,
+        1.023694505682215,
+        5.565828800201416,
+        2.1499669551849365,
+        2.045147180557251,
+        -0.798451797283283
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1233,
+      "track_id": 1233,
+      "class": "vehicle",
+      "relative_x": 66.03647930418333,
+      "relative_y": 49.70896053700906,
+      "speed": 0.0,
+      "yaw": -1.1487885081543348,
+      "bbox_3d": [
+        66.03647930418333,
+        49.70896053700906,
+        1.0309281253721565,
+        5.565828800201416,
+        2.1499669551849365,
+        2.045147180557251,
+        -1.1487885081543348
+      ],
+      "is_relevant": false
+    },
+    {
+      "actor_id": 1232,
+      "track_id": 1232,
+      "class": "vehicle",
+      "relative_x": 70.2368587347031,
+      "relative_y": 59.27194384437469,
+      "speed": 0.0,
+      "yaw": -1.1487885081543348,
+      "bbox_3d": [
+        70.2368587347031,
+        59.27194384437469,
+        0.7435456418897957,
+        4.673638820648193,
+        1.8118125200271606,
+        1.441947340965271,
+        -1.1487885081543348
+      ],
+      "is_relevant": false
+    }
+  ],
+  "map": {
+    "bev_available": false,
+    "bev_unavailable_reason": "official_hd_map_not_installed",
+    "junction": false,
+    "construction_area": false,
+    "traffic_light_state": "none",
+    "raw_weather": {
+      "cloudiness": 80.0,
+      "precipitation": 0.0,
+      "precipitation_deposits": 50.0,
+      "wind_intensity": 10.0,
+      "sun_azimuth_angle": -1.0,
+      "sun_altitude_angle": 45.0,
+      "fog_density": 3.0,
+      "fog_distance": 0.0,
+      "wetness": 20.0,
+      "fog_falloff": 0.0
+    }
+  },
+  "conventions": {
+    "coordinate_frame": "current_ego",
+    "ego_axes": {
+      "x": "forward",
+      "y": "left",
+      "z": "up"
+    },
+    "position_unit": "m",
+    "speed_unit": "m/s",
+    "acceleration_unit": "m/s^2",
+    "angle_unit": "rad",
+    "yaw_rate_unit": "rad/s",
+    "bbox_3d_order": [
+      "center_x",
+      "center_y",
+      "center_z",
+      "length",
+      "width",
+      "height",
+      "yaw"
+    ],
+    "bbox_center": "geometric_center",
+    "actor_yaw": "relative_to_current_ego",
+    "track_id_scope": "episode"
+  }
+}
