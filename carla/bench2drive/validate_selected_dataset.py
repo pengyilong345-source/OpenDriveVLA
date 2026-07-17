@@ -5,16 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from collections import Counter
 from pathlib import Path
 
 from PIL import Image
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(PROJECT_ROOT / "carla" / "collectors"))
-from validate_sample_v1_1 import CAMERAS, validate  # noqa: E402
+from sample_validation import CAMERAS, validate
 
 
 EXPECTED_CATEGORIES = {
