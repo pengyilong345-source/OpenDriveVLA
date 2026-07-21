@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/acceptance_verdict.schema.json",
+  "title": "acceptance_verdict",
+  "description": "Top-level verdict after a single Stage D pilot (e.g. 13 subscenarios × 3 seeds × 3 groups).",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "scenario_completion_rate_overall",
+    "scenario_completion_rate_by_category",
+    "scenario_completion_rate_by_subscenario",
+    "latency_max_ms",
+    "latency_deadline_miss_count",
+    "latency_deadline_miss_rate",
+    "joint_semantic_alignment_precision",
+    "command_alignment_precision",
+    "visual_alignment_precision",
+    "vehicle_state_alignment_precision",
+    "pass", "verdict"
+  ],
+  "properties": {
+    "protocol_version": {"type": "string"},
+    "project_phase": {"type": "string"},
+    "frozen_at": {"type": "string"},
+
+    "scenario_completion_rate_overall": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "scenario_completion_rate_by_category": {
+      "type": "object",
+      "additionalProperties": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+    },
+    "scenario_completion_rate_by_subscenario": {
+      "type": "object",
+      "additionalProperties": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+    },
+    "n_episodes_total": {"type": "integer", "minimum": 0},
+    "n_episodes_infrastructure_valid": {"type": "integer", "minimum": 0},
+    "n_episodes_infrastructure_invalid": {"type": "integer", "minimum": 0},
+    "infrastructure_invalid_reasons_summary": {"type": "object",
+      "additionalProperties": {"type": "integer"}} ,
+
+    "latency_max_ms": {"type": "number", "minimum": 0.0},
+    "latency_mean_ms": {"type": "number", "minimum": 0.0},
+    "latency_p95_ms": {"type": "number", "minimum": 0.0},
+    "latency_p99_ms": {"type": "number", "minimum": 0.0},
+    "latency_deadline_miss_count": {"type": "integer", "minimum": 0},
+    "latency_deadline_miss_rate": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+
+    "joint_semantic_alignment_precision": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "command_alignment_precision": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "visual_alignment_precision": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "vehicle_state_alignment_precision": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+
+    "n_decisions_total": {"type": "integer", "minimum": 0},
+    "n_decisions_jointly_aligned": {"type": "integer", "minimum": 0},
+    "n_invalid_outputs": {"type": "integer", "minimum": 0},
+
+    "pass": {
+      "type": "object",
+      "required": ["completion_overall_ge_0p90",
+                   "latency_max_le_150ms",
+                   "joint_alignment_ge_0p98"],
+      "properties": {
+        "completion_overall_ge_0p90": {"type": "boolean"},
+        "latency_max_le_150ms": {"type": "boolean"},
+        "joint_alignment_ge_0p98": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "verdict": {"enum": ["ACCEPTED", "REJECTED"]},
+    "rejection_reasons": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Empty iff verdict == ACCEPTED."
+    }
+  },
+  "additionalProperties": false
+}

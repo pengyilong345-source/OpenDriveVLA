@@ -1,0 +1,171 @@
+# Stage D0.1 — Warmup/handoff scoring-protocol amendment (v1.1)
+#
+# This amendment ADDS warmup/handoff definitions to the frozen D0 protocol
+# (v1.0.0). It does NOT modify, weaken, or replace any original D0 formula
+# for episode_success, violations, semantic alignment, or latency.
+#
+# The original D0 definitions still apply to every MODEL_CONTROL_SCORED
+# frame. This amendment adds:
+#   1. episode-phase labels;
+#   2. warmup exclusion rules;
+#   3. scoring-start condition;
+#   4. core-event protection;
+#   5. group fairness constraints.
+#
+# Versioning: bump from 1.0.0 to 1.1.0 because new fields are added.
+# Old D0/D1 logs remain readable — the new fields are optional defaults.
+
+protocol_version: "1.1.0"
+amendment_to: "1.0.0"
+frozen_at: "2026-07-18"
+project_phase: "D0_1_warmup_protocol_amendment"
+
+task_scope_declaration: >
+  This acceptance protocol evaluates online driving performance after a
+  uniform non-scored moving initialization. Autonomous launch from a fully
+  stationary state is outside the primary acceptance scope and is reported
+  separately as a known frozen-checkpoint capability limitation.
+
+  本验收评估统一非评分运动初始化后的在线驾驶能力，不将完全静止状态下的自主起步纳入主要场景完成率。
+
+# ============================================================
+# 1. Episode phases
+# ============================================================
+
+episode_phases:
+  - INITIALIZATION
+  - WARMUP_EXTERNAL_CONTROL
+  - HANDOFF_VALIDATION
+  - MODEL_CONTROL_SCORED
+  - TERMINATED
+
+# Every online frame and control must include exactly one phase label.
+phase_fields:
+  episode_phase:
+    type: string
+    enum: [INITIALIZATION, WARMUP_EXTERNAL_CONTROL, HANDOFF_VALIDATION, MODEL_CONTROL_SCORED, TERMINATED]
+  warmup_control_active:
+    type: bool
+    description: "External startup controller is driving the ego."
+  external_startup_control:
+    type: bool
+    description: "Any non-model control (AutoPilot, startup controller) is active."
+  model_control_active:
+    type: bool
+    description: "The model's trajectory (or safety-stop) is driving the ego."
+  model_scoring_active:
+    type: bool
+    description: "This frame counts toward model evaluation metrics."
+  warmup_valid:
+    type: bool
+  handoff_valid:
+    type: bool
+  scoring_start_frame:
+    type: int
+    description: "The first frame where model_scoring_active=true."
+  core_scenario_event_started:
+    type: bool
+  history_ready:
+    type: bool
+  history_state:
+    type: string
+    enum: [history_not_ready, history_ready_static, history_ready_moving]
+  real_speed_mps:
+    type: float
+  handoff_speed_mps:
+    type: float
+  external_controller_type:
+    type: string
+    enum: [none, carla_autopilot, deterministic_startup_controller]
+  control_source:
+    type: string
+    enum: [external_warmup, model_trajectory, safety_stop, none]
+
+# ============================================================
+# 2. Scoring-start condition (machine-readable)
+# ============================================================
+
+scoring_start_condition:
+  formula: >
+    scoring_start =
+      infrastructure_valid
+      AND external_startup_control == false
+      AND model_control_active == true
+      AND history_ready == true
+      AND history_state == "history_ready_moving"
+      AND frame_state_sync_valid == true
+      AND real_speed_mps >= startup_min_speed_mps
+      AND real_speed_mps <= startup_max_speed_mps
+      AND core_scenario_event_started == false
+  defaults:
+    startup_min_speed_mps: 5.0
+    startup_max_speed_mps: 8.0
+    required_real_history_seconds: 2.0
+
+# ============================================================
+# 3. Warmup exclusion rules
+# ============================================================
+
+warmup_exclusions:
+  - "Warmup frames must not enter scenario completion numerator or denominator."
+  - "Warmup frames must not enter instruction-stage recall or omission."
+  - "Warmup frames must not enter semantic-alignment numerator or denominator."
+  - "Warmup frames must not enter model-controlled route distance."
+  - "Warmup frames must not enter model collision/violation attribution."
+  - "Warmup frames must not enter model safety-stop rate."
+  - "Warmup frames must not enter model decision latency distribution."
+  - "Warmup frames must not enter model all-zero output rate."
+  - "Warmup infrastructure failures must still be logged separately."
+
+warmup_statistics:
+  required_fields:
+    - warmup_duration_s
+    - warmup_distance_m
+    - target_speed_mps
+    - actual_handoff_speed_mps
+    - history_path_length_m
+    - warmup_tick_count
+    - external_controller_type
+    - warmup_failure_reason
+    - core_event_accidentally_activated
+
+# ============================================================
+# 4. Core-event protection
+# ============================================================
+
+core_event_protection:
+  during_warmup: "core_scenario_event_enabled = false"
+  activation_rule: "core_scenario_event_enabled = true only after scoring_start == true"
+  per_subscenario_config:
+    warmup_spawn_location: "optional"
+    warmup_route_segment: "optional"
+    core_event_activation_location: "optional"
+    minimum_event_distance_at_handoff: 30.0  # meters
+    startup_target_speed_mps: 6.0
+    startup_timeout_seconds: 15.0
+  failure_rule: >
+    If a core event starts during warmup, warmup_valid = false,
+    episode infrastructure result = invalid_startup,
+    episode must not enter model success metrics.
+
+# ============================================================
+# 5. Group fairness
+# ============================================================
+
+group_fairness:
+  rule: >
+    G1, G2 and G3 comparisons must use the same spawn pose, startup controller,
+    startup target speed, warmup route, handoff location, handoff speed range,
+    required history duration, core event activation rule, and seed.
+  d1_8_primary_group: "G1"
+
+# ============================================================
+# 6. Original D0 formulas (unchanged — restated for clarity)
+# ============================================================
+
+original_D0_formulas_unchanged:
+  episode_success: "All 11 clauses from D0 v1.0.0 apply to MODEL_CONTROL_SCORED frames only."
+  violations: "All 5 violation categories from D0 v1.0.0 apply to MODEL_CONTROL_SCORED frames only."
+  semantic_alignment: "The joint alignment precision from D0 v1.0.0 uses MODEL_CONTROL_SCORED frames in denominator."
+  latency: "T0-T10 latency from D0 v1.0.0 is measured on MODEL_CONTROL_SCORED frames only."
+  infrastructure_valid: "The D0 v1.0.0 data-quality gate applies; warmup frames use a separate gate."

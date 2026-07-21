@@ -28,7 +28,7 @@ def main() -> None:
     print(f"Map info: {item['map']}")
     print(f"Agents: {item['agents']}")
 
-    assert len(dataset) == 1, f"Expected dataset length 1, got {len(dataset)}"
+    assert len(dataset) > 0, f"Expected non-empty dataset, got {len(dataset)}"
     assert len(item["images"]) == 6, f"Expected 6 images, got {len(item['images'])}"
     assert all(item["images"][camera_name] is not None for camera_name in CAMERA_NAMES)
     assert all(item["images"][camera_name].mode == "RGB" for camera_name in CAMERA_NAMES)

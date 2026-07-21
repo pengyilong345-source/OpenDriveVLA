@@ -1,4 +1,4 @@
-"""Minimal CARLA-style dataset for validating the mock data pipeline."""
+"""CARLA-style dataset for validating the OpenDriveVLA CARLA adapter."""
 
 from pathlib import Path
 import pickle
@@ -21,17 +21,23 @@ CAMERA_NAMES = [
 
 
 class CarlaLLaVADataset:
-    """Read CARLA-style metadata, load camera images, and build driving prompts."""
+    """Read CARLA metadata, load camera images, and build driving prompts.
+
+    This remains a prompt-based CARLA adapter. New native-like fields are exposed
+    as optional metadata, but this is not a full UniAD/BEV replacement by itself.
+    """
 
     def __init__(
         self,
         info_path: str | Path = CARLA_INFO_PATH,
         data_root: str | Path = CARLA_DATA_ROOT,
         load_images: bool = True,
+        include_route_in_prompt: bool = True,
     ) -> None:
         self.info_path = Path(info_path)
         self.data_root = Path(data_root)
         self.load_images = load_images
+        self.include_route_in_prompt = include_route_in_prompt
 
         if not self.info_path.exists():
             raise FileNotFoundError(f"CARLA info file not found: {self.info_path}")
@@ -64,6 +70,12 @@ class CarlaLLaVADataset:
             "map": sample["map"],
             "weather": sample["weather"],
             "command": sample["command"],
+            "route_waypoints": sample.get("route_waypoints"),
+            "route_waypoints_world": sample.get("route_waypoints_world"),
+            "route_metadata": sample.get("route_metadata"),
+            "can_bus": sample.get("can_bus"),
+            "cameras": sample.get("cameras"),
+            "gt_future_trajectory": sample.get("gt_future_trajectory"),
             "prompt": self.build_prompt(sample),
             "raw_sample": sample,
         }
@@ -73,6 +85,7 @@ class CarlaLLaVADataset:
         map_info = sample["map"]
         weather = sample["weather"]
         agents = sample["agents"]
+        route_waypoints = sample.get("route_waypoints")
 
         agent_lines = []
         for agent in agents:
@@ -83,6 +96,13 @@ class CarlaLLaVADataset:
 
         if not agent_lines:
             agent_lines.append("- none")
+
+        if not self.include_route_in_prompt:
+            route_line = "route_waypoints = disabled_for_ablation"
+        elif route_waypoints and len(route_waypoints) == 6:
+            route_line = "route_waypoints = {}".format(self._format_waypoints(route_waypoints))
+        else:
+            route_line = "route_waypoints = unavailable"
 
         return "\n".join(
             [
@@ -103,6 +123,7 @@ class CarlaLLaVADataset:
                     f"road_id={map_info['road_id']}, "
                     f"lane_id={map_info['lane_id']}, "
                     f"lane_type={map_info['lane_type']}, "
+                    f"is_junction={map_info.get('is_junction', False)}, "
                     f"speed_limit={map_info['speed_limit_mps']:.1f}m/s"
                 ),
                 (
@@ -113,9 +134,26 @@ class CarlaLLaVADataset:
                 ),
                 "Nearby agents:",
                 *agent_lines,
-                "Task: Describe the driving context and propose a safe high-level driving plan.",
+                "Task:",
+                "Generate a safe 3-second ego trajectory with exactly 6 waypoints.",
+                "Coordinate frame:",
+                "- x is forward in meters from the current ego position.",
+                "- y is left in meters from the current ego position.",
+                "Reference lane-following route waypoints:",
+                route_line,
+                "Important:",
+                "Do not output all-zero waypoints unless the ego vehicle must remain completely stopped for safety.",
+                "Output only:",
+                "<traj_start>[(x1,y1),(x2,y2),(x3,y3),(x4,y4),(x5,y5),(x6,y6)]<traj_end>",
             ]
         )
+
+    def _format_waypoints(self, waypoints: Any) -> str:
+        formatted = []
+        for point in waypoints:
+            if isinstance(point, (list, tuple)) and len(point) == 2:
+                formatted.append([round(float(point[0]), 2), round(float(point[1]), 2)])
+        return str(formatted)
 
     def _validate_sample(self, sample: dict[str, Any]) -> None:
         required_keys = {"sample_id", "timestamp", "images", "ego", "agents", "map", "weather", "command"}
@@ -130,9 +168,15 @@ class CarlaLLaVADataset:
 
     def _resolve_image_paths(self, sample: dict[str, Any]) -> dict[str, Path]:
         return {
-            camera_name: self.data_root / sample["images"][camera_name]
+            camera_name: self.data_root / self._image_rel_path(sample, camera_name)
             for camera_name in CAMERA_NAMES
         }
+
+    def _image_rel_path(self, sample: dict[str, Any], camera_name: str) -> str:
+        image_entry = sample["images"][camera_name]
+        if isinstance(image_entry, dict):
+            return image_entry["image_path"]
+        return image_entry
 
     def _load_images(self, image_paths: dict[str, Path]) -> dict[str, Image.Image]:
         images = {}
@@ -144,4 +188,3 @@ class CarlaLLaVADataset:
                 images[camera_name] = image.convert("RGB")
 
         return images
-

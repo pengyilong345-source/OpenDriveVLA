@@ -1,0 +1,58 @@
+scenario_id: S3-4
+category: scenario3_emergency
+subscenario: "S3-4 Ambiguous hazard command"
+carla_map: "/Game/Carla/Maps/Town04"
+route:
+  spawn_point_index: 200
+  path_length_m: 300
+weather:
+  cloudiness: 95
+  precipitation: 40
+  fog: 15
+  sun_altitude: -55
+time_of_day_sun_alt_deg: -55
+ego_initial_speed_mps: 10.0
+ego_target_speed_mps: 4.0
+background_traffic_count: 2
+pedestrian_count: 1
+bicycle_count: 0
+bus_count: 0
+triggers:
+  - kind: time_elapsed
+    threshold_s: 4.0
+    actor_role: ego
+    fire_once: true
+    note: "ambiguous hazard command becomes active"
+actors: []
+# The structured constraint is the safety constraint we extract from the NL
+# instruction. It is recorded separately and never feeds model.generate.
+behavior_constraint: maintain_safe_speed
+target_speed_mps_override: 4.0   # upper bound
+raw_instruction: >-
+  road conditions ahead are dangerous; maintain a safe speed and increase the
+  time-gap to vehicles in front
+route_command_label: FORWARD
+hazard_type: ambiguous_hazard
+target_lane_delta: 0
+time_gap_requirement_s: 2.0
+episode_timeout_s: 30.0
+success_conditions:
+  - "no_collision"
+  - "speed_below_upper_bound"
+failure_conditions:
+  - "collision"
+physically_avoidable: true
+random_seed: 3004
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Upper speed bound extracted from the NL instruction; time-gap requirement > 2 s."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "ambiguous hazard command active"
+    set:
+      behavior: "maintain_safe_speed"
+      target_speed_mps: 4.0
+      hazard_type: "ambiguous_hazard"
+      raw_instruction: "road conditions ahead are dangerous; maintain a safe speed and increase the time-gap to vehicles in front"

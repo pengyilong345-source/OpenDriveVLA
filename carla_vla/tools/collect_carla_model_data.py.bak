@@ -1,0 +1,341 @@
+"""Collect CARLA samples in the format expected by CarlaLLaVADataset.
+
+The output layout is:
+  data/carla/images/<sample_id>/<CAMERA_NAME>.png
+  data/carla/infos/carla_infos_val.pkl
+"""
+
+import argparse
+import math
+from pathlib import Path
+import pickle
+import queue
+import random
+import sys
+import time
+
+import carla
+
+
+CAMERA_NAMES = [
+    "CAM_FRONT",
+    "CAM_FRONT_LEFT",
+    "CAM_FRONT_RIGHT",
+    "CAM_BACK",
+    "CAM_BACK_LEFT",
+    "CAM_BACK_RIGHT",
+]
+
+CAMERA_TRANSFORMS = {
+    "CAM_FRONT": carla.Transform(carla.Location(x=1.6, z=1.7), carla.Rotation(yaw=0.0)),
+    "CAM_FRONT_LEFT": carla.Transform(carla.Location(x=1.3, y=-0.45, z=1.7), carla.Rotation(yaw=-60.0)),
+    "CAM_FRONT_RIGHT": carla.Transform(carla.Location(x=1.3, y=0.45, z=1.7), carla.Rotation(yaw=60.0)),
+    "CAM_BACK": carla.Transform(carla.Location(x=-1.6, z=1.7), carla.Rotation(yaw=180.0)),
+    "CAM_BACK_LEFT": carla.Transform(carla.Location(x=-1.3, y=-0.45, z=1.7), carla.Rotation(yaw=-120.0)),
+    "CAM_BACK_RIGHT": carla.Transform(carla.Location(x=-1.3, y=0.45, z=1.7), carla.Rotation(yaw=120.0)),
+}
+
+RELATIVE_POSITIONS = [
+    (-135.0, -45.0, "left"),
+    (45.0, 135.0, "right"),
+    (-45.0, 45.0, "front"),
+    (135.0, 180.0, "back"),
+    (-180.0, -135.0, "back"),
+]
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--port", type=int, default=2000)
+    parser.add_argument("--town", default="Town03")
+    parser.add_argument("--data-root", default="/root/autodl-tmp/workspace/data/carla")
+    parser.add_argument("--split", default="val")
+    parser.add_argument("--samples", type=int, default=8)
+    parser.add_argument("--warmup-frames", type=int, default=30)
+    parser.add_argument("--frames-between-samples", type=int, default=10)
+    parser.add_argument("--vehicles", type=int, default=20)
+    parser.add_argument("--walkers", type=int, default=8)
+    parser.add_argument("--image-width", type=int, default=640)
+    parser.add_argument("--image-height", type=int, default=360)
+    parser.add_argument("--seed", type=int, default=42)
+    return parser.parse_args()
+
+
+def speed_mps(actor):
+    velocity = actor.get_velocity()
+    return math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z)
+
+
+def acceleration_mps2(actor):
+    acceleration = actor.get_acceleration()
+    return math.sqrt(
+        acceleration.x * acceleration.x
+        + acceleration.y * acceleration.y
+        + acceleration.z * acceleration.z
+    )
+
+
+def vector_length(location):
+    return math.sqrt(location.x * location.x + location.y * location.y + location.z * location.z)
+
+
+def normalize_angle(angle):
+    while angle > 180.0:
+        angle -= 360.0
+    while angle < -180.0:
+        angle += 360.0
+    return angle
+
+
+def relative_position(ego_transform, actor_transform):
+    delta = actor_transform.location - ego_transform.location
+    heading = math.degrees(math.atan2(delta.y, delta.x))
+    rel_angle = normalize_angle(heading - ego_transform.rotation.yaw)
+    for start, end, label in RELATIVE_POSITIONS:
+        if start <= rel_angle < end:
+            return label
+    return "front"
+
+
+def actor_record(ego, actor, prefix):
+    ego_transform = ego.get_transform()
+    actor_transform = actor.get_transform()
+    delta = actor_transform.location - ego_transform.location
+    actor_type = "pedestrian" if "walker" in actor.type_id else "vehicle"
+    return {
+        "agent_id": "{}_{}".format(prefix, actor.id),
+        "agent_type": actor_type,
+        "distance_m": float(vector_length(delta)),
+        "relative_position": relative_position(ego_transform, actor_transform),
+        "speed_mps": float(speed_mps(actor)),
+    }
+
+
+def build_command(waypoint):
+    if waypoint.is_junction:
+        return "Proceed carefully through the junction and yield to nearby traffic."
+    if waypoint.lane_id < 0:
+        return "Follow the lane and keep a safe distance from nearby agents."
+    return "Follow the lane and maintain a safe speed."
+
+
+def collect_agents(world, ego, max_distance=60.0, max_agents=16):
+    actors = world.get_actors()
+    candidates = []
+    for actor in list(actors.filter("vehicle.*")) + list(actors.filter("walker.pedestrian.*")):
+        if actor.id == ego.id:
+            continue
+        distance = actor.get_location().distance(ego.get_location())
+        if distance <= max_distance:
+            prefix = "walker" if "walker" in actor.type_id else "vehicle"
+            candidates.append((distance, actor_record(ego, actor, prefix)))
+    candidates.sort(key=lambda item: item[0])
+    return [record for _, record in candidates[:max_agents]]
+
+
+def weather_record(world):
+    weather = world.get_weather()
+    return {
+        "cloudiness": float(weather.cloudiness),
+        "precipitation": float(weather.precipitation),
+        "sun_altitude_angle": float(weather.sun_altitude_angle),
+    }
+
+
+def map_record(carla_map, ego):
+    waypoint = carla_map.get_waypoint(ego.get_location(), project_to_road=True)
+    return {
+        "town": carla_map.name.split("/")[-1],
+        "road_id": int(waypoint.road_id),
+        "lane_id": int(waypoint.lane_id),
+        "lane_type": str(waypoint.lane_type),
+        "speed_limit_mps": float(ego.get_speed_limit() / 3.6),
+        "is_junction": bool(waypoint.is_junction),
+    }
+
+
+def ego_record(ego):
+    transform = ego.get_transform()
+    return {
+        "location": {
+            "x": float(transform.location.x),
+            "y": float(transform.location.y),
+            "z": float(transform.location.z),
+        },
+        "rotation": {
+            "roll": float(transform.rotation.roll),
+            "pitch": float(transform.rotation.pitch),
+            "yaw": float(transform.rotation.yaw),
+        },
+        "yaw_deg": float(transform.rotation.yaw),
+        "speed_mps": float(speed_mps(ego)),
+        "acceleration_mps2": float(acceleration_mps2(ego)),
+    }
+
+
+def spawn_ego(world, rng):
+    blueprints = world.get_blueprint_library()
+    vehicle_bp = rng.choice(blueprints.filter("vehicle.tesla.model3"))
+    spawn_points = world.get_map().get_spawn_points()
+    rng.shuffle(spawn_points)
+    for spawn_point in spawn_points:
+        ego = world.try_spawn_actor(vehicle_bp, spawn_point)
+        if ego is not None:
+            ego.set_autopilot(True)
+            return ego
+    raise RuntimeError("Failed to spawn ego vehicle")
+
+
+def spawn_traffic(client, world, ego, vehicle_count, walker_count, rng):
+    spawned = []
+    blueprints = world.get_blueprint_library()
+    spawn_points = world.get_map().get_spawn_points()
+    rng.shuffle(spawn_points)
+
+    vehicle_bps = [
+        bp for bp in blueprints.filter("vehicle.*")
+        if int(bp.get_attribute("number_of_wheels")) == 4
+    ]
+    for spawn_point in spawn_points:
+        if len(spawned) >= vehicle_count:
+            break
+        if spawn_point.location.distance(ego.get_location()) < 10.0:
+            continue
+        bp = rng.choice(vehicle_bps)
+        if bp.has_attribute("color"):
+            bp.set_attribute("color", rng.choice(bp.get_attribute("color").recommended_values))
+        actor = world.try_spawn_actor(bp, spawn_point)
+        if actor is not None:
+            actor.set_autopilot(True)
+            spawned.append(actor)
+
+    walker_bps = blueprints.filter("walker.pedestrian.*")
+    for _ in range(walker_count):
+        location = world.get_random_location_from_navigation()
+        if location is None:
+            continue
+        bp = rng.choice(walker_bps)
+        actor = world.try_spawn_actor(bp, carla.Transform(location))
+        if actor is not None:
+            spawned.append(actor)
+
+    traffic_manager = client.get_trafficmanager()
+    traffic_manager.set_global_distance_to_leading_vehicle(2.5)
+    traffic_manager.set_synchronous_mode(True)
+    return spawned
+
+
+def spawn_cameras(world, ego, image_width, image_height):
+    blueprint = world.get_blueprint_library().find("sensor.camera.rgb")
+    blueprint.set_attribute("image_size_x", str(image_width))
+    blueprint.set_attribute("image_size_y", str(image_height))
+    blueprint.set_attribute("fov", "100")
+    blueprint.set_attribute("sensor_tick", "0.0")
+
+    sensors = []
+    queues = {}
+    for name in CAMERA_NAMES:
+        sensor = world.spawn_actor(blueprint, CAMERA_TRANSFORMS[name], attach_to=ego)
+        sensor_queue = queue.Queue()
+        sensor.listen(lambda image, camera_name=name: sensor_queue.put((camera_name, image)))
+        sensors.append(sensor)
+        queues[name] = sensor_queue
+    return sensors, queues
+
+
+def get_sensor_frame(sensor_queue, frame, timeout=5.0):
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        camera_name, image = sensor_queue.get(timeout=max(0.1, deadline - time.time()))
+        if image.frame == frame:
+            return camera_name, image
+    raise RuntimeError("Timed out waiting for camera frame {}".format(frame))
+
+
+def save_sample(world, carla_map, ego, sensor_queues, data_root, sample_index):
+    frame = world.tick()
+    sample_id = "carla_{:06d}".format(sample_index)
+    image_dir = data_root / "images" / sample_id
+    image_dir.mkdir(parents=True, exist_ok=True)
+
+    image_paths = {}
+    for camera_name in CAMERA_NAMES:
+        _, image = get_sensor_frame(sensor_queues[camera_name], frame)
+        image_path = image_dir / "{}.png".format(camera_name)
+        image.save_to_disk(str(image_path))
+        image_paths[camera_name] = "images/{}/{}.png".format(sample_id, camera_name)
+
+    map_info = map_record(carla_map, ego)
+    waypoint = carla_map.get_waypoint(ego.get_location(), project_to_road=True)
+    return {
+        "sample_id": sample_id,
+        "timestamp": int(frame),
+        "images": image_paths,
+        "ego": ego_record(ego),
+        "agents": collect_agents(world, ego),
+        "map": map_info,
+        "weather": weather_record(world),
+        "command": build_command(waypoint),
+    }
+
+
+def main():
+    args = parse_args()
+    rng = random.Random(args.seed)
+    data_root = Path(args.data_root)
+    info_dir = data_root / "infos"
+    info_dir.mkdir(parents=True, exist_ok=True)
+
+    client = carla.Client(args.host, args.port)
+    client.set_timeout(20.0)
+    world = client.load_world(args.town)
+    original_settings = world.get_settings()
+
+    actors = []
+    sensors = []
+    samples = []
+    try:
+        settings = world.get_settings()
+        settings.synchronous_mode = True
+        settings.fixed_delta_seconds = 0.05
+        settings.no_rendering_mode = False
+        world.apply_settings(settings)
+        world.set_weather(carla.WeatherParameters.ClearNoon)
+
+        ego = spawn_ego(world, rng)
+        actors.append(ego)
+        actors.extend(spawn_traffic(client, world, ego, args.vehicles, args.walkers, rng))
+        sensors, sensor_queues = spawn_cameras(world, ego, args.image_width, args.image_height)
+
+        for _ in range(args.warmup_frames):
+            world.tick()
+
+        carla_map = world.get_map()
+        for sample_index in range(args.samples):
+            for _ in range(max(0, args.frames_between_samples - 1)):
+                world.tick()
+            samples.append(save_sample(world, carla_map, ego, sensor_queues, data_root, sample_index))
+
+        info_path = info_dir / "carla_infos_{}.pkl".format(args.split)
+        with info_path.open("wb") as f:
+            pickle.dump(samples, f)
+
+        print("Saved {} CARLA samples".format(len(samples)))
+        print("Images: {}".format(data_root / "images"))
+        print("Info: {}".format(info_path))
+    finally:
+        for sensor in sensors:
+            sensor.stop()
+        for actor in sensors + actors:
+            if actor is not None and actor.is_alive:
+                actor.destroy()
+        world.apply_settings(original_settings)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as exc:
+        print("ERROR: {}".format(exc), file=sys.stderr)
+        raise

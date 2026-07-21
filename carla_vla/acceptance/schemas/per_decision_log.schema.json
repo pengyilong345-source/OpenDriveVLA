@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/per_decision_log.schema.json",
+  "title": "per_decision_log",
+  "description": "One record per model decision cycle (one per replanning tick).",
+  "type": "object",
+  "required": [
+    "frame_id", "scenario_id", "seed", "group", "sim_t",
+    "t_sensor_ready", "t_apply",
+    "prompt_hash", "raw_output", "parsed_trajectory",
+    "is_all_zero", "parse_success",
+    "controller_target_xyz", "steer", "throttle", "brake",
+    "current_speed_mps", "tracking_error_m", "replanning_latency_s",
+    "alignment", "violations"
+  ],
+  "properties": {
+    "frame_id": {"type": "integer", "minimum": 0},
+    "scenario_id": {"type": "string"},
+    "subscenario": {"type": "string"},
+    "category": {"type": "string"},
+    "seed": {"type": "integer"},
+    "group": {"enum": ["G1", "G2", "G3"]},
+    "sim_t": {"type": "number", "minimum": 0.0},
+    "t_sensor_ready": {"type": "number", "description": "epoch seconds, camera batch ready"},
+    "t_apply": {"type": "number", "description": "epoch seconds, control applied"},
+    "prompt_hash": {"type": "string"},
+    "raw_output": {"type": "string"},
+    "parsed_trajectory": {
+      "type": "array",
+      "items": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+      "minItems": 0, "maxItems": 6
+    },
+    "is_all_zero": {"type": "boolean"},
+    "parse_success": {"type": "boolean"},
+    "controller_target_xyz": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+    "steer": {"type": "number"},
+    "throttle": {"type": "number"},
+    "brake": {"type": "number"},
+    "current_speed_mps": {"type": "number", "minimum": 0.0},
+    "tracking_error_m": {"type": "number", "minimum": 0.0},
+    "replanning_latency_s": {"type": "number", "minimum": 0.0},
+    "alignment": {
+      "type": "object",
+      "required": ["command", "visual", "vehicle_state", "joint"],
+      "properties": {
+        "command": {"type": "boolean"},
+        "visual": {"type": "boolean"},
+        "vehicle_state": {"type": "boolean"},
+        "joint": {"type": "boolean"},
+        "details": {
+          "type": "object",
+          "description": "Optional per-field detail (e.g. which sub-field failed).",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "violations": {
+      "type": "object",
+      "required": ["collision", "red_light", "stop_line", "solid_line",
+                   "wrong_way", "non_target_lane"],
+      "properties": {
+        "collision": {"type": "boolean"},
+        "red_light": {"type": "boolean"},
+        "stop_line": {"type": "boolean"},
+        "solid_line": {"type": "boolean"},
+        "wrong_way": {"type": "boolean"},
+        "non_target_lane": {"type": "boolean"},
+        "counts": {
+          "type": "object",
+          "properties": {
+            "collision": {"type": "integer", "minimum": 0},
+            "red_light": {"type": "integer", "minimum": 0},
+            "stop_line": {"type": "integer", "minimum": 0},
+            "solid_line": {"type": "integer", "minimum": 0},
+            "wrong_way": {"type": "integer", "minimum": 0},
+            "non_target_lane": {"type": "integer", "minimum": 0}
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "instruction_stage": {
+      "type": "object",
+      "description": "Active instruction-stage state for this tick.",
+      "required": ["id", "required", "fired", "order_correct"],
+      "properties": {
+        "id": {"type": "integer", "minimum": 0},
+        "required": {"type": "boolean"},
+        "fired": {"type": "boolean"},
+        "order_correct": {"type": "boolean"},
+        "stage_name": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "infrastructure_valid": {"type": "boolean"},
+    "infrastructure_invalid_reasons": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

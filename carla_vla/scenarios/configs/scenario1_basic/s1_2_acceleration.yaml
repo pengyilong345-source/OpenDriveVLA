@@ -1,0 +1,37 @@
+scenario_id: S1-2
+category: scenario1_basic
+subscenario: "S1-2 Acceleration"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 4
+  path_length_m: 250
+weather:
+  cloudiness: 5
+  precipitation: 0
+  sun_altitude: 65
+time_of_day_sun_alt_deg: 65
+ego_initial_speed_mps: 9.0
+ego_target_speed_mps: 16.7
+background_traffic_count: 0
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+triggers: []
+actors: []
+raw_instruction: "accelerate from 9 to 17 m/s then hold"
+route_command_label: FORWARD
+behavior_constraint: none
+target_speed_mps_override: 16.7
+target_lane_delta: 0
+hazard_type: none
+episode_timeout_s: 30.0
+success_conditions:
+  - speed_reaches_target_within_5s
+failure_conditions:
+  - speed_below_half_target_after_8s
+physically_avoidable: true
+random_seed: 1002
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "30-40 km/h -> 60 km/h. G1 expects FORWARD; target handled by interface, not by replacing trajectory."

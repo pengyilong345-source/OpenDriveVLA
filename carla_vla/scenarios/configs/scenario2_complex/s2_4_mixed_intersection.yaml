@@ -1,0 +1,84 @@
+scenario_id: S2-4
+category: scenario2_complex
+subscenario: "S2-4 Mixed intersection"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 175
+  path_length_m: 350
+weather:
+  cloudiness: 70
+  precipitation: 0
+  sun_altitude: 10
+time_of_day_sun_alt_deg: 10
+ego_initial_speed_mps: 8.0
+ego_target_speed_mps: 7.0
+background_traffic_count: 6
+pedestrian_count: 2
+bicycle_count: 1
+bus_count: 1
+triggers:
+  - kind: time_elapsed
+    threshold_s: 5.0
+    actor_role: ego
+    fire_once: true
+    note: "intersection activation after 5 s"
+actors:
+  - role: cross_car
+    actor_type: car
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [10.0, -8.0, 90.0]   # to the right, perpendicular
+    initial_speed_mps: 4.0
+    target_speed_mps: 4.0
+    note: "car crossing from the right"
+  - role: cross_bike
+    actor_type: bike
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [10.0, 4.0, 90.0]
+    initial_speed_mps: 2.5
+    target_speed_mps: 2.5
+    note: "bike crossing from the left"
+  - role: cross_ped
+    actor_type: walker
+    spawn_mode: waypoint_at
+    relative_to: ego
+    offset_xy: [15.0, -3.0, 0.0]
+    initial_speed_mps: 1.0
+    target_speed_mps: 1.0
+    note: "pedestrian approaching from right"
+  - role: cross_bus
+    actor_type: bus
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [-12.0, 0.0, 0.0]
+    initial_speed_mps: 0.0
+    target_speed_mps: 0.0
+    note: "bus waiting on the perpendicular road"
+raw_instruction: "intersection with mixed traffic; hold or proceed only when safe"
+route_command_label: FORWARD
+behavior_constraint: yield
+target_speed_mps_override: 5.0
+target_lane_delta: 0
+hazard_type: mixed_intersection
+episode_timeout_s: 40.0
+success_conditions:
+  - "no_collision_with_any_actor"
+  - "min_ttc_>=_1.5s"
+failure_conditions:
+  - "collision_with_actor"
+physically_avoidable: true
+random_seed: 2004
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Deterministic stage rule activates yield at the intersection."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "intersection in 5 s; yield to cross traffic"
+    set:
+      behavior: "yield"
+      target_speed_mps: 3.0
+      hazard_type: "mixed_intersection"
+      raw_instruction: "intersection with mixed traffic; hold or proceed only when safe"

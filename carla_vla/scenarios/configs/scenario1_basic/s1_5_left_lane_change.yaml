@@ -1,0 +1,51 @@
+scenario_id: S1-5
+category: scenario1_basic
+subscenario: "S1-5 Left lane change"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 60
+  path_length_m: 250
+weather:
+  cloudiness: 5
+  precipitation: 0
+  sun_altitude: 60
+time_of_day_sun_alt_deg: 60
+ego_initial_speed_mps: 10.0
+ego_target_speed_mps: 10.0
+background_traffic_count: 0
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+triggers:
+  - kind: time_elapsed
+    threshold_s: 3.0
+    actor_role: ego
+    fire_once: true
+    note: "stage-1 lane-change activation"
+actors: []
+raw_instruction: "change to the left lane when safe"
+route_command_label: FORWARD
+behavior_constraint: lane_change_left
+target_speed_mps_override: 10.0
+target_lane_delta: -1
+hazard_type: none
+episode_timeout_s: 30.0
+success_conditions:
+  - command_state_stage_advanced_to_1
+  - target_lane_delta_minus_1_set
+failure_conditions:
+  - ego_off_road
+physically_avoidable: true
+random_seed: 1005
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "High-level lane change stored separately from official route command."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "activate left lane change"
+    set:
+      behavior: "lane_change_left"
+      target_lane_delta: -1
+      raw_instruction: "change to the left lane when safe"

@@ -1,0 +1,133 @@
+# Stage D0.1.1 — Protocol hardening amendment (v1.1.1)
+#
+# Pure additive/clarifying amendment to v1.1.0. Does NOT modify any original
+# D0 v1.0.0 or D0.1 v1.1.0 formula.
+#
+# Hardenings:
+#   A. Strict handoff-speed boundary (5.0-8.0 m/s, tolerance=0)
+#   B. Terminology separation (deadline_miss / gateway_timeout / server_hang / process_restart)
+#   C. Stop/resume evaluation definitions
+#   D. Legitimate-stop vs abnormal-all-zero classification rules
+
+protocol_version: "1.1.1"
+amendment_to: "1.1.0"
+frozen_at: "2026-07-18"
+project_phase: "D0_1_1_protocol_hardening"
+
+# ============================================================
+# A. Strict handoff-speed boundary
+# ============================================================
+
+handoff_speed_boundary:
+  startup_min_speed_mps: 5.0
+  startup_max_speed_mps: 8.0
+  handoff_speed_tolerance_mps: 0.0  # zero tolerance
+  primary_condition: "5.0 <= real_handoff_speed_mps <= 8.0"
+  violation_rule: >
+    If handoff speed is outside [5.0, 8.0]:
+      handoff_valid = false
+      startup_failure_reason = "handoff_speed_out_of_range"
+      model_scoring_active = false
+  implementation_guidance: >
+    Target a warmup speed BELOW the maximum (e.g., 6.5-7.0 m/s) so that
+    measurement lag does not cause overshoot above 8.0 m/s.
+    Wait until speed is stably within [5.0, 8.0] for at least one full
+    synchronous tick BEFORE disabling AutoPilot.
+
+# ============================================================
+# B. Terminology hardening
+# ============================================================
+
+terminology:
+  deadline_miss:
+    definition: "D0 T0-T10 total latency > 150 ms"
+    field: "deadline_miss"
+    type: bool
+  gateway_response_timeout:
+    definition: "request exceeds the configured gateway waiting threshold"
+    field: "gateway_response_timeout"
+    type: bool
+  server_hang:
+    definition: "server heartbeat stops or request never completes and manual recovery is required"
+    field: "server_hang"
+    type: bool
+  process_restart:
+    definition: "process boot_id changes"
+    field: "process_restart"
+    type: bool
+  legacy_migration: "Old logs that merged timeout/hang are marked 'unknown_from_legacy_log' where the distinction is unavailable."
+
+# ============================================================
+# C. Stop/resume definitions
+# ============================================================
+
+stop_resume:
+  full_stop_definition:
+    condition: "real_speed_mps <= 0.10 continuously for >= 1.0 simulation second"
+    field: "full_stop_confirmed"
+    type: bool
+
+  hazard_clear_definition:
+    rule: >
+      Hazard is cleared when the scenario-grounded state indicates the
+      conflict is resolved (pedestrian has exited the conflict corridor,
+      traffic light has turned green, TTC hazard has moved out of path).
+      Not based on elapsed time alone.
+
+  resume_required:
+    condition: >
+      hazard_cleared == true
+      AND current instruction/route requires forward progress
+      AND episode has not terminated
+
+  resume_success:
+    condition: >
+      no external control after scoring start
+      AND model raw output becomes a valid non-zero trajectory
+      AND ego speed exceeds 1.0 m/s
+      AND speed remains above 1.0 m/s for >= 1.0 simulation second
+      AND ego advances at least 2.0 m after hazard clearance
+      AND no new stop-required hazard becomes active
+
+  resume_timeout_s: 5.0
+
+  stop_source_enum:
+    - model_legitimate_stop
+    - safety_ttc_stop
+    - abnormal_output_safety_stop
+    - controller_stop
+    - external_warmup
+    - none
+
+# ============================================================
+# D. Legitimate-stop vs abnormal-all-zero
+# ============================================================
+
+stop_classification:
+  legitimate_stop:
+    required_conditions:
+      - "a grounded stop-required condition is active"
+      - "the active instruction permits or requires stopping/yielding"
+      - "the stop occurs before the conflict/stop boundary"
+      - "no contrary movement command is active"
+      - "the trajectory is temporally consistent with stopping behavior"
+  abnormal_all_zero:
+    required_conditions:
+      - "no stop-required hazard exists OR the hazard has already cleared"
+      - "the instruction requires forward progress"
+      - "the output prevents required resumption"
+      - "the trajectory collapses to six zero points"
+  classification_rule: >
+    Do NOT classify based only on the fact that safety braking was applied.
+    Use scenario-grounded hazard state and instruction context.
+
+# ============================================================
+# Original formulas unchanged (restated)
+# ============================================================
+
+original_formulas_unchanged:
+  episode_success: "All 11 clauses from D0 v1.0.0 apply to MODEL_CONTROL_SCORED frames only."
+  violations: "All 5 violation categories from D0 v1.0.0."
+  semantic_alignment: "Joint alignment from D0 v1.0.0."
+  latency: "T0-T10 from D0 v1.0.0 on MODEL_CONTROL_SCORED frames."
+  warmup_exclusions: "All 8 exclusion rules from D0.1 v1.1.0."

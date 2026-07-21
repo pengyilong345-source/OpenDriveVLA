@@ -1,0 +1,72 @@
+scenario_id: S3-2
+category: scenario3_emergency
+subscenario: "S3-2 Construction lane closure"
+carla_map: "/Game/Carla/Maps/Town04"
+route:
+  spawn_point_index: 80
+  path_length_m: 300
+weather:
+  cloudiness: 95
+  precipitation: 25
+  fog: 8
+  sun_altitude: -50
+time_of_day_sun_alt_deg: -50
+ego_initial_speed_mps: 11.0
+ego_target_speed_mps: 9.0
+background_traffic_count: 3
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+triggers:
+  - kind: time_elapsed
+    threshold_s: 3.0
+    actor_role: cone1
+    fire_once: true
+    note: "cones become visible at 3 s"
+actors:
+  - role: cone1
+    actor_type: none
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [15.0, 1.5, 0.0]
+    note: "cone marker (conceptual actor; CARLA has no cone bp, recorded as None)"
+  - role: cone2
+    actor_type: none
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [18.0, 1.5, 0.0]
+    note: "second cone, lane narrowing"
+  - role: cone3
+    actor_type: none
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [21.0, 1.5, 0.0]
+    note: "third cone, lane closed"
+raw_instruction: "construction zone closes right lane; pass on the left carefully"
+route_command_label: FORWARD
+behavior_constraint: lane_change_left
+target_speed_mps_override: 7.0
+target_lane_delta: -1
+hazard_type: cones
+episode_timeout_s: 35.0
+success_conditions:
+  - "no_cone_collision"
+  - "left_lane_engaged"
+failure_conditions:
+  - "collision"
+physically_avoidable: true
+random_seed: 3002
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Cone positions are conceptual; visual-only constraint."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "construction cones; change to left lane and reduce speed"
+    set:
+      behavior: "lane_change_left"
+      target_lane_delta: -1
+      target_speed_mps: 6.0
+      hazard_type: "cones"
+      raw_instruction: "construction zone closes right lane; pass on the left carefully"

@@ -1,0 +1,25 @@
+{
+  "version": "v1.0-mini",
+  "source": "NuScenesTraj.get_sdc_planning_label over native v1.0-mini tables",
+  "token_count": 8,
+  "future_steps": 6,
+  "time_interval_seconds": 0.5,
+  "reference_frame": "current LIDAR_TOP",
+  "trajectory_semantics": "absolute future LIDAR-origin offsets in current LIDAR coordinates",
+  "trajectory_shape_per_token": [
+    1,
+    6,
+    2
+  ],
+  "trajectory_dtype": "float32",
+  "mask_shape_per_token": [
+    1,
+    6,
+    2
+  ],
+  "mask_dtype": "float32",
+  "mask_semantics": "1 for native future sample, 0 for unavailable; invalid stored zeros are not stationary GT",
+  "near_stationary_epsilon_m": 0.2,
+  "all_finite": true,
+  "gt_used_for_inference": false
+}

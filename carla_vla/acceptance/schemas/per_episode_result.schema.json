@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/per_episode_result.schema.json",
+  "title": "per_episode_result",
+  "description": "Final per-episode verdict and roll-up. One per (scenario, seed, group) tuple.",
+  "type": "object",
+  "required": [
+    "scenario_id", "subscenario", "category", "group", "seed",
+    "n_decisions_total", "n_decisions_infrastructure_valid",
+    "n_decisions_jointly_aligned", "n_invalid_outputs",
+    "route_completion_m", "route_completion_ratio",
+    "collision_count", "red_light_violation_count",
+    "stop_line_violation_count", "solid_line_violation_count",
+    "wrong_way_total_s", "non_target_lane_occupancy_max_s",
+    "instruction_stage_recall", "instruction_stage_order_correct",
+    "task_completed", "infrastructure_valid",
+    "infrastructure_invalid_reasons", "episode_success",
+    "latency_ms"
+  ],
+  "properties": {
+    "scenario_id": {"type": "string"},
+    "subscenario": {"type": "string"},
+    "category": {"type": "string"},
+    "group": {"enum": ["G1", "G2", "G3"]},
+    "seed": {"type": "integer"},
+    "n_decisions_total": {"type": "integer", "minimum": 0},
+    "n_decisions_infrastructure_valid": {"type": "integer", "minimum": 0},
+    "n_decisions_jointly_aligned": {"type": "integer", "minimum": 0},
+    "n_invalid_outputs": {"type": "integer", "minimum": 0},
+    "route_completion_m": {"type": "number", "minimum": 0.0},
+    "route_completion_ratio": {"type": "number", "minimum": 0.0, "maximum": 1.5},
+    "collision_count": {"type": "integer", "minimum": 0},
+    "red_light_violation_count": {"type": "integer", "minimum": 0},
+    "stop_line_violation_count": {"type": "integer", "minimum": 0},
+    "solid_line_violation_count": {"type": "integer", "minimum": 0},
+    "wrong_way_total_s": {"type": "number", "minimum": 0.0},
+    "non_target_lane_occupancy_max_s": {"type": "number", "minimum": 0.0},
+    "instruction_stage_recall": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "instruction_stage_order_correct": {"type": "boolean"},
+    "task_completed": {"type": "boolean"},
+    "infrastructure_valid": {"type": "boolean"},
+    "infrastructure_invalid_reasons": {"type": "array", "items": {"type": "string"}},
+    "episode_success": {"type": "boolean"},
+    "latency_ms": {
+      "type": "object",
+      "required": ["mean", "median", "p90", "p95", "p99", "max",
+                   "deadline_miss_count", "deadline_miss_rate"],
+      "properties": {
+        "mean": {"type": "number", "minimum": 0.0},
+        "median": {"type": "number", "minimum": 0.0},
+        "p90": {"type": "number", "minimum": 0.0},
+        "p95": {"type": "number", "minimum": 0.0},
+        "p99": {"type": "number", "minimum": 0.0},
+        "max": {"type": "number", "minimum": 0.0},
+        "deadline_miss_count": {"type": "integer", "minimum": 0},
+        "deadline_miss_rate": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

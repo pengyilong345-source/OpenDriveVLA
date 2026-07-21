@@ -256,6 +256,7 @@ class UniAD(UniADTrack):
                      gt_segmentation=None,
                      gt_instance=None, 
                      gt_occ_img_is_valid=None,
+                     inference_only=False,
                      **kwargs
                     ):
         """Test function
@@ -303,7 +304,9 @@ class UniAD(UniADTrack):
         bev_embed = result_track[0]["bev_embed"]
 
         if self.with_seg_head:
-            result_seg =  self.seg_head.forward_test(bev_embed, gt_lane_labels, gt_lane_masks, img_metas, rescale)
+            result_seg = self.seg_head.forward_test(
+                bev_embed, gt_lane_labels, gt_lane_masks, img_metas, rescale,
+                inference_only=inference_only)
 
         if self.with_motion_head:
             result_motion, outs_motion = self.motion_head.forward_test(bev_embed, outs_track=result_track[0], outs_seg=result_seg[0])
@@ -319,23 +322,26 @@ class UniAD(UniADTrack):
                 gt_segmentation=gt_segmentation,
                 gt_instance=gt_instance,
                 gt_img_is_valid=gt_occ_img_is_valid,
+                inference_only=inference_only,
             )
             result[0]['occ'] = outs_occ
         
         if self.with_planning_head:
-            planning_gt=dict(
-                segmentation=gt_segmentation,
-                sdc_planning=sdc_planning,
-                sdc_planning_mask=sdc_planning_mask,
-                command=command
-            )
             result_planning = self.planning_head.forward_test(bev_embed, outs_motion, outs_occ, command)
-            result[0]['planning'] = dict(
-                planning_gt=planning_gt,
-                result_planning=result_planning,
-            )
+            result[0]['planning'] = dict(result_planning=result_planning)
+            if not inference_only:
+                result[0]['planning']['planning_gt'] = dict(
+                    segmentation=gt_segmentation,
+                    sdc_planning=sdc_planning,
+                    sdc_planning_mask=sdc_planning_mask,
+                    command=command)
 
-        results_for_vlm = self.get_results_for_vlm(img_metas[0], result_track[0], result_seg[0], sdc_planning[0], sdc_planning_mask[0], command[0], in_uniad_train=False, **kwargs)
+        results_for_vlm = self.get_results_for_vlm(
+            img_metas[0], result_track[0], result_seg[0],
+            None if inference_only else sdc_planning[0],
+            None if inference_only else sdc_planning_mask[0],
+            command[0], in_uniad_train=False,
+            inference_only=inference_only, **kwargs)
 
         pop_track_list = ['prev_bev', 'bev_pos', 'bev_embed', 'track_query_embeddings', 'sdc_embedding', 'track_instances_fordet', 'img_feat_2D']
         seg_pop_list = ['args_tuple', 'ret_iou', 'output_query_things', 'output_query_stuff', 'chosen_output_query_things']
@@ -361,7 +367,7 @@ class UniAD(UniADTrack):
 
         return result, results_for_vlm
     
-    def get_results_for_vlm(self, img_metas, result_track, result_seg, sdc_planning, sdc_planning_mask, command, in_uniad_train=False, **kwargs):
+    def get_results_for_vlm(self, img_metas, result_track, result_seg, sdc_planning, sdc_planning_mask, command, in_uniad_train=False, inference_only=False, **kwargs):
         if not in_uniad_train:
             if 'gt_bboxes_3d' in kwargs:
                 gt_bboxes_3d = kwargs['gt_bboxes_3d'][0][0][0].tensor
@@ -424,13 +430,12 @@ class UniAD(UniADTrack):
             sample_token=_img_metas['sample_idx'],
             img_metas=_img_metas,
             result_track=_result_track,
-            result_seg=_result_seg,
-            planning_gt=dict(
+            result_seg=_result_seg)
+        if not inference_only:
+            results_for_vlm['planning_gt'] = dict(
                 sdc_planning=sdc_planning,
                 sdc_planning_mask=sdc_planning_mask,
-                command=command
-            )
-        )
+                command=command)
         return results_for_vlm
 
 # assign each detected bbox with a ground truth bbox

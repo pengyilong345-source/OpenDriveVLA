@@ -1007,7 +1007,8 @@ class PansegformerHead(SegDETRHead):
                     gt_lane_labels=None,
                     gt_lane_masks=None,
                     img_metas=None,
-                    rescale=False):
+                    rescale=False,
+                    inference_only=False):
         bbox_list = [dict() for i in range(len(img_metas))]
 
         pred_seg_dict = self(pts_feats)
@@ -1019,6 +1020,16 @@ class PansegformerHead(SegDETRHead):
                                            pred_seg_dict['reference'],
                                            img_metas,
                                            rescale=rescale)
+
+        if inference_only:
+            for result_dict, pts_bbox in zip(bbox_list, results):
+                result_dict['pts_bbox'] = pts_bbox
+                result_dict['ret_iou'] = {}
+                result_dict['args_tuple'] = pred_seg_dict['args_tuple']
+                result_dict['output_query_things'] = pts_bbox['output_query_things']
+                result_dict['output_query_stuff'] = pts_bbox['output_query_stuff']
+                result_dict['chosen_output_query_things'] = pts_bbox['chosen_output_query_things']
+            return bbox_list
 
         with torch.no_grad():
             drivable_pred = results[0]['drivable']

@@ -1,0 +1,68 @@
+scenario_id: S2-3
+category: scenario2_complex
+subscenario: "S2-3 Bus stop"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 150
+  path_length_m: 300
+weather:
+  cloudiness: 70
+  precipitation: 0
+  sun_altitude: 12
+time_of_day_sun_alt_deg: 12
+ego_initial_speed_mps: 9.0
+ego_target_speed_mps: 4.0
+background_traffic_count: 4
+pedestrian_count: 4
+bicycle_count: 0
+bus_count: 1
+triggers:
+  - kind: distance_to_ego
+    threshold_m: 25.0
+    actor_role: stopped_bus
+    fire_once: true
+    note: "bus within 25 m -> bus-stop pass"
+actors:
+  - role: stopped_bus
+    actor_type: bus
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [22.0, 0.0, 0.0]
+    target_speed_mps: 0.0
+    initial_speed_mps: 0.0
+    note: "stopped bus ahead"
+  - role: ped_at_bus
+    actor_type: walker
+    spawn_mode: relative
+    relative_to: stopped_bus
+    offset_xy: [0.0, 4.0, 0.0]
+    initial_speed_mps: 0.5
+    target_speed_mps: 0.5
+    note: "pedestrian near the bus"
+raw_instruction: "bus stopped at a bus stop; pass carefully with reduced speed"
+route_command_label: FORWARD
+behavior_constraint: bus_stop_pass
+target_speed_mps_override: 4.0
+target_lane_delta: 0
+hazard_type: bus_stop
+episode_timeout_s: 40.0
+success_conditions:
+  - "min_pedestrian_distance_>=_1.5m"
+  - "no_collision_with_bus"
+failure_conditions:
+  - "collision_with_bus_or_ped"
+physically_avoidable: true
+random_seed: 2003
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Reduced target speed while passing; lane change optional."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "bus-stop within 25 m; reduce speed and pass carefully"
+    set:
+      behavior: "bus_stop_pass"
+      target_speed_mps: 4.0
+      hazard_type: "bus_stop"
+      raw_instruction: "bus stopped at a bus stop; pass carefully with reduced speed"

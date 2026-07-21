@@ -1,0 +1,62 @@
+scenario_id: S3-3
+category: scenario3_emergency
+subscenario: "S3-3 Temporary pedestrian crossing"
+carla_map: "/Game/Carla/Maps/Town04"
+route:
+  spawn_point_index: 140
+  path_length_m: 250
+weather:
+  cloudiness: 95
+  precipitation: 35
+  fog: 12
+  sun_altitude: -50
+time_of_day_sun_alt_deg: -50
+ego_initial_speed_mps: 12.0
+ego_target_speed_mps: 5.0
+background_traffic_count: 2
+pedestrian_count: 2
+bicycle_count: 0
+bus_count: 0
+# TTC difficulty: difficult but avoidable (ped crossing at ~14 m).
+triggers:
+  - kind: time_elapsed
+    threshold_s: 3.0
+    actor_role: temp_ped
+    fire_once: true
+    note: "temporary pedestrian crossing activates at 3 s"
+actors:
+  - role: temp_ped
+    actor_type: walker
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [14.0, -3.0, 0.0]
+    initial_speed_mps: 1.5
+    target_speed_mps: 1.5
+    note: "temp crossing pedestrian at 14 m"
+raw_instruction: "temporary pedestrian crossing ahead in dark wet conditions; yield"
+route_command_label: FORWARD
+behavior_constraint: emergency_brake
+target_speed_mps_override: 2.0
+target_lane_delta: 0
+hazard_type: pedestrian_crossing
+episode_timeout_s: 30.0
+success_conditions:
+  - "ped_distance_min_>=_1.5m"
+  - "no_collision_with_ped"
+failure_conditions:
+  - "collision_with_ped"
+physically_avoidable: true
+random_seed: 3003
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "S3-3 'difficult but avoidable' difficulty."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "temp pedestrian crossing; emergency brake"
+    set:
+      behavior: "emergency_brake"
+      target_speed_mps: 2.0
+      hazard_type: "pedestrian_crossing"
+      raw_instruction: "temporary pedestrian crossing ahead in dark wet conditions; yield"

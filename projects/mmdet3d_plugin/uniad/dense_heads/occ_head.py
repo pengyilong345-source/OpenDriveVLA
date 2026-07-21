@@ -413,16 +413,23 @@ class OccHead(BaseModule):
                     gt_segmentation=None,
                     gt_instance=None,
                     gt_img_is_valid=None,
+                    inference_only=False,
                 ):
-        gt_segmentation, gt_instance, gt_img_is_valid = self.get_occ_labels(gt_segmentation, gt_instance, gt_img_is_valid)
-
         out_dict = dict()
-        out_dict['seg_gt']  = gt_segmentation[:, :1+self.n_future]  # [1, 5, 1, 200, 200]
-        out_dict['ins_seg_gt'] = self.get_ins_seg_gt(gt_instance[:, :1+self.n_future])  # [1, 5, 200, 200]
+        if not inference_only:
+            gt_segmentation, gt_instance, gt_img_is_valid = self.get_occ_labels(gt_segmentation, gt_instance, gt_img_is_valid)
+            out_dict['seg_gt'] = gt_segmentation[:, :1+self.n_future]
+            out_dict['ins_seg_gt'] = self.get_ins_seg_gt(gt_instance[:, :1+self.n_future])
         if no_query:
-            # output all zero results
-            out_dict['seg_out'] = torch.zeros_like(out_dict['seg_gt']).long()  # [1, 5, 1, 200, 200]
-            out_dict['ins_seg_out'] = torch.zeros_like(out_dict['ins_seg_gt']).long()  # [1, 5, 200, 200]
+            # No detected queries means the model predicts empty occupancy.
+            if inference_only:
+                batch_size = bev_feat.shape[1]
+                shape = (batch_size, 1 + self.n_future, *self.bev_size)
+                out_dict['seg_out'] = bev_feat.new_zeros(shape).long().unsqueeze(2)
+                out_dict['ins_seg_out'] = bev_feat.new_zeros(shape).long()
+            else:
+                out_dict['seg_out'] = torch.zeros_like(out_dict['seg_gt']).long()
+                out_dict['ins_seg_out'] = torch.zeros_like(out_dict['ins_seg_gt']).long()
             return out_dict
 
         ins_query = self.merge_queries(outs_dict, self.detach_query_pos)

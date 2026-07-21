@@ -1,0 +1,61 @@
+scenario_id: S3-1
+category: scenario3_emergency
+subscenario: "S3-1 Sudden cut-in"
+carla_map: "/Game/Carla/Maps/Town04"
+route:
+  spawn_point_index: 30
+  path_length_m: 300
+weather:
+  cloudiness: 95
+  precipitation: 30
+  fog: 5
+  sun_altitude: -45
+time_of_day_sun_alt_deg: -45
+ego_initial_speed_mps: 13.0
+ego_target_speed_mps: 12.0
+background_traffic_count: 3
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+triggers:
+  - kind: time_elapsed
+    threshold_s: 4.0
+    actor_role: cut_in_car
+    fire_once: true
+    note: "cut-in starts at 4 s"
+actors:
+  - role: cut_in_car
+    actor_type: car
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [12.0, 3.0, 0.0]      # adjacent right, slightly ahead
+    initial_speed_mps: 9.0
+    target_speed_mps: 12.0            # matching ego speed
+    note: "vehicle that will cut in to ego's lane"
+raw_instruction: "rainy night, leading car may cut in; maintain safe distance"
+route_command_label: FORWARD
+behavior_constraint: emergency_brake
+target_speed_mps_override: 8.0
+target_lane_delta: 0
+hazard_type: cut_in
+episode_timeout_s: 30.0
+success_conditions:
+  - "min_ttc_>=_1.2s"
+  - "no_collision"
+failure_conditions:
+  - "collision_with_cut_in_car"
+physically_avoidable: true
+random_seed: 3001
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "TTC difficulty: avoidable with braking."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "adjacent car starts cut-in; emergency brake constraint"
+    set:
+      behavior: "emergency_brake"
+      target_speed_mps: 6.0
+      hazard_type: "cut_in"
+      raw_instruction: "rainy night, leading car may cut in; maintain safe distance"

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/instruction_stage_result.schema.json",
+  "title": "instruction_stage_result",
+  "description": "Per-episode deterministic command-manager stage trace and recall computation.",
+  "type": "object",
+  "required": ["scenario_id", "seed", "group",
+               "required_stages", "fired_stages",
+               "stage_order_fired", "recall", "order_correct",
+               "response_deadline_violations"],
+  "properties": {
+    "scenario_id": {"type": "string"},
+    "seed": {"type": "integer"},
+    "group": {"enum": ["G1", "G2", "G3"]},
+    "required_stages": {
+      "type": "array",
+      "description": "Stage IDs (or names) that the scenario declares as required.",
+      "items": {"type": "string"}
+    },
+    "fired_stages": {
+      "type": "array",
+      "description": "Stage IDs that actually fired during the episode.",
+      "items": {"type": "string"}
+    },
+    "stage_order_fired": {
+      "type": "array",
+      "description": "Time-ordered list of fired stage IDs.",
+      "items": {
+        "type": "object",
+        "required": ["stage_id", "t_s"],
+        "properties": {
+          "stage_id": {"type": "string"},
+          "t_s": {"type": "number"}
+        }
+      }
+    },
+    "recall": {"type": "number", "minimum": 0.0, "maximum": 1.0,
+               "description": "fired_required / required_total. Equals 1.0 iff episode_success clause satisfied."},
+    "order_correct": {"type": "boolean",
+                      "description": "Fired stages are a permutation-subset of the required order."},
+    "response_deadline_violations": {
+      "type": "array",
+      "description": "Stages whose first fire was later than stage_response_deadline_s after their trigger.",
+      "items": {
+        "type": "object",
+        "required": ["stage_id", "expected_fire_t_s", "actual_fire_t_s"],
+        "properties": {
+          "stage_id": {"type": "string"},
+          "expected_fire_t_s": {"type": "number"},
+          "actual_fire_t_s": {"type": "number"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

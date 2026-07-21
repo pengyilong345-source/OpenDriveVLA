@@ -101,3 +101,73 @@ Example:
     "CAM_BACK_LEFT": "images/mock_000000/CAM_BACK_LEFT.png",
     "CAM_BACK_RIGHT": "images/mock_000000/CAM_BACK_RIGHT.png"
 }
+
+## Default command
+
+The default command should be:
+
+Drive safely and follow the lane.
+
+## Dataset requirements
+
+CarlaLLaVADataset should:
+
+- Read `carla_infos_val.pkl`.
+- Load six camera images using PIL.
+- Build a structured driving prompt from:
+  - command
+  - ego state
+  - nearby agents
+  - map information
+  - weather
+- Return a dictionary containing:
+  - sample_id
+  - prompt
+  - images
+  - ego
+  - agents
+  - map
+  - weather
+  - command
+
+In this stage, the dataset does not need to tokenize the prompt.
+In this stage, the dataset does not need to call OpenDriveVLA.
+In this stage, the dataset only needs to prove that CARLA-style data can be loaded correctly.
+
+## Test script requirements
+
+`carla_vla/tools/test_carla_dataset.py` should:
+
+- Load `CarlaLLaVADataset`.
+- Read the mock info file.
+- Print:
+  - dataset length
+  - sample_id
+  - prompt
+  - number of images
+  - image sizes
+  - ego state
+  - map info
+  - first few agents
+- Assert that:
+  - dataset length is 1
+  - there are 6 images
+  - all images can be loaded
+  - prompt is a non-empty string
+
+## Do not commit
+
+Do not commit:
+
+- `data/`
+- `checkpoints/`
+- `output/`
+- `outputs/`
+- `logs/`
+- `*.safetensors`
+- `*.pth`
+- `*.pt`
+- `*.bin`
+- `*.mp4`
+- `*.zip`
+- `*.tar`

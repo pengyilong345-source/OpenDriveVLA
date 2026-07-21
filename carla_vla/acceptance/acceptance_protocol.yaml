@@ -1,0 +1,435 @@
+# Stage D0 — Acceptance protocol for CARLA OpenDriveVLA evaluation
+#
+# This file is the single source of truth for "what counts as a successful
+# episode, a violation, an aligned decision, and an on-time decision" in
+# every future online experiment (Stage D1 and onward). It is intentionally
+# frozen BEFORE any new online experiment runs. Any change to this file
+# invalidates the comparison across runs that were scored with the old
+# version.
+#
+# Everything in this file is overridable per subscenario via fields in
+# `carla_vla/scenarios/configs/scenario*/<id>.yaml` under
+# `acceptance_overrides:`. Default values are the values in the tables
+# below. Override keys mirror the field names in
+# `carla_vla/scenarios/config.py::Scenario`.
+#
+# Re-derivation of every formula is documented in:
+#   carla_vla/docs/carla_acceptance_protocol.md
+#   carla_vla/docs/carla_semantic_alignment_definition.md
+#   carla_vla/docs/carla_completion_and_violation_definition.md
+#   carla_vla/docs/carla_latency_definition.md
+#
+# Versioning rule: bump `protocol_version` on any change to the formulas
+# (not on cosmetic edits). Old frozen runs must re-export under their old
+# version.
+
+protocol_version: "1.0.0"
+frozen_at: "2026-07-16"
+project_phase: "D0_protocol_freeze"
+
+# ============================================================
+# 1. Episode success formula (the canonical definition)
+# ============================================================
+
+# episode_success is TRUE iff every clause is TRUE:
+#
+#   episode_success =
+#     infrastructure_valid
+#     AND no_collision
+#     AND no_red_light_violation
+#     AND no_stop_line_violation
+#     AND no_solid_line_violation
+#     AND no_wrong_way
+#     AND no_prolonged_non_target_lane_occupancy
+#     AND instruction_stage_recall == 1.0
+#     AND instruction_stage_order_correct
+#     AND task_completed
+#     AND route_completed
+#
+# Clauses are evaluated as boolean per episode; the final episode_success
+# is the AND across all 11 clauses.
+
+episode_success:
+  clauses:
+    - id: infrastructure_valid
+      description: >
+        The data quality gate passed for every frame: 6 cameras on the same
+        CARLA server frame, validated calibration, complete 2-second ego
+        history, future GT (reconstructed or recorded) non-empty for ≥ 6
+        points, no NaN/Inf in can_bus / ego2global / sensor2lidar, no
+        forbidden GT key reached model.generate.
+      field: infrastructure_valid
+      type: bool
+      required: true
+
+    - id: no_collision
+      description: >
+        Zero CollisionEvent raised during the episode. Any actor class
+        counts (vehicle / walker / static / cone / barrier).
+      field: no_collision
+      type: bool
+      required: true
+
+    - id: no_red_light_violation
+      description: >
+        Ego never crossed a traffic-light stop line while the relevant
+        signal was red. Yellow is treated as red for this check.
+      field: no_red_light_violation
+      type: bool
+      required: true
+
+    - id: no_stop_line_violation
+      description: >
+        Ego never crossed a stop sign stop-line (regardless of actor
+        presence). Crossings within stop_line_tolerance_m of the line
+        but not past it are NOT violations; they are tracked separately.
+      field: no_stop_line_violation
+      type: bool
+      required: true
+
+    - id: no_solid_line_violation
+      description: >
+        Ego never crossed a solid (non-dashed) lane marking. Dashed-line
+        crossings are tracked separately and do NOT violate this clause.
+      field: no_solid_line_violation
+      type: bool
+      required: true
+
+    - id: no_wrong_way
+      description: >
+        Ego never drove against the legal direction of travel on the
+        current lane. Persistence must exceed wrong_way_persistence_s
+        before being counted (a single-frame slip into an opposing lane
+        during a turn is not a violation).
+      field: no_wrong_way
+      type: bool
+      required: true
+
+    - id: no_prolonged_non_target_lane_occupancy
+      description: >
+        The ego did not occupy a lane that is NOT the target lane for
+        longer than max_non_target_lane_occupancy_s. Brief occupancy
+        during a planned lane change is allowed.
+      field: no_prolonged_non_target_lane_occupancy
+      type: bool
+      required: true
+
+    - id: instruction_stage_recall_full
+      description: >
+        Every required instruction stage (per
+        scenario.yaml::stage_rules::required_stages) was triggered at
+        least once during the episode.
+        instruction_stage_recall = triggered_required / required_total,
+        and this clause demands == 1.0.
+      field: instruction_stage_recall
+      operator: ==
+      threshold: 1.0
+      type: float
+      required: true
+
+    - id: instruction_stage_order_correct
+      description: >
+        Required stages fired in the order specified in the scenario
+        config. A stage fired out of order invalidates this clause.
+      field: instruction_stage_order_correct
+      type: bool
+      required: true
+
+    - id: task_completed
+      description: >
+        The scenario-specific task is satisfied (e.g., overtake completed,
+        yield-to-pedestrian confirmed, bus-stop passed, lane-change
+        completed). Computed from scenario.task_completion_check().
+      field: task_completed
+      type: bool
+      required: true
+
+    - id: route_completed
+      description: >
+        Total arc-length travelled ≥ minimum_route_completion_ratio *
+        total planned route length. The planned route length is the
+        sum of (origin → next waypoint) distances along the scenario's
+        route, normalized for short test routes (see note).
+      field: route_completed
+      type: bool
+      required: true
+
+# ============================================================
+# 2. Scenario completion rate
+# ============================================================
+
+scenario_completion_rate:
+  definition: |
+    scenario_completion_rate = successful_infrastructure_valid /
+                              infrastructure_valid_total
+  stratification:
+    - overall                # across all subscenarios × all seeds
+    - category:<name>        # per category (scenario1_basic, ...)
+    - subscenario:<id>       # per subscenario
+  infrastructure_invalid_handling: |
+    Infrastructure-invalid episodes are reported separately and NEVER
+    silently dropped. They are excluded from the rate numerator AND the
+    rate denominator? NO — they appear in BOTH (denominator only),
+    because the spec says "successful / all infrastructure-valid".
+    Concretely: episodes marked infrastructure_valid == False are
+    excluded from the numerator (no success) and from the denominator
+    (not "infrastructure-valid"). The report shows their count and
+    reason alongside the rate.
+  thresholds:
+    official_overall: 0.90     # ≥ 90% required for official acceptance
+    category_warning: 0.80     # any category below this raises a warning
+
+# ============================================================
+# 3. End-to-end decision latency
+# ============================================================
+
+latency:
+  definition: |
+    latency = t_apply - t_sensor_ready
+    where:
+      t_sensor_ready = the timestamp at which the synchronized 6-camera
+        batch for this decision cycle is ready in CARLA. In online mode
+        this is the highest-image.frame across the 6 cameras at the
+        start of the cycle; in offline emulation this is
+        step.sim_t from the recorded record.pkl.
+      t_apply = the wall-clock time at which the control command
+        (steer, throttle, brake) was applied to the ego vehicle (via
+        carla.VehicleControl.apply() in online mode; via the kinematic
+        bicycle step in offline mode).
+  strict_deadline_s: 0.150    # 150 ms; every accepted decision cycle ≤ this
+  must_report:
+    - mean
+    - median
+    - p90
+    - p95
+    - p99
+    - max
+    - deadline_miss_count
+    - deadline_miss_rate      # fraction of cycles where latency > 0.150 s
+  verdict_rule: |
+    The strict verdict is "pass" iff `max(cycle_latency) <= 0.150 s`.
+    A percentile-only verdict (e.g. "P95 = 142 ms") is NEVER sufficient.
+    If max exceeds 0.150 s, the run is rejected regardless of percentiles.
+
+# ============================================================
+# 4. Semantic alignment (joint exact match)
+# ============================================================
+
+semantic_alignment:
+  definition: |
+    A decision frame is JOINTLY ALIGNED iff all three of {command,
+    visual, vehicle-state} are aligned for that frame.
+  joint_alignment_precision:
+    formula: |
+      joint_semantic_alignment_precision =
+          jointly_aligned_valid_decisions
+        / infrastructure_valid_decision_frames
+  components:
+    command_alignment:
+      required_fields:
+        - route_intent_match          # predicted trajectory heading ∈ ±30°
+                                        # of the active route command
+                                        # (LEFT/RIGHT/FORWARD)
+        - speed_intent_match          # predicted speed direction sign matches
+                                        # (forward positive for FORWARD,
+                                        # sideways ≤ 0.5 m for STOP)
+        - lane_intent_match           # predicted lateral direction matches
+                                        # target_lane_delta
+        - stage_recall_match          # model fires the same stage that the
+                                        # deterministic command manager did
+        - ordering_no_violation       # no earlier-stage action executed
+                                        # before prerequisite stage fired
+      pass_rule: all_of
+
+    visual_alignment:
+      required_fields:
+        - traffic_light_response_match     # predictions don't accelerate
+                                            # across a red
+        - hazard_avoidance_match            # predictions steer/brake
+                                            # around visible hazards
+        - obstacle_avoidance_match           # predictions deviate from
+                                            # visible static obstacles
+        - lane_closure_match                # predictions avoid a closed
+                                            # lane (cones)
+        - lane_availability_match           # predictions target an open
+                                            # lane
+        - intersection_geometry_match       # predictions respect the
+                                            # visible intersection type
+      pass_rule: all_of
+
+    vehicle_state_alignment:
+      required_fields:
+        - speed_compatibility              # target_speed within ±speed_tolerance_mps
+                                            # of current state target
+        - lane_target_match                # target lane reachable from current lane
+                                            # under target_lane_delta
+        - heading_consistency             # predicted trajectory tangent
+                                            # close to ego heading at start
+        - history_consistency             # predicted (x0,y0) close to
+                                            # last history endpoint within
+                                            # 0.5 m
+      pass_rule: all_of
+
+  exclusion_rule: |
+    Invalid outputs (parse_traj returned None), all-zero trajectories,
+    and rejected predictions are NOT counted as aligned. They ARE
+    counted in the denominator (infrastructure-valid decision frames)
+    because they represent decisions the system actually made.
+    Only infrastructure-invalid frames may be excluded from the
+    denominator.
+
+  supplementary_metrics:
+    strict_joint_exact_match_rate:  # same as joint_alignment_precision
+    micro_precision:                 # = joint (only positive class is "aligned")
+    macro_precision:                 # mean over the 3 axes (each axis binary)
+    macro_F1:                        # harmonic mean over 3 axes
+    invalid_output_contribution:     # fraction of all decisions that were
+                                    # invalid outputs (separate diagnostic)
+
+# ============================================================
+# 5. Configurable thresholds (with defaults)
+# ============================================================
+
+# Every key below is overridable per subscenario via
+# `acceptance_overrides:` in the YAML. Defaults are the values used when
+# no override is given.
+
+thresholds:
+  default:
+    target_lane_id: null                 # null = "any forward lane"; explicit
+                                        # = the lane_id the ego should end up in
+    allowed_lane_transition: "any"       # any | same | left_then_right | ...
+    lane_change_start_stage: 1           # stage at which a lane-change may begin
+    lane_change_end_stage: null          # stage by which a lane-change must end
+                                        # null = no upper bound (until route end)
+    max_non_target_lane_occupancy_s: 3.0 # prolonged occupancy cap
+    wrong_way_persistence_s: 1.0         # persistence threshold
+    stop_line_tolerance_m: 0.5           # distance from line that still
+                                        # counts as "not crossed"
+    speed_tolerance_mps: 1.5             # target_speed band for vehicle-state
+                                        # alignment
+    stage_response_deadline_s: 3.0       # time budget for required stage
+                                        # to fire after its trigger
+    minimum_route_completion_ratio: 0.80 # fraction of route arc-length
+
+  overrides_per_subscenario: {}
+
+  # Per-category minimum requirements (warnings, not failures):
+  category_minimums:
+    scenario1_basic:        {minimum_route_completion_ratio: 0.80}
+    scenario2_complex:      {minimum_route_completion_ratio: 0.70}
+    scenario3_emergency:    {minimum_route_completion_ratio: 0.60,
+                             speed_tolerance_mps: 2.0}
+
+# ============================================================
+# 6. Required log fields (per decision frame)
+# ============================================================
+
+per_decision_log:
+  required_top_level:
+    - frame_id
+    - scenario_id
+    - seed
+    - group               # G1 | G2 | G3
+    - sim_t
+    - t_sensor_ready      # see latency definition
+    - t_apply             # see latency definition
+  required_decision:
+    - prompt_hash
+    - raw_output
+    - parsed_trajectory
+    - is_all_zero
+    - parse_success
+    - controller_target_xyz
+    - steer
+    - throttle
+    - brake
+    - current_speed_mps
+    - tracking_error_m
+    - replanning_latency_s
+
+  required_alignment:
+    - command_alignment: {all_fields: bool}
+    - visual_alignment:  {all_fields: bool}
+    - vehicle_state_alignment: {all_fields: bool}
+    - joint_alignment: bool
+
+  required_violation:
+    - collision_count
+    - red_light_violation_count
+    - stop_line_violation_count
+    - solid_line_violation_count
+    - wrong_way_persistence_s
+    - non_target_lane_occupancy_s
+    - instruction_stage_recall
+    - instruction_stage_order_correct
+    - task_completed
+    - route_completion_ratio
+
+# ============================================================
+# 7. Required per-episode result fields
+# ============================================================
+
+per_episode_result:
+  required_top_level:
+    - scenario_id
+    - subscenario
+    - category
+    - group
+    - seed
+    - n_decisions_total
+    - n_decisions_infrastructure_valid
+    - n_decisions_jointly_aligned
+    - n_invalid_outputs
+    - route_completion_m
+    - route_completion_ratio
+    - collision_count
+    - red_light_violation_count
+    - stop_line_violation_count
+    - solid_line_violation_count
+    - wrong_way_total_s
+    - non_target_lane_occupancy_max_s
+    - instruction_stage_recall
+    - instruction_stage_order_correct
+    - task_completed
+    - infrastructure_valid
+    - infrastructure_invalid_reasons
+    - episode_success
+    - latency_ms:
+        mean
+        median
+        p90
+        p95
+        p99
+        max
+        deadline_miss_count
+        deadline_miss_rate
+
+# ============================================================
+# 8. Required acceptance verdict
+# ============================================================
+
+acceptance_verdict:
+  verdict_fields:
+    - protocol_version
+    - scenario_completion_rate_overall
+    - scenario_completion_rate_by_category
+    - scenario_completion_rate_by_subscenario
+    - latency_max_ms
+    - latency_deadline_miss_count
+    - latency_deadline_miss_rate
+    - joint_semantic_alignment_precision
+    - command_alignment_precision
+    - visual_alignment_precision
+    - vehicle_state_alignment_precision
+    - pass:
+        completion_overall_ge_0p90:
+          formula: scenario_completion_rate_overall >= 0.90
+        latency_max_le_150ms:
+          formula: latency_max_ms <= 150
+        joint_alignment_ge_0p98:
+          formula: joint_semantic_alignment_precision >= 0.98
+    - verdict:
+        formula: |
+          overall_verdict = pass.completion AND pass.latency AND pass.alignment
+        values: ["ACCEPTED", "REJECTED"]

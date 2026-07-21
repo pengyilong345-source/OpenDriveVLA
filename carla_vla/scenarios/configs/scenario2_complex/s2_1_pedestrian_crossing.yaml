@@ -1,0 +1,62 @@
+scenario_id: S2-1
+category: scenario2_complex
+subscenario: "S2-1 Pedestrian crossing and yielding"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 90
+  path_length_m: 300
+weather:
+  cloudiness: 60
+  precipitation: 0
+  sun_altitude: 10
+time_of_day_sun_alt_deg: 10
+ego_initial_speed_mps: 8.0
+ego_target_speed_mps: 6.0
+background_traffic_count: 4
+pedestrian_count: 2
+bicycle_count: 0
+bus_count: 0
+# Fire the yield behavior when a pedestrian is within 20 m of the ego.
+triggers:
+  - kind: distance_to_ego
+    threshold_m: 20.0
+    actor_role: ped_crossing
+    fire_once: true
+    note: "ped within 20 m -> switch to yield"
+actors:
+  - role: ped_crossing
+    actor_type: walker
+    spawn_mode: waypoint_at
+    relative_to: ego
+    offset_xy: [25.0, 0.0, 0.0]    # ~25 m ahead of ego on the road
+    target_speed_mps: 1.3
+    initial_speed_mps: 1.3
+    autopiloted: false
+    note: "walker that crosses the ego's path at 1.3 m/s"
+raw_instruction: "pedestrian ahead will cross; slow and yield if necessary"
+route_command_label: FORWARD
+behavior_constraint: yield
+target_speed_mps_override: 3.0
+target_lane_delta: 0
+hazard_type: pedestrian_crossing
+episode_timeout_s: 35.0
+success_conditions:
+  - "pedestrian_distance_min_>=_1.5m"
+  - command_state_stage_advanced_to_1
+failure_conditions:
+  - pedestrian_collision
+physically_avoidable: true
+random_seed: 2001
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Dusk, low illumination; deterministic pedestrian distance trigger."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "pedestrian within 20 m; switch to yield"
+    set:
+      behavior: "yield"
+      target_speed_mps: 1.5
+      hazard_type: "pedestrian_crossing"
+      raw_instruction: "pedestrian ahead will cross; slow and yield if necessary"

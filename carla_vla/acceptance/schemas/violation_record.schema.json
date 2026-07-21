@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/violation_record.schema.json",
+  "title": "violation_record",
+  "description": "Per-episode violation roll-up.",
+  "type": "object",
+  "required": ["scenario_id", "seed", "group",
+               "collision_count", "red_light_violation_count",
+               "stop_line_violation_count", "solid_line_violation_count",
+               "wrong_way_total_s", "non_target_lane_occupancy_max_s",
+               "first_violation_t_s"],
+  "properties": {
+    "scenario_id": {"type": "string"},
+    "seed": {"type": "integer"},
+    "group": {"enum": ["G1", "G2", "G3"]},
+    "collision_count": {"type": "integer", "minimum": 0},
+    "red_light_violation_count": {"type": "integer", "minimum": 0},
+    "stop_line_violation_count": {"type": "integer", "minimum": 0},
+    "solid_line_violation_count": {"type": "integer", "minimum": 0},
+    "wrong_way_total_s": {"type": "number", "minimum": 0.0},
+    "non_target_lane_occupancy_max_s": {"type": "number", "minimum": 0.0},
+    "first_violation_t_s": {"type": ["number", "null"], "minimum": 0.0,
+                              "description": "sim_t of the first violation, null if none."},
+    "details": {
+      "type": "object",
+      "description": "Optional per-violation detail lists.",
+      "properties": {
+        "collision_frames":  {"type": "array", "items": {"type": "integer"}},
+        "red_light_frames":  {"type": "array", "items": {"type": "integer"}},
+        "stop_line_frames":  {"type": "array", "items": {"type": "integer"}},
+        "solid_line_frames": {"type": "array", "items": {"type": "integer"}},
+        "wrong_way_periods_s": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end"],
+            "properties": {
+              "start": {"type": "number"},
+              "end":   {"type": "number"}
+            }
+          }
+        },
+        "non_target_lane_periods_s": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end", "lane_id"],
+            "properties": {
+              "start": {"type": "number"},
+              "end":   {"type": "number"},
+              "lane_id": {"type": "integer"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,54 @@
+scenario_id: S1-4
+category: scenario1_basic
+subscenario: "S1-4 Right turn"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 30
+  path_length_m: 400
+weather:
+  cloudiness: 5
+  precipitation: 0
+  sun_altitude: 60
+time_of_day_sun_alt_deg: 60
+ego_initial_speed_mps: 8.0
+ego_target_speed_mps: 8.0
+background_traffic_count: 0
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+# Fire the right-turn command when ego is ~30 m before the intersection.
+triggers:
+  - kind: time_elapsed
+    threshold_s: 4.0
+    actor_role: ego
+    fire_once: true
+    note: "demo: time-based; in production replace with waypoint-distance trigger"
+actors: []
+raw_instruction: "approach intersection and turn right"
+route_command_label: RIGHT
+behavior_constraint: none
+target_speed_mps_override: 6.0
+target_lane_delta: 0
+hazard_type: none
+episode_timeout_s: 35.0
+success_conditions:
+  - command_state_stage_advanced_to_1
+  - ego_off_original_lane
+failure_conditions:
+  - ego_off_road
+physically_avoidable: true
+random_seed: 1004
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "3-second horizon cannot reason about a 300 m turn; we activate RIGHT near the intersection via a stage rule."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "approach intersection; switch to RIGHT"
+    set:
+      route_command: "RIGHT"
+      behavior: "slow"
+      target_speed_mps: 6.0
+      hazard_type: "intersection"
+      raw_instruction: "approach intersection and turn right"

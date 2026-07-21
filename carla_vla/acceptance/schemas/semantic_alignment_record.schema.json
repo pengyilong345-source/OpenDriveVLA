@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://opendrivevla.local/carla/acceptance/semantic_alignment_record.schema.json",
+  "title": "semantic_alignment_record",
+  "description": "One record per (infrastructure-valid) decision frame. Three axes of alignment.",
+  "type": "object",
+  "required": ["frame_id", "scenario_id", "seed", "group",
+               "command", "visual", "vehicle_state", "joint",
+               "infrastructure_valid", "parse_success", "is_all_zero"],
+  "properties": {
+    "frame_id": {"type": "integer", "minimum": 0},
+    "scenario_id": {"type": "string"},
+    "seed": {"type": "integer"},
+    "group": {"enum": ["G1", "G2", "G3"]},
+    "command": {
+      "type": "object",
+      "description": "Command-semantics alignment.",
+      "required": ["aligned",
+                   "route_intent_match", "speed_intent_match",
+                   "lane_intent_match", "stage_recall_match",
+                   "ordering_no_violation"],
+      "properties": {
+        "aligned": {"type": "boolean"},
+        "route_intent_match": {"type": "boolean"},
+        "speed_intent_match": {"type": "boolean"},
+        "lane_intent_match": {"type": "boolean"},
+        "stage_recall_match": {"type": "boolean"},
+        "ordering_no_violation": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "visual": {
+      "type": "object",
+      "description": "Visual-scene-semantics alignment.",
+      "required": ["aligned",
+                   "traffic_light_response_match", "hazard_avoidance_match",
+                   "obstacle_avoidance_match", "lane_closure_match",
+                   "lane_availability_match", "intersection_geometry_match"],
+      "properties": {
+        "aligned": {"type": "boolean"},
+        "traffic_light_response_match": {"type": "boolean"},
+        "hazard_avoidance_match": {"type": "boolean"},
+        "obstacle_avoidance_match": {"type": "boolean"},
+        "lane_closure_match": {"type": "boolean"},
+        "lane_availability_match": {"type": "boolean"},
+        "intersection_geometry_match": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "vehicle_state": {
+      "type": "object",
+      "description": "Vehicle-state-semantics alignment.",
+      "required": ["aligned",
+                   "speed_compatibility", "lane_target_match",
+                   "heading_consistency", "history_consistency"],
+      "properties": {
+        "aligned": {"type": "boolean"},
+        "speed_compatibility": {"type": "boolean"},
+        "lane_target_match": {"type": "boolean"},
+        "heading_consistency": {"type": "boolean"},
+        "history_consistency": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "joint": {"type": "boolean",
+              "description": "TRUE iff all three axes are aligned."},
+    "infrastructure_valid": {"type": "boolean"},
+    "parse_success": {"type": "boolean"},
+    "is_all_zero": {"type": "boolean"},
+    "reason": {"type": "string",
+                "description": "If not aligned, which axis failed."}
+  },
+  "additionalProperties": false
+}

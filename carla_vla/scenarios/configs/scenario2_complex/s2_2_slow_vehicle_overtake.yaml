@@ -1,0 +1,66 @@
+scenario_id: S2-2
+category: scenario2_complex
+subscenario: "S2-2 Slow vehicle and left-side overtaking"
+carla_map: "/Game/Carla/Maps/Town03"
+route:
+  spawn_point_index: 110
+  path_length_m: 350
+weather:
+  cloudiness: 70
+  precipitation: 0
+  sun_altitude: 8
+time_of_day_sun_alt_deg: 8
+ego_initial_speed_mps: 11.0
+ego_target_speed_mps: 12.0
+background_traffic_count: 4
+pedestrian_count: 0
+bicycle_count: 0
+bus_count: 0
+triggers:
+  - kind: distance_to_ego
+    threshold_m: 22.0
+    actor_role: slow_lead
+    fire_once: true
+    note: "slow lead within 22 m -> overtake"
+actors:
+  - role: slow_lead
+    actor_type: car
+    spawn_mode: relative
+    relative_to: ego
+    offset_xy: [20.0, 0.0, 0.0]   # straight ahead
+    target_speed_mps: 4.0
+    initial_speed_mps: 4.0
+    note: "slow lead vehicle driving 4 m/s"
+  - role: left_lane_empty
+    actor_type: none
+    spawn_mode: manual_xy
+    offset_xy: [0.0, 0.0, 0.0]
+    note: "left lane is passable (no actor spawned)"
+raw_instruction: "slow vehicle ahead on same lane; overtake from the left when safe"
+route_command_label: FORWARD
+behavior_constraint: overtake
+target_speed_mps_override: 10.0
+target_lane_delta: -1
+hazard_type: slow_vehicle
+episode_timeout_s: 40.0
+success_conditions:
+  - command_state_stage_advanced_to_1
+  - "min_distance_to_slow_lead_during_overtake_>=_2m"
+failure_conditions:
+  - "collision_with_slow_lead"
+physically_avoidable: true
+random_seed: 2002
+camera_resolution: [1600, 900]
+camera_fov_deg: 70.0
+history_seconds: 2.5
+note: "Deterministic overtake via distance trigger."
+stage_rules:
+  - when_stage: 0
+    match_trigger_id: "t00"
+    reason: "slow lead within 22 m; overtake left"
+    set:
+      behavior: "overtake"
+      target_lane_delta: -1
+      target_speed_mps: 10.0
+      hazard_type: "slow_vehicle"
+      raw_instruction: "slow vehicle ahead on same lane; overtake from the left when safe"
