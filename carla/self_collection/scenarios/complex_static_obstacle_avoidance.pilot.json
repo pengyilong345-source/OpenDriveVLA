@@ -1,0 +1,32 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_static_obstacle_avoidance",
+  "route_id": "route_complex_c5_static_obstacle",
+  "weather": "clear_day",
+  "event_types": ["static_obstacle", "decelerate", "lane_change"],
+  "construction_area": false,
+  "ego_control": {"desired_speed_mps": 7.0, "validate_sample_speed": false, "disable_auto_lane_change": true, "require_clear_road": true},
+  "event": {
+    "type": "construction_lane_narrowing",
+    "severity": "regular",
+    "spawn_distance_m": 42.0,
+    "cone_count": 3,
+    "cone_stagger_m": 0.4,
+    "arm_after_seconds": 1.0,
+    "trigger_distance_m": 46.0,
+    "force_trigger_after_seconds": 2.5,
+    "max_trigger_distance_m": 52.0,
+    "timeout_seconds": 5.0,
+    "maneuver_timeout_seconds": 8.0,
+    "completion_dwell_frames": 5,
+    "require_obstacle_passed": false,
+    "assist_ego_lane_change": true,
+    "assist_ego_target_speed_mps": 4.0,
+    "min_ego_brake": 0.05,
+    "min_ego_deceleration_mps2": 0.3,
+    "max_response_latency_seconds": 2.5,
+    "require_collision_free": true
+  },
+  "command": {"audio_path": null, "command_text": "前方有静止障碍物，减速并安全绕行", "normalized_command": "slow down and safely pass the static obstacle", "command_type": "compound", "command_source": "template", "intent_label": ["decelerate", "avoid_static_obstacle", "lane_change"], "target_speed_mps": 5.0, "target_lane": "left"}
+}

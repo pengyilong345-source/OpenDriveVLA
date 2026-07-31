@@ -1,0 +1,29 @@
+{
+  "scenario_type": 1,
+  "scenario_name": "basic_control",
+  "route_id": "route_basic_accelerate_60_001",
+  "weather": "clear_day",
+  "event_types": ["lane_follow", "accelerate_to_60kmh"],
+  "construction_area": false,
+  "event": {
+    "type": "none"
+  },
+  "ego_control": {
+    "desired_speed_mps": 16.67,
+    "disable_auto_lane_change": true,
+    "require_clear_road": true,
+    "acceptance_tolerance_mps": 2.0,
+    "speed_validation_scope": "all_records",
+    "validation_tail_records": 12
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "保持当前车道，提速至60公里每小时",
+    "normalized_command": "keep the current lane and accelerate to 60 kilometers per hour",
+    "command_type": "compound",
+    "command_source": "competition_spec_example",
+    "intent_label": ["lane_follow", "accelerate", "target_speed"],
+    "target_speed_mps": 16.67,
+    "target_lane": "current"
+  }
+}

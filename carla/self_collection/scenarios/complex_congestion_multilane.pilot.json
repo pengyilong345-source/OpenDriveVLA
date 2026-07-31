@@ -1,0 +1,54 @@
+{
+  "scenario_type": 2,
+  "scenario_name": "complex_congestion_multilane",
+  "town": "Town05",
+  "route_id": "route_c1b_multilane_congestion",
+  "weather": "clear_day",
+  "event_types": [
+    "traffic_congestion",
+    "stop_and_go",
+    "multilane_traffic",
+    "surrounding_vehicles",
+    "pedestrian",
+    "two_wheeler"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 14,
+    "walkers": 6,
+    "motorcycles": 2,
+    "bicycles": 2
+  },
+  "ego_control": {
+    "desired_speed_mps": 4.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "congestion_multilane",
+    "corridor_half_width_m": 22.0,
+    "ensure_bus": true,
+    "vary_npc_behavior": false
+  },
+  "event": {
+    "type": "none",
+    "required_adjacent_lanes": 2,
+    "straight_distance_m": 40.0
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "周围多车道交通拥堵，观察前后左右车辆，低速跟随并保持当前车道",
+    "normalized_command": "follow slow multilane congestion while monitoring surrounding vehicles and keeping the current lane",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_surrounding_traffic",
+      "follow_congested_traffic",
+      "maintain_safe_distance",
+      "keep_lane"
+    ],
+    "target_speed_mps": 4.0,
+    "target_lane": "current"
+  }
+}

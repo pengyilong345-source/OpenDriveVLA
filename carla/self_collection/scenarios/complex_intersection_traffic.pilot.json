@@ -1,0 +1,61 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_intersection_traffic",
+  "town": "Town10HD_Opt",
+  "route_id": "route_complex_c4_intersection",
+  "weather": "clear_day",
+  "event_types": [
+    "intersection",
+    "multi_direction_traffic",
+    "turn"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 6
+  },
+  "traffic_profile": {
+    "placement_mode": "intersection_cross_traffic",
+    "validation_profile": "intersection_traffic",
+    "corridor_half_width_m": 35.0,
+    "ensure_bus": false,
+    "vary_npc_behavior": false,
+    "allow_vulnerable_road_users": false
+  },
+  "ego_control": {
+    "desired_speed_mps": 6.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false,
+    "capture_stride_records": 5,
+    "validation_tail_records": 20
+  },
+  "event": {
+    "type": "ego_turn",
+    "direction": "left",
+    "junction_distance_min_m": 10.0,
+    "junction_distance_max_m": 20.0,
+    "arm_after_seconds": 0.5,
+    "force_trigger_after_seconds": 0.5,
+    "timeout_seconds": 2.0,
+    "brake_duration_seconds": 1.0,
+    "maneuver_timeout_seconds": 35.0,
+    "minimum_yaw_change_deg": 35.0,
+    "completion_dwell_frames": 3,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "观察路口多方向交通，确认安全后左转",
+    "normalized_command": "observe cross traffic and turn left when safe",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_cross_traffic",
+      "yield",
+      "turn_left"
+    ],
+    "target_speed_mps": 6.0,
+    "target_lane": "route_left"
+  }
+}

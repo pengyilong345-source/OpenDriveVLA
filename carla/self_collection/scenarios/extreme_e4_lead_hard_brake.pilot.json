@@ -1,0 +1,48 @@
+{
+  "pilot": true,
+  "scenario_type": 3,
+  "scenario_name": "extreme_emergency",
+  "route_id": "route_extreme_e4_lead_hard_brake",
+  "weather": "rainy_night",
+  "event_types": ["lead_vehicle_hard_brake", "low_visibility", "night_reflection"],
+  "construction_area": false,
+  "ego_control": {
+    "desired_speed_mps": 8.33,
+    "acceptance_tolerance_mps": 2.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": true
+  },
+  "event": {
+    "type": "lead_vehicle_hard_brake",
+    "spawn_distance_m": 28.0,
+    "lead_vehicle_speed_reduction_percentage": 10.0,
+    "arm_after_seconds": 2.0,
+    "trigger_distance_m": 18.0,
+    "force_trigger_after_seconds": 4.0,
+    "max_trigger_distance_m": 30.0,
+    "timeout_seconds": 6.0,
+    "brake_duration_seconds": 3.0,
+    "require_event_actor_deceleration": true,
+    "min_event_actor_initial_speed_mps": 2.0,
+    "min_event_actor_speed_drop_mps": 2.0,
+    "max_event_actor_final_speed_mps": 0.8,
+    "min_ego_brake": 0.2,
+    "min_ego_deceleration_mps2": 1.0,
+    "min_ego_brake_delta": 0.15,
+    "min_ego_deceleration_delta_mps2": 0.7,
+    "require_response_delta": true,
+    "max_response_latency_seconds": 2.0,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "前方车辆突然急刹，立即减速停车并保持安全距离",
+    "normalized_command": "brake immediately for a lead vehicle hard braking and keep a safe distance",
+    "command_type": "emergency",
+    "command_source": "template",
+    "intent_label": ["emergency_brake", "avoid_vehicle", "keep_safe_distance"],
+    "target_speed_mps": 0.0,
+    "target_lane": "current"
+  }
+}

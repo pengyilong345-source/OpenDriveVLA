@@ -1,0 +1,27 @@
+{
+  "scenario_type": 1,
+  "scenario_name": "basic_control",
+  "route_id": "route_basic_001",
+  "weather": "clear_day",
+  "event_types": ["lane_follow"],
+  "construction_area": false,
+  "event": {
+    "type": "none"
+  },
+  "ego_control": {
+    "desired_speed_mps": 8.33,
+    "disable_auto_lane_change": true,
+    "require_clear_road": true,
+    "acceptance_tolerance_mps": 1.5
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "沿当前车道保持安全速度行驶",
+    "normalized_command": "follow current lane, maintain safe speed",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": ["lane_follow", "maintain_safe_speed"],
+    "target_speed_mps": 8.33,
+    "target_lane": "current"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_two_wheeler_flow",
+  "town": "Town10HD_Opt",
+  "route_id": "route_complex_c3_two_wheelers",
+  "weather": "clear_day",
+  "event_types": [
+    "bicycle_interaction",
+    "motorcycle_interaction",
+    "mixed_traffic",
+    "safe_following"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 6,
+    "walkers": 0,
+    "motorcycles": 3,
+    "bicycles": 3
+  },
+  "ego_control": {
+    "desired_speed_mps": 5.0,
+    "acceptance_tolerance_mps": 2.5,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "dense_corridor",
+    "validation_profile": "two_wheeler_flow",
+    "corridor_half_width_m": 14.0,
+    "ensure_bus": false,
+    "vary_npc_behavior": false,
+    "allow_vulnerable_road_users": true
+  },
+  "event": {
+    "type": "none"
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "注意前方和侧前方的自行车与摩托车，低速行驶并保持安全间距",
+    "normalized_command": "drive slowly and keep a safe gap from bicycles and motorcycles ahead and beside the ego vehicle",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_two_wheelers",
+      "maintain_safe_distance",
+      "low_speed_following",
+      "keep_lane"
+    ],
+    "target_speed_mps": 5.0,
+    "target_lane": "current"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_congestion_merge",
+  "town": "Town05",
+  "route_id": "route_c1c_congestion_merge",
+  "weather": "clear_day",
+  "event_types": [
+    "traffic_congestion",
+    "stop_and_go",
+    "lane_change",
+    "gap_selection",
+    "surrounding_vehicles"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 11,
+    "walkers": 0,
+    "motorcycles": 0,
+    "bicycles": 0
+  },
+  "ego_control": {
+    "desired_speed_mps": 2.5,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "congestion_merge",
+    "corridor_half_width_m": 18.0,
+    "ensure_bus": false,
+    "vary_npc_behavior": false,
+    "allow_vulnerable_road_users": false
+  },
+  "event": {
+    "type": "ego_lane_change",
+    "direction": "left",
+    "required_adjacent_lanes": 1,
+    "required_adjacent_direction": "left",
+    "use_generated_spawn_candidates": true,
+    "straight_distance_m": 50.0,
+    "arm_after_seconds": 1.5,
+    "force_trigger_after_seconds": 1.5,
+    "timeout_seconds": 4.0,
+    "maneuver_timeout_seconds": 10.0,
+    "completion_dwell_frames": 5,
+    "repeat_lane_change_request": false,
+    "require_target_road_match": false,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "前方车道拥堵，观察左侧慢速车流，等待安全空隙后向左并线",
+    "normalized_command": "observe the slow traffic on the left and merge left through a safe gap",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_adjacent_traffic",
+      "select_safe_gap",
+      "merge_left",
+      "maintain_safe_distance"
+    ],
+    "target_speed_mps": 2.5,
+    "target_lane": "left"
+  }
+}

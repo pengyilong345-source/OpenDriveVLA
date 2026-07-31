@@ -1,0 +1,57 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_intersection_spillback",
+  "town": "Town05",
+  "route_id": "route_c1d_intersection_spillback",
+  "weather": "clear_day",
+  "event_types": [
+    "traffic_congestion",
+    "intersection_spillback",
+    "stop_and_go",
+    "queue_following"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 12,
+    "walkers": 0,
+    "motorcycles": 0,
+    "bicycles": 0
+  },
+  "ego_control": {
+    "desired_speed_mps": 3.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "intersection_spillback",
+    "corridor_half_width_m": 22.0,
+    "ensure_bus": false,
+    "vary_npc_behavior": false,
+    "allow_vulnerable_road_users": false
+  },
+  "event": {
+    "type": "none",
+    "required_adjacent_lanes": 0,
+    "use_generated_spawn_candidates": true,
+    "require_junction_ahead": true,
+    "junction_distance_min_m": 18.0,
+    "junction_distance_max_m": 35.0
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "前方路口排队回堵，请在路口外跟随队列等待，出口腾出空间后再通行",
+    "normalized_command": "wait outside the blocked intersection and proceed only after the exit queue moves",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_intersection_spillback",
+      "queue_outside_intersection",
+      "maintain_safe_distance",
+      "proceed_when_clear"
+    ],
+    "target_speed_mps": 3.0,
+    "target_lane": "current"
+  }
+}

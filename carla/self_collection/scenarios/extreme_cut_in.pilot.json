@@ -1,0 +1,34 @@
+{
+  "scenario_type": 3,
+  "scenario_name": "extreme_emergency",
+  "route_id": "route_emergency_cutin_001",
+  "weather": "heavy_rain",
+  "event_types": ["adjacent_vehicle_cut_in", "low_visibility"],
+  "construction_area": false,
+  "event": {
+    "type": "adjacent_vehicle_cut_in",
+    "spawn_distance_m": 10.0,
+    "speed_difference_percentage": -10.0,
+    "arm_after_seconds": 0.05,
+    "trigger_distance_m": 35.0,
+    "force_trigger_after_seconds": 0.1,
+    "max_trigger_distance_m": 45.0,
+    "timeout_seconds": 1.0,
+    "maneuver_timeout_seconds": 4.0,
+    "cut_in_lateral_tolerance_m": 1.0,
+    "brake_duration_seconds": 2.5,
+    "min_ego_brake": 0.05,
+    "min_ego_deceleration_mps2": 0.3,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "邻车突然切入，立即减速并保持安全距离",
+    "normalized_command": "decelerate for a sudden vehicle cut-in and keep a safe distance",
+    "command_type": "emergency",
+    "command_source": "template",
+    "intent_label": ["emergency_decelerate", "avoid_vehicle", "keep_safe_distance"],
+    "target_speed_mps": 5.56,
+    "target_lane": "current"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "scenario_type": 2,
+  "scenario_name": "complex_congested_mixed_traffic",
+  "town": "Town10HD_Opt",
+  "route_id": "route_c1_congested_mixed_traffic",
+  "weather": "cloudy_evening",
+  "event_types": [
+    "traffic_congestion",
+    "stop_and_go",
+    "mixed_traffic",
+    "bus",
+    "pedestrian",
+    "two_wheeler"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 12,
+    "walkers": 8,
+    "motorcycles": 2,
+    "bicycles": 2
+  },
+  "ego_control": {
+    "desired_speed_mps": 4.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "congestion_queue",
+    "corridor_half_width_m": 22.0,
+    "ensure_bus": true,
+    "vary_npc_behavior": false
+  },
+  "event": {
+    "type": "none"
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "前方拥堵，注意公交车、非机动车和行人，低速跟车并保持安全距离",
+    "normalized_command": "traffic is congested; follow slowly and keep a safe distance from mixed traffic",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_mixed_traffic",
+      "follow_congested_traffic",
+      "maintain_safe_distance",
+      "keep_lane"
+    ],
+    "target_speed_mps": 4.0,
+    "target_lane": "current"
+  }
+}

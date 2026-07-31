@@ -21,8 +21,12 @@ Git 仅保存代码、筛选清单、格式定义和文档，不保存 RGB、LiD
 carla/
   bench2drive/  Bench2Drive 筛选、下载、转换、验证和官方评测接入
   scenarios/    Bench2Drive 候选路线
+  self_collection/  CARLA 自采样程序、场景配置、批量脚本与参数说明
   schema/       sample-v1.1 schema 与模板
 ```
+
+CARLA 自采样的目录结构、试采入口和交通参与者参数见
+[`self_collection/README.md`](self_collection/README.md)。
 
 ## Bench2Drive 150k
 
