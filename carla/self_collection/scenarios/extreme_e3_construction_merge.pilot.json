@@ -1,0 +1,49 @@
+{
+  "pilot": true,
+  "scenario_type": 3,
+  "scenario_name": "extreme_emergency",
+  "route_id": "route_extreme_e3_construction_merge",
+  "weather": "rainy_night",
+  "event_types": ["construction_lane_narrowing", "traffic_cones", "low_visibility", "night_reflection"],
+  "construction_area": true,
+  "ego_control": {
+    "desired_speed_mps": 5.56,
+    "acceptance_tolerance_mps": 1.5,
+    "disable_auto_lane_change": true,
+    "require_clear_road": true
+  },
+  "event": {
+    "type": "construction_lane_narrowing",
+    "spawn_distance_m": 36.0,
+    "cone_count": 5,
+    "cone_stagger_m": 0.6,
+    "arm_after_seconds": 1.0,
+    "trigger_distance_m": 40.0,
+    "force_trigger_after_seconds": 2.5,
+    "max_trigger_distance_m": 46.0,
+    "timeout_seconds": 5.0,
+    "maneuver_timeout_seconds": 12.0,
+    "completion_dwell_frames": 5,
+    "require_target_road_match": false,
+    "require_obstacle_passed": false,
+    "assist_ego_lane_change": true,
+    "assist_ego_target_speed_mps": 4.17,
+    "min_ego_brake": 0.1,
+    "min_ego_deceleration_mps2": 0.6,
+    "min_ego_brake_delta": 0.05,
+    "min_ego_deceleration_delta_mps2": 0.4,
+    "require_response_delta": true,
+    "max_response_latency_seconds": 2.0,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "施工路段车道收窄，减速并道至左侧车道",
+    "normalized_command": "slow down and merge into the left lane for a narrowing construction zone",
+    "command_type": "emergency",
+    "command_source": "template",
+    "intent_label": ["decelerate", "avoid_construction", "merge_left"],
+    "target_speed_mps": 4.17,
+    "target_lane": "left"
+  }
+}

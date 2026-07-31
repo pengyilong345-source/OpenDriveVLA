@@ -1,0 +1,27 @@
+{
+  "scenario_type": 1,
+  "scenario_name": "basic_control",
+  "route_id": "route_basic_cruise_40_001",
+  "weather": "clear_day",
+  "event_types": ["lane_follow", "maintain_speed_40kmh"],
+  "construction_area": false,
+  "event": {
+    "type": "none"
+  },
+  "ego_control": {
+    "desired_speed_mps": 11.11,
+    "disable_auto_lane_change": true,
+    "require_clear_road": true,
+    "acceptance_tolerance_mps": 1.5
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "保持当前车道，以40公里每小时安全行驶",
+    "normalized_command": "keep the current lane and maintain 40 kilometers per hour",
+    "command_type": "compound",
+    "command_source": "competition_spec_variant",
+    "intent_label": ["lane_follow", "maintain_speed"],
+    "target_speed_mps": 11.11,
+    "target_lane": "current"
+  }
+}

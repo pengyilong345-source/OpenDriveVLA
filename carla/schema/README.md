@@ -20,6 +20,8 @@
 - 轨迹、actor 相对位置和 3D bbox 使用当前 ego 坐标系：x 向前、y 向左、z 向上。
 - `bbox_3d` 顺序为 `[center_x, center_y, center_z, length, width, height, yaw]`。
 - `track_id` 在同一 episode 内保持稳定。
+- CARLA 自采样可以使用可选的 `event` 字段记录语义事件触发、ego 响应和验收结果；
+  Bench2Drive 转换样本无需补造源数据中不存在的该字段。
 
 ## LiDAR
 

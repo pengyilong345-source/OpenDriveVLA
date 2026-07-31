@@ -1,0 +1,23 @@
+{
+  "pilot": true,
+  "scenario_type": 1,
+  "scenario_name": "basic_lane_change",
+  "route_id": "route_basic_b7_lane_change",
+  "weather": "clear_day",
+  "event_types": ["lane_change"],
+  "construction_area": false,
+  "ego_control": {"desired_speed_mps": 8.33, "validate_sample_speed": false, "disable_auto_lane_change": true, "require_clear_road": true},
+  "event": {
+    "type": "ego_lane_change",
+    "direction": "auto",
+    "arm_after_seconds": 1.5,
+    "force_trigger_after_seconds": 1.5,
+    "timeout_seconds": 3.0,
+    "brake_duration_seconds": 1.0,
+    "maneuver_timeout_seconds": 8.0,
+    "completion_dwell_frames": 5,
+    "require_target_road_match": false,
+    "require_collision_free": true
+  },
+  "command": {"audio_path": null, "command_text": "确认安全后变更至相邻车道", "normalized_command": "change to an adjacent lane when safe", "command_type": "compound", "command_source": "template", "intent_label": ["check_gap", "lane_change"], "target_speed_mps": 8.33, "target_lane": "adjacent"}
+}

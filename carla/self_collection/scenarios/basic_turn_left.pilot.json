@@ -1,0 +1,23 @@
+{
+  "pilot": true,
+  "scenario_type": 1,
+  "scenario_name": "basic_turn_left",
+  "route_id": "route_basic_b5_turn_left",
+  "weather": "clear_day",
+  "event_types": ["intersection", "turn_left"],
+  "construction_area": false,
+  "ego_control": {"desired_speed_mps": 6.94, "validate_sample_speed": false, "disable_auto_lane_change": true, "require_clear_road": false},
+  "event": {
+    "type": "ego_turn",
+    "direction": "left",
+    "arm_after_seconds": 0.5,
+    "force_trigger_after_seconds": 0.5,
+    "timeout_seconds": 2.0,
+    "brake_duration_seconds": 1.0,
+    "maneuver_timeout_seconds": 12.0,
+    "minimum_yaw_change_deg": 35.0,
+    "completion_dwell_frames": 3,
+    "require_collision_free": true
+  },
+  "command": {"audio_path": null, "command_text": "在前方路口左转", "normalized_command": "turn left at the next intersection", "command_type": "compound", "command_source": "template", "intent_label": ["turn_left"], "target_speed_mps": 6.94, "target_lane": "route_left"}
+}

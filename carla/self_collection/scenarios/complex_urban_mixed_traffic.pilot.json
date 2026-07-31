@@ -1,0 +1,57 @@
+{
+  "pilot": true,
+  "scenario_type": 2,
+  "scenario_name": "complex_urban_mixed_traffic",
+  "town": "Town10HD_Opt",
+  "route_id": "route_c1e_urban_mixed_traffic",
+  "weather": "clear_day",
+  "event_types": [
+    "mixed_traffic",
+    "bus",
+    "pedestrian",
+    "motorcycle",
+    "bicycle",
+    "low_speed_following"
+  ],
+  "construction_area": false,
+  "actor_requirements": {
+    "vehicles": 10,
+    "walkers": 8,
+    "motorcycles": 2,
+    "bicycles": 2
+  },
+  "ego_control": {
+    "desired_speed_mps": 4.0,
+    "validate_sample_speed": false,
+    "disable_auto_lane_change": true,
+    "require_clear_road": false
+  },
+  "traffic_profile": {
+    "placement_mode": "mixed_urban_traffic",
+    "corridor_half_width_m": 22.0,
+    "ensure_bus": true,
+    "vary_npc_behavior": false,
+    "allow_vulnerable_road_users": true
+  },
+  "event": {
+    "type": "none",
+    "required_adjacent_lanes": 1,
+    "straight_distance_m": 40.0
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "注意前方公交车、非机动车和行人，低速行驶并保持安全距离",
+    "normalized_command": "drive slowly and keep a safe distance from the bus, two-wheelers, and pedestrians",
+    "command_type": "compound",
+    "command_source": "template",
+    "intent_label": [
+      "observe_bus",
+      "observe_two_wheelers",
+      "observe_pedestrians",
+      "maintain_safe_distance",
+      "keep_lane"
+    ],
+    "target_speed_mps": 4.0,
+    "target_lane": "current"
+  }
+}

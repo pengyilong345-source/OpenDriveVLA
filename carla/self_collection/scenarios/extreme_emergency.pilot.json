@@ -1,0 +1,32 @@
+{
+  "scenario_type": 3,
+  "scenario_name": "extreme_emergency",
+  "route_id": "route_emergency_001",
+  "weather": "heavy_rain",
+  "event_types": ["lead_vehicle_hard_brake", "low_visibility"],
+  "construction_area": false,
+  "event": {
+    "type": "lead_vehicle_hard_brake",
+    "spawn_distance_m": 25.0,
+    "lead_vehicle_speed_reduction_percentage": 35.0,
+    "arm_after_seconds": 0.05,
+    "trigger_distance_m": 100.0,
+    "force_trigger_after_seconds": 0.1,
+    "max_trigger_distance_m": 100.0,
+    "timeout_seconds": 1.0,
+    "brake_duration_seconds": 3.0,
+    "min_ego_brake": 0.1,
+    "min_ego_deceleration_mps2": 0.5,
+    "require_collision_free": true
+  },
+  "command": {
+    "audio_path": null,
+    "command_text": "雨天能见度较低，降低车速并随时准备制动",
+    "normalized_command": "reduce speed in low visibility, prepare to brake",
+    "command_type": "emergency",
+    "command_source": "template",
+    "intent_label": ["decelerate", "prepare_brake", "low_visibility_caution"],
+    "target_speed_mps": 5.56,
+    "target_lane": "current"
+  }
+}
