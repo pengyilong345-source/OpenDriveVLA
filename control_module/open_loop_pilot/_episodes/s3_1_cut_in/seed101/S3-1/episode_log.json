@@ -1,0 +1,431 @@
+{
+  "scenario_id": "S3-1",
+  "subscenario": "S3-1 Sudden cut-in",
+  "group": "G1",
+  "seed": 101,
+  "map": "/Game/Carla/Maps/Town04",
+  "config_snapshot": {
+    "scenario_id": "S3-1",
+    "category": "scenario3_emergency",
+    "subscenario": "S3-1 Sudden cut-in",
+    "carla_map": "/Game/Carla/Maps/Town04",
+    "route": {
+      "spawn_point_index": 30,
+      "path_length_m": 300
+    },
+    "weather": {
+      "cloudiness": 95,
+      "precipitation": 30,
+      "fog": 5,
+      "sun_altitude": -45
+    },
+    "time_of_day_sun_alt_deg": -45.0,
+    "ego_initial_speed_mps": 13.0,
+    "ego_target_speed_mps": 12.0,
+    "background_traffic_count": 3,
+    "pedestrian_count": 0,
+    "bicycle_count": 0,
+    "bus_count": 0,
+    "triggers": [
+      {
+        "kind": "time_elapsed",
+        "threshold_m": null,
+        "threshold_s": 4.0,
+        "ttc_s": null,
+        "actor_role": "cut_in_car",
+        "fire_once": true,
+        "note": "cut-in starts at 4 s"
+      }
+    ],
+    "actors": [
+      {
+        "role": "cut_in_car",
+        "actor_type": "car",
+        "spawn_mode": "relative",
+        "relative_to": "ego",
+        "offset_xy": [
+          12.0,
+          3.0,
+          0.0
+        ],
+        "target_speed_mps": 12.0,
+        "traffic_light_actor": false,
+        "autopiloted": true,
+        "initial_pose_xy": null,
+        "initial_yaw_deg": null,
+        "initial_speed_mps": 9.0,
+        "role_args": {},
+        "note": "vehicle that will cut in to ego's lane"
+      }
+    ],
+    "raw_instruction": "rainy night, leading car may cut in; maintain safe distance",
+    "route_command_label": "FORWARD",
+    "behavior_constraint": "emergency_brake",
+    "target_speed_mps_override": 8.0,
+    "target_lane_delta": 0,
+    "hazard_type": "cut_in",
+    "episode_timeout_s": 30.0,
+    "success_conditions": [
+      "min_ttc_>=_1.2s",
+      "no_collision"
+    ],
+    "failure_conditions": [
+      "collision_with_cut_in_car"
+    ],
+    "physically_avoidable": true,
+    "random_seed": 3001,
+    "camera_resolution": [
+      1600,
+      900
+    ],
+    "camera_fov_deg": 70.0,
+    "history_seconds": 2.5,
+    "note": "TTC difficulty: avoidable with braking."
+  },
+  "samples": [
+    {
+      "frame": 251080,
+      "tick": 1,
+      "sim_t": 2.7499999999999982,
+      "ego_carla_xy": [
+        384.3702697753906,
+        -55.27083206176758
+      ],
+      "ego_velocity_ego": [
+        -12.577972262781799,
+        -0.1928124592717671,
+        5.626678216685832e-07
+      ],
+      "can_bus": "[ 3.84370270e+02  5.52708321e+01  0.00000000e+00  7.04391917e-01\n  0.00000000e+00  0.00000000e+00 -7.09811261e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.25779723e+01 -1.92812459e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7043919174166071,
+        0.0,
+        0.0,
+        -0.7098112613069448
+      ],
+      "history": [
+        [
+          -25.219090438894188,
+          0.0020321049601473573
+        ],
+        [
+          -18.88826707298403,
+          0.0017237389693763872
+        ],
+        [
+          -12.574853474066696,
+          0.001281939676610333
+        ],
+        [
+          -6.278784794193239,
+          0.0007072040945869176
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-1_t0001/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 3425
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-1_t0001/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 3426
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-1_t0001/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 3427
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-1_t0001/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 3428
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-1_t0001/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 3429
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-1_t0001/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 3430
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[ 3.84370270e+02  5.52708321e+01  0.00000000e+00  7.04391917e-01\n  0.00000000e+00  0.00000000e+00 -7.09811261e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.25779723e+01 -1.92812459e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7043919174166071,
+          0.0,
+          0.0,
+          -0.7098112613069448
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "emergency_brake",
+          "target_speed_mps": 8.0,
+          "target_lane_delta": 0,
+          "hazard_type": "cut_in",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            6.261549868827635,
+            -0.00025944634747963186
+          ],
+          [
+            12.505942507324383,
+            -0.0002536503180568944
+          ],
+          [
+            18.73321318231071,
+            -0.00010441551472314958
+          ],
+          [
+            24.94342537459129,
+            0.0006160032391170911
+          ],
+          [
+            31.136639775083953,
+            0.0012061461836474774
+          ],
+          [
+            37.31291169527454,
+            0.0016664372414970652
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "emergency_brake",
+        "target_speed_mps": 8.0,
+        "target_lane_delta": 0,
+        "hazard_type": "cut_in",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    },
+    {
+      "frame": 251141,
+      "tick": 2,
+      "sim_t": 2.799999999999998,
+      "ego_carla_xy": [
+        384.0812683105469,
+        -17.342748641967773
+      ],
+      "ego_velocity_ego": [
+        -12.289362440965416,
+        -0.1883881222630987,
+        7.343292054429185e-07
+      ],
+      "can_bus": "[ 3.84081268e+02  1.73427486e+01  0.00000000e+00  7.04391917e-01\n  0.00000000e+00  0.00000000e+00 -7.09811261e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.22893624e+01 -1.88388122e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7043919174166071,
+        0.0,
+        0.0,
+        -0.7098112613069448
+      ],
+      "history": [
+        [
+          -62.5147721566443,
+          0.0003146122175120003
+        ],
+        [
+          -56.185703499940225,
+          -7.202353214608159e-06
+        ],
+        [
+          -49.87403698105855,
+          -0.0004623917538496003
+        ],
+        [
+          -43.579703937465055,
+          -0.0010504297356117576
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-1_t0002/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 3425
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-1_t0002/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 3426
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-1_t0002/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 3427
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-1_t0002/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 3428
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-1_t0002/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 3429
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-1_t0002/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 3430
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[ 3.84081268e+02  1.73427486e+01  0.00000000e+00  7.04391917e-01\n  0.00000000e+00  0.00000000e+00 -7.09811261e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.22893624e+01 -1.88388122e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7043919174166071,
+          0.0,
+          0.0,
+          -0.7098112613069448
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "emergency_brake",
+          "target_speed_mps": 8.0,
+          "target_lane_delta": 0,
+          "hazard_type": "cut_in",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            6.157727314091633,
+            0.00031816003294834333
+          ],
+          [
+            12.298144517229588,
+            0.0005036505555349319
+          ],
+          [
+            18.420381049540747,
+            0.0005497993544841817
+          ],
+          [
+            20.71870873813544,
+            -0.24621672126377572
+          ],
+          [
+            20.64826799983327,
+            -0.25246355341497034
+          ],
+          [
+            20.578556278901008,
+            -0.2590099829183552
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "emergency_brake",
+        "target_speed_mps": 8.0,
+        "target_lane_delta": 0,
+        "hazard_type": "cut_in",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    }
+  ],
+  "triggers_fired": [],
+  "collisions": [],
+  "lane_invasions": [],
+  "traffic_light_events": [],
+  "metrics_summary": {
+    "samples": 2,
+    "triggers_fired_count": 0,
+    "history_status_summary": {
+      "ok": 2,
+      "other": 0
+    },
+    "note": "open_loop and closed_loop rollup filled in by the post-runner step"
+  },
+  "extra_notes": {}
+}

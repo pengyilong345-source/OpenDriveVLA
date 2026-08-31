@@ -1,0 +1,134 @@
+{
+  "scenario_id": "S3-2",
+  "subscenario": "S3-2 Construction lane closure",
+  "seed": 101,
+  "group": "G2",
+  "samples": [
+    {
+      "tick": 1,
+      "frame": 50735,
+      "sim_t": 2.7499999999999982,
+      "prompt_hash": "c2f6c7710a09b38c",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.00,5.31),(0.02,10.49),(0.06,15.58),(0.10,20.67),(0.14,25.71),(0.18,30.74)]",
+      "parsed_trajectory": [
+        [
+          0.0,
+          5.31
+        ],
+        [
+          0.02,
+          10.49
+        ],
+        [
+          0.06,
+          15.58
+        ],
+        [
+          0.1,
+          20.67
+        ],
+        [
+          0.14,
+          25.71
+        ],
+        [
+          0.18,
+          30.74
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          5.297220973578214,
+          5.918779983758726e-06
+        ],
+        [
+          10.580190123362224,
+          1.0535560659372112e-05
+        ],
+        [
+          15.849060039809968,
+          1.4205315006433905e-05
+        ],
+        [
+          21.103739178375463,
+          1.919459337385021e-05
+        ],
+        [
+          26.344334342276305,
+          2.3176976013103423e-05
+        ],
+        [
+          31.570891315010996,
+          2.788018867666553e-05
+        ]
+      ],
+      "elapsed_s": 0.0,
+      "raw_instruction": "local_command:FORWARD",
+      "route_command": "FORWARD"
+    },
+    {
+      "tick": 2,
+      "frame": 50796,
+      "sim_t": 2.799999999999998,
+      "prompt_hash": "80ae5b6ea0e8fb7e",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.00,5.21),(0.03,9.84),(0.06,14.27),(0.09,18.53),(0.12,22.62),(0.15,26.52)]",
+      "parsed_trajectory": [
+        [
+          0.0,
+          5.21
+        ],
+        [
+          0.03,
+          9.84
+        ],
+        [
+          0.06,
+          14.27
+        ],
+        [
+          0.09,
+          18.53
+        ],
+        [
+          0.12,
+          22.62
+        ],
+        [
+          0.15,
+          26.52
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          5.211145474930761,
+          4.136619822767834e-06
+        ],
+        [
+          10.408313789639976,
+          7.800925095786948e-06
+        ],
+        [
+          15.591550727626153,
+          1.2720641571539737e-05
+        ],
+        [
+          20.760886802490674,
+          1.7822363475167302e-05
+        ],
+        [
+          25.91636779024837,
+          2.292648260783514e-05
+        ],
+        [
+          31.058047092508037,
+          2.6869789095329555e-05
+        ]
+      ],
+      "elapsed_s": 0.0,
+      "raw_instruction": "local_command:FORWARD",
+      "route_command": "FORWARD"
+    }
+  ]
+}

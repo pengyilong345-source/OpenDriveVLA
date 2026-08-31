@@ -1,0 +1,134 @@
+{
+  "scenario_id": "S2-2",
+  "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+  "seed": 202,
+  "group": "G1",
+  "samples": [
+    {
+      "tick": 1,
+      "frame": 249160,
+      "sim_t": 2.7499999999999982,
+      "prompt_hash": "56ba75812fa47213",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.00,5.61),(0.02,10.98),(0.04,16.37),(0.06,21.71),(0.08,26.98),(0.10,32.20)]",
+      "parsed_trajectory": [
+        [
+          0.0,
+          5.61
+        ],
+        [
+          0.02,
+          10.98
+        ],
+        [
+          0.04,
+          16.37
+        ],
+        [
+          0.06,
+          21.71
+        ],
+        [
+          0.08,
+          26.98
+        ],
+        [
+          0.1,
+          32.2
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          5.537557577544366,
+          2.2917577890566032e-05
+        ],
+        [
+          11.097277933050444,
+          -0.00016392822079188546
+        ],
+        [
+          16.67177464811948,
+          -0.0008695495800650765
+        ],
+        [
+          22.25732903982418,
+          -0.00085217225902047
+        ],
+        [
+          27.83170038309925,
+          -0.0003595179567125878
+        ],
+        [
+          33.39584030652921,
+          4.039669852762273e-05
+        ]
+      ],
+      "elapsed_s": 2.675,
+      "raw_instruction": "",
+      "route_command": "FORWARD"
+    },
+    {
+      "tick": 2,
+      "frame": 249221,
+      "sim_t": 2.799999999999998,
+      "prompt_hash": "cb1ab451fcc9e194",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.00,5.61),(0.02,10.73),(0.04,15.89),(0.06,20.98),(0.08,25.98),(0.10,30.90)]",
+      "parsed_trajectory": [
+        [
+          0.0,
+          5.61
+        ],
+        [
+          0.02,
+          10.73
+        ],
+        [
+          0.04,
+          15.89
+        ],
+        [
+          0.06,
+          20.98
+        ],
+        [
+          0.08,
+          25.98
+        ],
+        [
+          0.1,
+          30.9
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          5.554250552926461,
+          -0.00019862552602301423
+        ],
+        [
+          11.099834171086584,
+          -0.0003657021340149891
+        ],
+        [
+          16.632310576281416,
+          -0.000485066557871984
+        ],
+        [
+          22.149665621699068,
+          -0.0005493870067839884
+        ],
+        [
+          27.65218922241094,
+          -0.0005597188142766746
+        ],
+        [
+          33.13995767185688,
+          -0.0005163396996989006
+        ]
+      ],
+      "elapsed_s": 2.6,
+      "raw_instruction": "",
+      "route_command": "FORWARD"
+    }
+  ]
+}

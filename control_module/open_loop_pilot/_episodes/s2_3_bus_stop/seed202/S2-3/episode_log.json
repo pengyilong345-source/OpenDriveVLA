@@ -1,0 +1,449 @@
+{
+  "scenario_id": "S2-3",
+  "subscenario": "S2-3 Bus stop",
+  "group": "G1",
+  "seed": 202,
+  "map": "/Game/Carla/Maps/Town03",
+  "config_snapshot": {
+    "scenario_id": "S2-3",
+    "category": "scenario2_complex",
+    "subscenario": "S2-3 Bus stop",
+    "carla_map": "/Game/Carla/Maps/Town03",
+    "route": {
+      "spawn_point_index": 150,
+      "path_length_m": 300
+    },
+    "weather": {
+      "cloudiness": 70,
+      "precipitation": 0,
+      "sun_altitude": 12
+    },
+    "time_of_day_sun_alt_deg": 12.0,
+    "ego_initial_speed_mps": 9.0,
+    "ego_target_speed_mps": 4.0,
+    "background_traffic_count": 4,
+    "pedestrian_count": 4,
+    "bicycle_count": 0,
+    "bus_count": 1,
+    "triggers": [
+      {
+        "kind": "distance_to_ego",
+        "threshold_m": 25.0,
+        "threshold_s": null,
+        "ttc_s": null,
+        "actor_role": "stopped_bus",
+        "fire_once": true,
+        "note": "bus within 25 m -> bus-stop pass"
+      }
+    ],
+    "actors": [
+      {
+        "role": "stopped_bus",
+        "actor_type": "bus",
+        "spawn_mode": "relative",
+        "relative_to": "ego",
+        "offset_xy": [
+          22.0,
+          0.0,
+          0.0
+        ],
+        "target_speed_mps": 0.0,
+        "traffic_light_actor": false,
+        "autopiloted": true,
+        "initial_pose_xy": null,
+        "initial_yaw_deg": null,
+        "initial_speed_mps": 0.0,
+        "role_args": {},
+        "note": "stopped bus ahead"
+      },
+      {
+        "role": "ped_at_bus",
+        "actor_type": "walker",
+        "spawn_mode": "relative",
+        "relative_to": "stopped_bus",
+        "offset_xy": [
+          0.0,
+          4.0,
+          0.0
+        ],
+        "target_speed_mps": 0.5,
+        "traffic_light_actor": false,
+        "autopiloted": true,
+        "initial_pose_xy": null,
+        "initial_yaw_deg": null,
+        "initial_speed_mps": 0.5,
+        "role_args": {},
+        "note": "pedestrian near the bus"
+      }
+    ],
+    "raw_instruction": "bus stopped at a bus stop; pass carefully with reduced speed",
+    "route_command_label": "FORWARD",
+    "behavior_constraint": "bus_stop_pass",
+    "target_speed_mps_override": 4.0,
+    "target_lane_delta": 0,
+    "hazard_type": "bus_stop",
+    "episode_timeout_s": 40.0,
+    "success_conditions": [
+      "min_pedestrian_distance_>=_1.5m",
+      "no_collision_with_bus"
+    ],
+    "failure_conditions": [
+      "collision_with_bus_or_ped"
+    ],
+    "physically_avoidable": true,
+    "random_seed": 2003,
+    "camera_resolution": [
+      1600,
+      900
+    ],
+    "camera_fov_deg": 70.0,
+    "history_seconds": 2.5,
+    "note": "Reduced target speed while passing; lane change optional."
+  },
+  "samples": [
+    {
+      "frame": 249882,
+      "tick": 1,
+      "sim_t": 2.7499999999999982,
+      "ego_carla_xy": [
+        80.51367950439453,
+        -100.43382263183594
+      ],
+      "ego_velocity_ego": [
+        -8.560212967901078,
+        -0.6058351503449231,
+        2.3603439331054688e-05
+      ],
+      "can_bus": "[ 80.5136795  100.43382263   0.           0.69450684   0.\n   0.          -0.7194861    0.           0.           0.\n   0.           0.           0.          -8.56021297  -0.60583515\n   0.           0.           0.        ]",
+      "ego2global_quat": [
+        0.6945068444192856,
+        0.0,
+        0.0,
+        -0.7194860964985816
+      ],
+      "history": [
+        [
+          -17.431439502580844,
+          5.225112104989549e-06
+        ],
+        [
+          -13.055891252931195,
+          3.0699211392981596e-06
+        ],
+        [
+          -8.692214399801822,
+          8.862287024291593e-06
+        ],
+        [
+          -4.340240392821344,
+          5.656733852638096e-06
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S2-3_t0001/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 2896
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S2-3_t0001/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 2897
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S2-3_t0001/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 2898
+        },
+        "CAM_BACK": {
+          "data_path": "images/S2-3_t0001/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 2899
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S2-3_t0001/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 2900
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S2-3_t0001/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 2901
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[ 80.5136795  100.43382263   0.           0.69450684   0.\n   0.          -0.7194861    0.           0.           0.\n   0.           0.           0.          -8.56021297  -0.60583515\n   0.           0.           0.        ]",
+        "ego2global_quat": [
+          0.6945068444192856,
+          0.0,
+          0.0,
+          -0.7194860964985816
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "bus_stop_pass",
+          "target_speed_mps": 4.0,
+          "target_lane_delta": 0,
+          "hazard_type": "bus_stop",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            4.328582486055059,
+            9.836092843773514e-06
+          ],
+          [
+            8.64548526933733,
+            3.8580543293975644e-06
+          ],
+          [
+            12.950784326713599,
+            -7.614742236372596e-06
+          ],
+          [
+            17.243365653187716,
+            -4.10515874808004e-05
+          ],
+          [
+            21.539901645335547,
+            0.0020806971936842
+          ],
+          [
+            25.85818937111857,
+            0.005009378249135943
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "bus_stop_pass",
+        "target_speed_mps": 4.0,
+        "target_lane_delta": 0,
+        "hazard_type": "bus_stop",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    },
+    {
+      "frame": 249943,
+      "tick": 2,
+      "sim_t": 2.799999999999998,
+      "ego_carla_xy": [
+        79.59066772460938,
+        -74.15836334228516
+      ],
+      "ego_velocity_ego": [
+        -8.722885694420858,
+        -0.6107227917436473,
+        -0.12614870071411133
+      ],
+      "can_bus": "[79.59066772 74.15836334  0.          0.6946258   0.          0.\n -0.71937125  0.          0.          0.          0.          0.\n  0.         -8.72288569 -0.61072279  0.          0.          0.        ]",
+      "ego2global_quat": [
+        0.6946257968487212,
+        0.0,
+        0.0,
+        -0.7193712548832343
+      ],
+      "history": [
+        [
+          -43.284155545596725,
+          0.008685871888502339
+        ],
+        [
+          -38.909768362427855,
+          0.007249581254433535
+        ],
+        [
+          -34.54725939636713,
+          0.005802022758288228
+        ],
+        [
+          -30.196476953816898,
+          0.0043714096193741
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S2-3_t0002/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 2896
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S2-3_t0002/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 2897
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S2-3_t0002/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 2898
+        },
+        "CAM_BACK": {
+          "data_path": "images/S2-3_t0002/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 2899
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S2-3_t0002/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 2900
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S2-3_t0002/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 2901
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[79.59066772 74.15836334  0.          0.6946258   0.          0.\n -0.71937125  0.          0.          0.          0.          0.\n  0.         -8.72288569 -0.61072279  0.          0.          0.        ]",
+        "ego2global_quat": [
+          0.6946257968487212,
+          0.0,
+          0.0,
+          -0.7193712548832343
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "bus_stop_pass",
+          "target_speed_mps": 4.0,
+          "target_lane_delta": 0,
+          "hazard_type": "bus_stop",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            4.336347772793777,
+            0.0015833141185695454
+          ],
+          [
+            8.682569380118599,
+            -0.0006253400472175374
+          ],
+          [
+            13.227494436492934,
+            -0.0033813896110043706
+          ],
+          [
+            18.140425700759337,
+            -0.005979003897042534
+          ],
+          [
+            23.432427530259098,
+            -0.008710235938268696
+          ],
+          [
+            29.10167380388991,
+            -0.011639020870537697
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "bus_stop_pass",
+        "target_speed_mps": 4.0,
+        "target_lane_delta": 0,
+        "hazard_type": "bus_stop",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    }
+  ],
+  "triggers_fired": [],
+  "collisions": [],
+  "lane_invasions": [],
+  "traffic_light_events": [],
+  "metrics_summary": {
+    "samples": 2,
+    "triggers_fired_count": 0,
+    "history_status_summary": {
+      "ok": 2,
+      "other": 0
+    },
+    "note": "open_loop and closed_loop rollup filled in by the post-runner step"
+  },
+  "extra_notes": {}
+}

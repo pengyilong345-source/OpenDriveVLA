@@ -1,0 +1,809 @@
+{
+  "label_counts": {
+    "R": 119,
+    "P": 15
+  },
+  "n_labelled_samples": 134,
+  "labelled_examples": [
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 22.113845780616042,
+        "gt_path_length_m": 21.054681986793764,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.568564178036453,
+        "gt_path_length_m": 19.24874433276681,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 22.113845780616042,
+        "gt_path_length_m": 21.054681986793764,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.6874070495645,
+        "gt_path_length_m": 19.24874433276681,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 22.274077388354446,
+        "gt_path_length_m": 21.054681986793764,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-2",
+      "subscenario": "S1-2 Acceleration",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.49203245107242,
+        "gt_path_length_m": 19.24874433276681,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.832944588365635,
+        "gt_path_length_m": 17.18523293416617,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 15.715319259578287,
+        "gt_path_length_m": 17.86876000505643,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.835069401667702,
+        "gt_path_length_m": 17.18523293416617,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 15.609537613537134,
+        "gt_path_length_m": 17.86876000505643,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.218212139999242,
+        "gt_path_length_m": 17.18523293416617,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-4",
+      "subscenario": "S1-4 Right turn",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 15.609537613537134,
+        "gt_path_length_m": 17.86876000505643,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 22.7223843606227,
+        "gt_path_length_m": 23.31355064814969,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.160389582671115,
+        "gt_path_length_m": 21.67917252091472,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "P"
+      ],
+      "evidence": {
+        "all_zero": true,
+        "ade_m": 16.421139751780434,
+        "gt_path_length_m": 23.31355064814969,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.19919245688082,
+        "gt_path_length_m": 21.67917252091472,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "P"
+      ],
+      "evidence": {
+        "all_zero": true,
+        "ade_m": 16.421139751780434,
+        "gt_path_length_m": 23.31355064814969,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S1-5",
+      "subscenario": "S1-5 Left lane change",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.151333622244582,
+        "gt_path_length_m": 21.67917252091472,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.067827641232665,
+        "gt_path_length_m": 19.052650382664105,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.587064523415762,
+        "gt_path_length_m": 8.43300982234144,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.04066576075545,
+        "gt_path_length_m": 19.052650382664105,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.84442590254208,
+        "gt_path_length_m": 8.43300982234144,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.04184504817159,
+        "gt_path_length_m": 19.052650382664105,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-1",
+      "subscenario": "S2-1 Pedestrian crossing and yielding",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.847303362789205,
+        "gt_path_length_m": 8.43300982234144,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.233742778133376,
+        "gt_path_length_m": 27.858282812952076,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 26.658817531153886,
+        "gt_path_length_m": 27.585707123290973,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.148473842883387,
+        "gt_path_length_m": 27.858282812952076,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 26.646742923295577,
+        "gt_path_length_m": 27.585707123290973,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.14615695448393,
+        "gt_path_length_m": 27.858282812952076,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-2",
+      "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 26.644466433781655,
+        "gt_path_length_m": 27.585707123290973,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.732309881199473,
+        "gt_path_length_m": 21.52960840222421,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.882769711937613,
+        "gt_path_length_m": 24.76532957596609,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.71875764101136,
+        "gt_path_length_m": 21.52960840222421,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.864404120801424,
+        "gt_path_length_m": 24.76532957596609,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 20.74033491944974,
+        "gt_path_length_m": 21.52960840222421,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-3",
+      "subscenario": "S2-3 Bus stop",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 21.864404120801424,
+        "gt_path_length_m": 24.76532957596609,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.297465511064285,
+        "gt_path_length_m": 19.052646312446967,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.86563667472416,
+        "gt_path_length_m": 9.216743489203274,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.297465511064285,
+        "gt_path_length_m": 19.052646312446967,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.85949056434879,
+        "gt_path_length_m": 9.216743489203274,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 19.304276564344455,
+        "gt_path_length_m": 19.052646312446967,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S2-4",
+      "subscenario": "S2-4 Mixed intersection",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 16.86104448468073,
+        "gt_path_length_m": 9.216743489203274,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 30.739530955899976,
+        "gt_path_length_m": 31.05136191529277,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.3102262940351,
+        "gt_path_length_m": 14.714926474786102,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 202,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 30.741903968858605,
+        "gt_path_length_m": 31.05136191529277,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 202,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.30568706107644,
+        "gt_path_length_m": 14.714926474786102,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 303,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 30.739530955899976,
+        "gt_path_length_m": 31.05136191529277,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-1",
+      "subscenario": "S3-1 Sudden cut-in",
+      "seed": 303,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 27.313147626115576,
+        "gt_path_length_m": 14.714926474786102,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-2",
+      "subscenario": "S3-2 Construction lane closure",
+      "seed": 101,
+      "group": "G1",
+      "tick": 1,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 25.895873558263734,
+        "gt_path_length_m": 26.273670341442077,
+        "parse_success": true
+      }
+    },
+    {
+      "scenario_id": "S3-2",
+      "subscenario": "S3-2 Construction lane closure",
+      "seed": 101,
+      "group": "G1",
+      "tick": 2,
+      "labels": [
+        "R"
+      ],
+      "evidence": {
+        "all_zero": false,
+        "ade_m": 24.278240557653465,
+        "gt_path_length_m": 25.846901617587456,
+        "parse_success": true
+      }
+    }
+  ]
+}

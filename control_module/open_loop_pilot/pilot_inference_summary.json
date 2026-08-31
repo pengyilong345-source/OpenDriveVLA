@@ -1,0 +1,275 @@
+[
+  {
+    "scenario_id": "S1-1",
+    "subscenario": "S1-1 Lane keeping",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-1",
+    "subscenario": "S1-1 Lane keeping",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-1",
+    "subscenario": "S1-1 Lane keeping",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-2",
+    "subscenario": "S1-2 Acceleration",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-2",
+    "subscenario": "S1-2 Acceleration",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-2",
+    "subscenario": "S1-2 Acceleration",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-3",
+    "subscenario": "S1-3 Deceleration",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-3",
+    "subscenario": "S1-3 Deceleration",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-3",
+    "subscenario": "S1-3 Deceleration",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-4",
+    "subscenario": "S1-4 Right turn",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-4",
+    "subscenario": "S1-4 Right turn",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-4",
+    "subscenario": "S1-4 Right turn",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-5",
+    "subscenario": "S1-5 Left lane change",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-5",
+    "subscenario": "S1-5 Left lane change",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S1-5",
+    "subscenario": "S1-5 Left lane change",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-1",
+    "subscenario": "S2-1 Pedestrian crossing and yielding",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-1",
+    "subscenario": "S2-1 Pedestrian crossing and yielding",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-1",
+    "subscenario": "S2-1 Pedestrian crossing and yielding",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-2",
+    "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-2",
+    "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-2",
+    "subscenario": "S2-2 Slow vehicle and left-side overtaking",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-3",
+    "subscenario": "S2-3 Bus stop",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-3",
+    "subscenario": "S2-3 Bus stop",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-3",
+    "subscenario": "S2-3 Bus stop",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-4",
+    "subscenario": "S2-4 Mixed intersection",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-4",
+    "subscenario": "S2-4 Mixed intersection",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S2-4",
+    "subscenario": "S2-4 Mixed intersection",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-1",
+    "subscenario": "S3-1 Sudden cut-in",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-1",
+    "subscenario": "S3-1 Sudden cut-in",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-1",
+    "subscenario": "S3-1 Sudden cut-in",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-2",
+    "subscenario": "S3-2 Construction lane closure",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-2",
+    "subscenario": "S3-2 Construction lane closure",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-2",
+    "subscenario": "S3-2 Construction lane closure",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-3",
+    "subscenario": "S3-3 Temporary pedestrian crossing",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-3",
+    "subscenario": "S3-3 Temporary pedestrian crossing",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-3",
+    "subscenario": "S3-3 Temporary pedestrian crossing",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-4",
+    "subscenario": "S3-4 Ambiguous hazard command",
+    "seed": 101,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-4",
+    "subscenario": "S3-4 Ambiguous hazard command",
+    "seed": 202,
+    "g1_samples": 2,
+    "g2_samples": 2
+  },
+  {
+    "scenario_id": "S3-4",
+    "subscenario": "S3-4 Ambiguous hazard command",
+    "seed": 303,
+    "g1_samples": 2,
+    "g2_samples": 2
+  }
+]

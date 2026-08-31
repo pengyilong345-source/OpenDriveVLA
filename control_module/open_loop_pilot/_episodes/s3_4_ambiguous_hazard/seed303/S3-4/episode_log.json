@@ -1,0 +1,411 @@
+{
+  "scenario_id": "S3-4",
+  "subscenario": "S3-4 Ambiguous hazard command",
+  "group": "G1",
+  "seed": 303,
+  "map": "/Game/Carla/Maps/Town04",
+  "config_snapshot": {
+    "scenario_id": "S3-4",
+    "category": "scenario3_emergency",
+    "subscenario": "S3-4 Ambiguous hazard command",
+    "carla_map": "/Game/Carla/Maps/Town04",
+    "route": {
+      "spawn_point_index": 200,
+      "path_length_m": 300
+    },
+    "weather": {
+      "cloudiness": 95,
+      "precipitation": 40,
+      "fog": 15,
+      "sun_altitude": -55
+    },
+    "time_of_day_sun_alt_deg": -55.0,
+    "ego_initial_speed_mps": 10.0,
+    "ego_target_speed_mps": 4.0,
+    "background_traffic_count": 2,
+    "pedestrian_count": 1,
+    "bicycle_count": 0,
+    "bus_count": 0,
+    "triggers": [
+      {
+        "kind": "time_elapsed",
+        "threshold_m": null,
+        "threshold_s": 4.0,
+        "ttc_s": null,
+        "actor_role": "ego",
+        "fire_once": true,
+        "note": "ambiguous hazard command becomes active"
+      }
+    ],
+    "actors": [],
+    "raw_instruction": "road conditions ahead are dangerous; maintain a safe speed and increase the time-gap to vehicles in front",
+    "route_command_label": "FORWARD",
+    "behavior_constraint": "maintain_safe_speed",
+    "target_speed_mps_override": 4.0,
+    "target_lane_delta": 0,
+    "hazard_type": "ambiguous_hazard",
+    "episode_timeout_s": 30.0,
+    "success_conditions": [
+      "no_collision",
+      "speed_below_upper_bound"
+    ],
+    "failure_conditions": [
+      "collision"
+    ],
+    "physically_avoidable": true,
+    "random_seed": 3004,
+    "camera_resolution": [
+      1600,
+      900
+    ],
+    "camera_fov_deg": 70.0,
+    "history_seconds": 2.5,
+    "note": "Upper speed bound extracted from the NL instruction; time-gap requirement > 2 s."
+  },
+  "samples": [
+    {
+      "frame": 8842,
+      "tick": 1,
+      "sim_t": 2.7499999999999982,
+      "ego_carla_xy": [
+        -514.3966064453125,
+        204.26953125
+      ],
+      "ego_velocity_ego": [
+        -9.715895613597775,
+        -0.12125764234435024,
+        1.6307830037476378e-06
+      ],
+      "can_bus": "[-5.14396606e+02 -2.04269531e+02  0.00000000e+00  7.04897235e-01\n  0.00000000e+00  0.00000000e+00 -7.09309444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -9.71589561e+00 -1.21257642e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7048972353304681,
+        0.0,
+        0.0,
+        -0.7093094441944663
+      ],
+      "history": [
+        [
+          -19.383221278178056,
+          0.00014680852075288353
+        ],
+        [
+          -14.517862201121815,
+          0.00023211981797774395
+        ],
+        [
+          -9.665610168702818,
+          0.00023564451032692668
+        ],
+        [
+          -4.826312596000843,
+          0.00015833471194405188
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-4_t0001/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 946
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-4_t0001/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 947
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-4_t0001/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 948
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-4_t0001/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 949
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-4_t0001/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 950
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-4_t0001/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 951
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[-5.14396606e+02 -2.04269531e+02  0.00000000e+00  7.04897235e-01\n  0.00000000e+00  0.00000000e+00 -7.09309444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -9.71589561e+00 -1.21257642e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7048972353304681,
+          0.0,
+          0.0,
+          -0.7093094441944663
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "maintain_safe_speed",
+          "target_speed_mps": 4.0,
+          "target_lane_delta": 0,
+          "hazard_type": "ambiguous_hazard",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            4.813385606502527,
+            0.00024929296449436797
+          ],
+          [
+            9.61390525747478,
+            0.0009065944510843124
+          ],
+          [
+            14.401592516666037,
+            0.0014838231382561656
+          ],
+          [
+            19.1764473840763,
+            0.0019809790260099103
+          ],
+          [
+            23.93853089367361,
+            0.002398442960002717
+          ],
+          [
+            28.687904079426012,
+            0.0027365957858918044
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "maintain_safe_speed",
+        "target_speed_mps": 4.0,
+        "target_lane_delta": 0,
+        "hazard_type": "ambiguous_hazard",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    },
+    {
+      "frame": 8903,
+      "tick": 2,
+      "sim_t": 2.799999999999998,
+      "ego_carla_xy": [
+        -514.5758056640625,
+        233.43028259277344
+      ],
+      "ego_velocity_ego": [
+        -9.404435190755699,
+        -0.11737042734255224,
+        4.2915343101412873e-07
+      ],
+      "can_bus": "[-5.14575806e+02 -2.33430283e+02  0.00000000e+00  7.04897235e-01\n  0.00000000e+00  0.00000000e+00 -7.09309444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -9.40443519e+00 -1.17370427e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7048972353304681,
+        0.0,
+        0.0,
+        -0.7093094441944663
+      ],
+      "history": [
+        [
+          -48.05815525854932,
+          -0.00256989153103504
+        ],
+        [
+          -43.194138928790046,
+          -0.002492958838267889
+        ],
+        [
+          -38.34316860969992,
+          -0.0024974319047188775
+        ],
+        [
+          -33.5051985258029,
+          -0.0025830250961451917
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-4_t0002/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 946
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-4_t0002/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 947
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-4_t0002/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 948
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-4_t0002/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 949
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-4_t0002/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 950
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-4_t0002/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 951
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[-5.14575806e+02 -2.33430283e+02  0.00000000e+00  7.04897235e-01\n  0.00000000e+00  0.00000000e+00 -7.09309444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -9.40443519e+00 -1.17370427e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7048972353304681,
+          0.0,
+          0.0,
+          -0.7093094441944663
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "maintain_safe_speed",
+          "target_speed_mps": 4.0,
+          "target_lane_delta": 0,
+          "hazard_type": "ambiguous_hazard",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            4.735335373102562,
+            0.00025055832474202636
+          ],
+          [
+            9.457975680852226,
+            0.0004219007527945656
+          ],
+          [
+            14.168073508169098,
+            0.0005149793983005163
+          ],
+          [
+            18.865415236165028,
+            0.0005284613014598372
+          ],
+          [
+            23.550275517696207,
+            0.0004640602677297434
+          ],
+          [
+            28.222517026334547,
+            0.0003209193943815858
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "maintain_safe_speed",
+        "target_speed_mps": 4.0,
+        "target_lane_delta": 0,
+        "hazard_type": "ambiguous_hazard",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    }
+  ],
+  "triggers_fired": [],
+  "collisions": [],
+  "lane_invasions": [],
+  "traffic_light_events": [],
+  "metrics_summary": {
+    "samples": 2,
+    "triggers_fired_count": 0,
+    "history_status_summary": {
+      "ok": 2,
+      "other": 0
+    },
+    "note": "open_loop and closed_loop rollup filled in by the post-runner step"
+  },
+  "extra_notes": {}
+}

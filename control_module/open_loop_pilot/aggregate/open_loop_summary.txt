@@ -1,0 +1,46 @@
+Open-loop pilot summary
+========================================
+G1 samples: 78    parse-ok: 78    all-zero: 3
+G2 samples: 78    parse-ok: 78    all-zero: 12
+
+G1 overall metrics
+  ade_m                        n= 78 mean=  20.531 median=  20.946 std=   5.817 CI95=[  19.218,   21.816]
+  fde_m                        n= 78 mean=  34.574 median=  35.361 std=   9.906 CI95=[  32.327,   36.755]
+  l2_1s_m                      n= 78 mean=  12.013 median=  12.110 std=   3.397 CI95=[  11.230,   12.772]
+  l2_2s_m                      n= 78 mean=  23.552 median=  24.014 std=   6.687 CI95=[  22.034,   25.028]
+  l2_3s_m                      n= 78 mean=  34.574 median=  35.361 std=   9.906 CI95=[  32.327,   36.755]
+  longitudinal_error_m         n= 78 mean=  14.529 median=  15.236 std=   4.308 CI95=[  13.557,   15.447]
+  lateral_error_m              n= 78 mean=  14.156 median=  14.647 std=   4.965 CI95=[  13.042,   15.210]
+  predicted_path_length_m      n= 78 mean=  19.811 median=  20.580 std=   6.949 CI95=[  18.274,   21.288]
+  gt_path_length_m             n= 78 mean=  20.109 median=  21.292 std=   6.748 CI95=[  18.590,   21.527]
+
+G2 overall metrics
+  ade_m                        n= 78 mean=  20.011 median=  20.533 std=   6.144 CI95=[  18.621,   21.351]
+  fde_m                        n= 78 mean=  33.748 median=  35.139 std=  10.409 CI95=[  31.402,   36.014]
+  l2_1s_m                      n= 78 mean=  11.684 median=  11.739 std=   3.612 CI95=[  10.848,   12.500]
+  l2_2s_m                      n= 78 mean=  22.953 median=  23.488 std=   7.067 CI95=[  21.350,   24.514]
+  l2_3s_m                      n= 78 mean=  33.748 median=  35.139 std=  10.409 CI95=[  31.402,   36.014]
+  longitudinal_error_m         n= 78 mean=  14.579 median=  15.285 std=   4.244 CI95=[  13.616,   15.483]
+  lateral_error_m              n= 78 mean=  12.737 median=  14.176 std=   6.705 CI95=[  11.201,   14.228]
+  predicted_path_length_m      n= 78 mean=  17.878 median=  20.440 std=   9.414 CI95=[  15.767,   20.001]
+  gt_path_length_m             n= 78 mean=  20.109 median=  21.292 std=   6.748 CI95=[  18.590,   21.527]
+
+Paired G1 - G2 (per-frame, same recorded episode)
+  ade_m                        n= 78 mean_diff=   0.520 CI95=[   0.152,    0.947]
+  fde_m                        n= 78 mean_diff=   0.826 CI95=[   0.199,    1.545]
+  l2_1s_m                      n= 78 mean_diff=   0.329 CI95=[   0.114,    0.574]
+  l2_2s_m                      n= 78 mean_diff=   0.599 CI95=[   0.176,    1.089]
+  l2_3s_m                      n= 78 mean_diff=   0.826 CI95=[   0.199,    1.545]
+  longitudinal_error_m         n= 78 mean_diff=  -0.050 CI95=[  -0.129,    0.013]
+  lateral_error_m              n= 78 mean_diff=   1.418 CI95=[   0.521,    2.444]
+  predicted_path_length_m      n= 78 mean_diff=   1.932 CI95=[   0.657,    3.371]
+  gt_path_length_m             n= 78 mean_diff=   0.000 CI95=[   0.000,    0.000]
+
+Data quality:
+  G1: total=78 valid=78 invalid=0 parse_rate=100.00%
+  G2: total=78 valid=78 invalid=0 parse_rate=100.00%
+  G3: episodes_total=0
+
+Failure labels (sample counts):
+  P: 15
+  R: 119

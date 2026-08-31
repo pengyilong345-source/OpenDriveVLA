@@ -1,0 +1,134 @@
+{
+  "scenario_id": "S1-4",
+  "subscenario": "S1-4 Right turn",
+  "seed": 303,
+  "group": "G1",
+  "samples": [
+    {
+      "tick": 1,
+      "frame": 247207,
+      "sim_t": 2.7499999999999982,
+      "prompt_hash": "61c94773738b3e1b",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.00,3.49),(0.05,6.82),(0.17,10.02),(0.44,13.10),(0.88,15.98),(1.50,18.70)]",
+      "parsed_trajectory": [
+        [
+          0.0,
+          3.49
+        ],
+        [
+          0.05,
+          6.82
+        ],
+        [
+          0.17,
+          10.02
+        ],
+        [
+          0.44,
+          13.1
+        ],
+        [
+          0.88,
+          15.98
+        ],
+        [
+          1.5,
+          18.7
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          3.4918795955317115,
+          5.048918112581305e-06
+        ],
+        [
+          6.948060594621208,
+          -0.00010181102540084142
+        ],
+        [
+          10.381670156578341,
+          -0.00013269212200833075
+        ],
+        [
+          13.805781215768029,
+          -0.0001207597643999303
+        ],
+        [
+          17.233294961574895,
+          -0.00012143151439242272
+        ],
+        [
+          20.677112526862903,
+          -0.00020538361818453477
+        ]
+      ],
+      "elapsed_s": 2.504,
+      "raw_instruction": "",
+      "route_command": "RIGHT"
+    },
+    {
+      "tick": 2,
+      "frame": 247268,
+      "sim_t": 2.799999999999998,
+      "prompt_hash": "11a93db9df14bf81",
+      "rendered_prompt_excerpt": "<|im_start|>system\nYou are Open-DriveVLA, an advanced vision-language driving model. Your core responsibilities include safe trajectory planning and interpretable decision-making. You generate collision-free driving plans while providing clear, logical explanations for user queries.\n\nContext:\n - Coo",
+      "raw_output": "[(0.16,3.42),(0.50,6.78),(1.09,10.03),(1.88,13.17),(2.83,16.18),(3.91,19.02)]",
+      "parsed_trajectory": [
+        [
+          0.16,
+          3.42
+        ],
+        [
+          0.5,
+          6.78
+        ],
+        [
+          1.09,
+          10.03
+        ],
+        [
+          1.88,
+          13.17
+        ],
+        [
+          2.83,
+          16.18
+        ],
+        [
+          3.91,
+          19.02
+        ]
+      ],
+      "gt_future_trajectory": [
+        [
+          3.474876814885812,
+          -0.00015222232732379874
+        ],
+        [
+          6.983019060058036,
+          -2.3368010308558868e-05
+        ],
+        [
+          10.524028709080937,
+          3.7083506645121944e-05
+        ],
+        [
+          14.097836899951101,
+          -2.40186974772294e-05
+        ],
+        [
+          17.704420857741653,
+          -0.00017607242947896562
+        ],
+        [
+          21.343636812497053,
+          -9.810809683034882e-05
+        ]
+      ],
+      "elapsed_s": 2.597,
+      "raw_instruction": "",
+      "route_command": "RIGHT"
+    }
+  ]
+}

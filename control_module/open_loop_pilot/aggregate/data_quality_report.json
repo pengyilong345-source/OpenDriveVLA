@@ -1,0 +1,17 @@
+{
+  "g1": {
+    "samples_total": 78,
+    "valid": 78,
+    "invalid": 0,
+    "parse_success_rate": 1.0
+  },
+  "g2": {
+    "samples_total": 78,
+    "valid": 78,
+    "invalid": 0,
+    "parse_success_rate": 1.0
+  },
+  "g3": {
+    "episodes_total": 0
+  }
+}

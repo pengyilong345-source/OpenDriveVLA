@@ -21,11 +21,12 @@ python e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\carla_in
 1. 启动 CARLA 服务器（默认地图 Town10HD）：
    在 CARLA 根目录（WindowsNoEditor）下打开终端，执行：
    .\CarlaUE4.exe -dx11
+   ./CarlaUE4.exe -dx11
 
 2. 等待 CARLA 窗口完全加载（出现画面，且终端显示 "Waiting for connection..." 或地图画面）。
 
 3. 切换到 CARLA 的 PythonAPI 工具目录：
-   cd PythonAPI\util
+   cd PythonAPI/util
 
 4. 执行地图切换命令（以切换到 Town06 为例）：
    python config.py --map Town06
@@ -47,3 +48,11 @@ python e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\carla_in
 - Town05（高速公路）
 - Town06（高速公路/立交桥）  ← 当前数据使用
 - Town10HD（高清城市）
+
+1.需要初始方向
+2.
+
+
+python tools/run_prediction_in_carla.py --json open_loop_pilot/G2_complex_language/s3_3_temp_pedestrian_crossing/seed303/predictions.json --controller mpc
+python e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\tools\plot_prediction_replay.py --log e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\logs\prediction_replay_20260728_180325.csv  --json e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\open_loop_pilot\G2_complex_language\s3_3_temp_pedestrian_crossing\seed303\predictions.json
+python e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\tools\plot_prediction_replay.py --log e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\logs\prediction_replay_20260804_130029.csv  --json e:\course_file\OpenDriveVLA\our_work\OpenDriveVLA\control_module\open_loop_pilot\G2_complex_language\s3_3_temp_pedestrian_crossing\seed303\predictions.json

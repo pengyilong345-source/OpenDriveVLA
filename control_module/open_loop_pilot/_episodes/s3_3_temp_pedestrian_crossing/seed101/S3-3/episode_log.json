@@ -1,0 +1,431 @@
+{
+  "scenario_id": "S3-3",
+  "subscenario": "S3-3 Temporary pedestrian crossing",
+  "group": "G1",
+  "seed": 101,
+  "map": "/Game/Carla/Maps/Town04",
+  "config_snapshot": {
+    "scenario_id": "S3-3",
+    "category": "scenario3_emergency",
+    "subscenario": "S3-3 Temporary pedestrian crossing",
+    "carla_map": "/Game/Carla/Maps/Town04",
+    "route": {
+      "spawn_point_index": 140,
+      "path_length_m": 250
+    },
+    "weather": {
+      "cloudiness": 95,
+      "precipitation": 35,
+      "fog": 12,
+      "sun_altitude": -50
+    },
+    "time_of_day_sun_alt_deg": -50.0,
+    "ego_initial_speed_mps": 12.0,
+    "ego_target_speed_mps": 5.0,
+    "background_traffic_count": 2,
+    "pedestrian_count": 2,
+    "bicycle_count": 0,
+    "bus_count": 0,
+    "triggers": [
+      {
+        "kind": "time_elapsed",
+        "threshold_m": null,
+        "threshold_s": 3.0,
+        "ttc_s": null,
+        "actor_role": "temp_ped",
+        "fire_once": true,
+        "note": "temporary pedestrian crossing activates at 3 s"
+      }
+    ],
+    "actors": [
+      {
+        "role": "temp_ped",
+        "actor_type": "walker",
+        "spawn_mode": "relative",
+        "relative_to": "ego",
+        "offset_xy": [
+          14.0,
+          -3.0,
+          0.0
+        ],
+        "target_speed_mps": 1.5,
+        "traffic_light_actor": false,
+        "autopiloted": true,
+        "initial_pose_xy": null,
+        "initial_yaw_deg": null,
+        "initial_speed_mps": 1.5,
+        "role_args": {},
+        "note": "temp crossing pedestrian at 14 m"
+      }
+    ],
+    "raw_instruction": "temporary pedestrian crossing ahead in dark wet conditions; yield",
+    "route_command_label": "FORWARD",
+    "behavior_constraint": "emergency_brake",
+    "target_speed_mps_override": 2.0,
+    "target_lane_delta": 0,
+    "hazard_type": "pedestrian_crossing",
+    "episode_timeout_s": 30.0,
+    "success_conditions": [
+      "ped_distance_min_>=_1.5m",
+      "no_collision_with_ped"
+    ],
+    "failure_conditions": [
+      "collision_with_ped"
+    ],
+    "physically_avoidable": true,
+    "random_seed": 3003,
+    "camera_resolution": [
+      1600,
+      900
+    ],
+    "camera_fov_deg": 70.0,
+    "history_seconds": 2.5,
+    "note": "S3-3 'difficult but avoidable' difficulty."
+  },
+  "samples": [
+    {
+      "frame": 7719,
+      "tick": 1,
+      "sim_t": 2.7499999999999982,
+      "ego_carla_xy": [
+        -489.6570739746094,
+        166.2528533935547
+      ],
+      "ego_velocity_ego": [
+        -11.627230384874284,
+        -0.14513087329899313,
+        9.441375254937157e-07
+      ],
+      "can_bus": "[-4.89657074e+02 -1.66252853e+02  0.00000000e+00  7.09309665e-01\n  0.00000000e+00  0.00000000e+00  7.04897013e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.16272304e+01 -1.45130873e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7093096654261494,
+        0.0,
+        0.0,
+        0.7048970127139453
+      ],
+      "history": [
+        [
+          -23.277073552112792,
+          0.0014397079926695977
+        ],
+        [
+          -17.434075495302658,
+          0.000792982616512769
+        ],
+        [
+          -11.606915753137585,
+          4.7417850625092184e-05
+        ],
+        [
+          -5.795568569683217,
+          -3.387126546260111e-05
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-3_t0001/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 284
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-3_t0001/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 285
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-3_t0001/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 286
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-3_t0001/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 287
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-3_t0001/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 288
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-3_t0001/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 289
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[-4.89657074e+02 -1.66252853e+02  0.00000000e+00  7.09309665e-01\n  0.00000000e+00  0.00000000e+00  7.04897013e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.16272304e+01 -1.45130873e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7093096654261494,
+          0.0,
+          0.0,
+          0.7048970127139453
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "emergency_brake",
+          "target_speed_mps": 2.0,
+          "target_lane_delta": 0,
+          "hazard_type": "pedestrian_crossing",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            5.779928615433488,
+            -6.373025137197674e-05
+          ],
+          [
+            11.544199351937547,
+            0.00020208053405559867
+          ],
+          [
+            17.292857223220093,
+            0.0009197859548662618
+          ],
+          [
+            23.02596669120464,
+            0.0015404611847947003
+          ],
+          [
+            28.743588789858997,
+            0.0020644871078090987
+          ],
+          [
+            34.44572351918317,
+            0.0024918637239094155
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "emergency_brake",
+        "target_speed_mps": 2.0,
+        "target_lane_delta": 0,
+        "hazard_type": "pedestrian_crossing",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    },
+    {
+      "frame": 7780,
+      "tick": 2,
+      "sim_t": 2.799999999999998,
+      "ego_carla_xy": [
+        -489.4410705566406,
+        131.23898315429688
+      ],
+      "ego_velocity_ego": [
+        -11.33036700582589,
+        -0.14142544366427773,
+        -2.9563904035967425e-07
+      ],
+      "can_bus": "[-4.89441071e+02 -1.31238983e+02  0.00000000e+00  7.09309665e-01\n  0.00000000e+00  0.00000000e+00  7.04897013e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.13303670e+01 -1.41425444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+      "ego2global_quat": [
+        0.7093096654261494,
+        0.0,
+        0.0,
+        0.7048970127139453
+      ],
+      "history": [
+        [
+          -57.707110389360516,
+          -0.0011068534709388067
+        ],
+        [
+          -51.86569921571324,
+          -0.001763481830266922
+        ],
+        [
+          -46.04014161520299,
+          -0.002519044800317949
+        ],
+        [
+          -40.230381886237495,
+          -0.0025186859478717183
+        ]
+      ],
+      "history_status": "ok",
+      "cams": {
+        "CAM_FRONT": {
+          "data_path": "images/S3-3_t0002/CAM_FRONT.png",
+          "type": "CAM_FRONT",
+          "timestamp": 284
+        },
+        "CAM_FRONT_RIGHT": {
+          "data_path": "images/S3-3_t0002/CAM_FRONT_RIGHT.png",
+          "type": "CAM_FRONT_RIGHT",
+          "timestamp": 285
+        },
+        "CAM_FRONT_LEFT": {
+          "data_path": "images/S3-3_t0002/CAM_FRONT_LEFT.png",
+          "type": "CAM_FRONT_LEFT",
+          "timestamp": 286
+        },
+        "CAM_BACK": {
+          "data_path": "images/S3-3_t0002/CAM_BACK.png",
+          "type": "CAM_BACK",
+          "timestamp": 287
+        },
+        "CAM_BACK_LEFT": {
+          "data_path": "images/S3-3_t0002/CAM_BACK_LEFT.png",
+          "type": "CAM_BACK_LEFT",
+          "timestamp": 288
+        },
+        "CAM_BACK_RIGHT": {
+          "data_path": "images/S3-3_t0002/CAM_BACK_RIGHT.png",
+          "type": "CAM_BACK_RIGHT",
+          "timestamp": 289
+        }
+      },
+      "inference_inputs": {
+        "can_bus": "[-4.89441071e+02 -1.31238983e+02  0.00000000e+00  7.09309665e-01\n  0.00000000e+00  0.00000000e+00  7.04897013e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00\n  0.00000000e+00 -1.13303670e+01 -1.41425444e-01  0.00000000e+00\n  0.00000000e+00  0.00000000e+00]",
+        "ego2global_quat": [
+          0.7093096654261494,
+          0.0,
+          0.0,
+          0.7048970127139453
+        ],
+        "command_state": {
+          "raw_instruction": "local_command:FORWARD",
+          "route_command": "FORWARD",
+          "behavior": "emergency_brake",
+          "target_speed_mps": 2.0,
+          "target_lane_delta": 0,
+          "hazard_type": "pedestrian_crossing",
+          "stage": 0,
+          "stage_log": [],
+          "last_transition_reason": ""
+        }
+      },
+      "evaluation_targets": {
+        "gt_future_trajectory": [
+          [
+            5.685220690996561,
+            0.0003218241464311086
+          ],
+          [
+            11.355091339090487,
+            0.0005478559748764433
+          ],
+          [
+            17.009657719757634,
+            0.0006783811483121321
+          ],
+          [
+            22.64893509148995,
+            0.0007134948877301484
+          ],
+          [
+            28.273007375993163,
+            0.0006537209085867579
+          ],
+          [
+            33.88189746100521,
+            0.000499202042369945
+          ]
+        ],
+        "fut_traj_valid_mask": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "future_offsets_s": [
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "command_state": {
+        "raw_instruction": "local_command:FORWARD",
+        "route_command": "FORWARD",
+        "behavior": "emergency_brake",
+        "target_speed_mps": 2.0,
+        "target_lane_delta": 0,
+        "hazard_type": "pedestrian_crossing",
+        "stage": 0,
+        "stage_log": [],
+        "last_transition_reason": ""
+      }
+    }
+  ],
+  "triggers_fired": [],
+  "collisions": [],
+  "lane_invasions": [],
+  "traffic_light_events": [],
+  "metrics_summary": {
+    "samples": 2,
+    "triggers_fired_count": 0,
+    "history_status_summary": {
+      "ok": 2,
+      "other": 0
+    },
+    "note": "open_loop and closed_loop rollup filled in by the post-runner step"
+  },
+  "extra_notes": {}
+}
